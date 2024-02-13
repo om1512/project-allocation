@@ -5,7 +5,7 @@
     </div>
 
     <div class="logo-container">
-      <img src="../../assets/Group 1 (2).svg" alt="Loading..">
+      <img src="../../assets/logo.svg" alt="Loading..">
     </div>
 
     <div class="text-container">
@@ -19,9 +19,10 @@
       <hr>
     </div>
 
+    <form [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
     <div class="login-form">
-      <app-text-field [placeholder]="'Email'"></app-text-field>
-      <app-text-field [placeholder]="'Password'"></app-text-field>
+      <input placeholder="Email" formControlName="email"/>
+      <input placeholder="Password" formControlName="password"/>
     </div>
 
     <div class="forgot-password">
@@ -29,8 +30,9 @@
     </div>
 
     <div class="login-button">
-      <app-custom-button [buttonText]="'Login'" [imageUrl]="'../assets/Vector.png'"></app-custom-button>
+      <app-custom-button [buttonText]="'Login'" [type]="'submit'" [imageUrl]="'../assets/Vector.png'"></app-custom-button>
     </div>
+    </form>
   </div>
 </div>
 

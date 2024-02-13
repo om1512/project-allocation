@@ -1,0 +1,21 @@
+<nav class="sidebar" [class.collapsed]="isSidebarCollapsed">
+  <div class="image-container">
+    <img src="../../assets/logo.svg" alt="Loading..">
+  </div>
+
+  <div class="toggle" (click)="toggleSidebar()">
+    <mat-icon class="mat-24" style="color: #1e1d25;" *ngIf="isToggleIconCollapsed">keyboard_arrow_right</mat-icon>
+    <mat-icon class="mat-24" style="color: #1e1d25;" *ngIf="!isToggleIconCollapsed">keyboard_arrow_left</mat-icon>
+  </div>
+
+  <div class="line">
+    <hr>
+  </div>
+
+  <app-nav-item [navItems]="items" [isSidebarCollapsed]="isSidebarCollapsed"></app-nav-item>
+
+  <div class="logout" (click)="handleLogout()">
+    <mat-icon>logout</mat-icon>
+    <span>Logout</span>
+  </div>
+</nav>
