@@ -8,6 +8,8 @@ import { ToggleService } from '../../service/toggle.service';
   styleUrl: './nav.component.css'
 })
 export class NavComponent {
+  @Output() stateChange = new EventEmitter<{ homeActive: boolean, groupActive: boolean, projectActive: boolean }>();
+
   homeActive = true;
   groupActive = false;
   projectActive = false;
@@ -61,6 +63,10 @@ export class NavComponent {
         { label: 'Project', icon: 'assessment', path: '/Dashboard', active: this.projectActive },
       ];
     }
+  }
+
+  onStateChange() {
+    this.stateChange.emit({ homeActive: this.homeActive, groupActive: this.groupActive, projectActive: this.projectActive });
   }
 
   handleLogout(): void {

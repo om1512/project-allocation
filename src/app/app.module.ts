@@ -13,6 +13,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatIconModule } from '@angular/material/icon';
 import { HorizontalNavComponent } from '../components/horizontal-nav/horizontal-nav.component';
+import { HomeComponent } from '../pages/home/home.component';
+import { GroupComponent } from '../pages/group/group.component';
+import { ProjectComponent } from '../pages/project/project.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,9 @@ import { HorizontalNavComponent } from '../components/horizontal-nav/horizontal-
     NavComponent,
     NavItemComponent,
     HorizontalNavComponent,
+    HomeComponent,
+    GroupComponent,
+    ProjectComponent,
   ],
   imports: [
     BrowserModule,
