@@ -1,27 +1,41 @@
-# ProjectAllocation
+# SyncWave
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.0.
+<div align="center">
 
-## Development server
+<h3>🧑🏽‍💻 About</h3>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+<blockquote style="padding:10px" align="left">
+   SDP Project Allocation and Management
+</blockquote>
+</div>
 
-## Code scaffolding
+<div align="center">
+<h4>🚀 Steps to run project</h4>
+</div>
+<ol>
+  <li>
+    <h6>Start frontend Angular server</h6>
+    <ol>
+      <li>
+        <code><b>npm install</b></code>
+      </li>
+      <li>
+        <code><b>ng serve</b></code>
+      </li>
+      <li>
+        <code><b>URL: localhost:4200</b></code>
+      </li>
+    </ol>
+  </li>
+</ol>
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+<div align="center">
+<h4>🤹🏽 Admin</h4>
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+<a href="https://github.com/om1512">
+    <img src="https://avatars.githubusercontent.com/u/72222606?v=4" style="height:50px; border:2px solid orange; border-radius:100%"/>
+</a>
+<a href="https://github.com/Vineet1924">
+    <img src="https://avatars.githubusercontent.com/u/118120039?v=4" style="height:50px; border:2px solid orange; border-radius:100%"/>
+</a>
+</div>
