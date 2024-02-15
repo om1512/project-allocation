@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,10 +9,12 @@ import { Router } from '@angular/router';
 export class NavItemComponent {
   @Input() navItems: any[];
   @Input() isSidebarCollapsed: boolean;
+  @Output() itemClicked = new EventEmitter<number>();
 
   constructor(private router: Router) { }
 
-  onItemClick(path: string) {
+  onItemClick(index: number, path: string) {
+    this.itemClicked.emit(index);
     this.router.navigate([path]);
   }
 }

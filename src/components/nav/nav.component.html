@@ -12,7 +12,9 @@
     <hr>
   </div>
 
-  <app-nav-item [navItems]="items" [isSidebarCollapsed]="isSidebarCollapsed"></app-nav-item>
+  <app-nav-item [navItems]="items" [isSidebarCollapsed]="isSidebarCollapsed"
+    (itemClicked)="handleNavItemClicked($event)"></app-nav-item>
+
 
   <div class="logout" (click)="handleLogout()">
     <mat-icon>logout</mat-icon>

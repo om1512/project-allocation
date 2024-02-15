@@ -35,6 +35,11 @@ hr {
   border: none;
 }
 
+.active {
+  background-color: hsl(42, 90%, 76%);
+  color: #1e1d25;
+}
+
 @media screen and (max-width: 768px) {
   .nav-item-container {
     font-family: poppins;

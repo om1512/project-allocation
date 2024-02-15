@@ -1,6 +1,6 @@
 <ul>
-  <li *ngFor="let item of navItems" (click)="onItemClick(item.path)">
-    <div class="nav-item-container">
+  <li *ngFor="let item of navItems; let i = index" (click)="onItemClick(i, item.path)" >
+    <div class="nav-item-container" [ngClass]="{'active': item.active}">
       <mat-icon>{{ item.icon }}</mat-icon>
       <span *ngIf="!isSidebarCollapsed">{{ item.label }}</span>
     </div>
