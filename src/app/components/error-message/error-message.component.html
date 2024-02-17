@@ -1,0 +1,6 @@
+<div class="error-message" *ngIf="displayErrorMessage" [ngStyle]="{ 'display': hideAnimation }">
+  <span>{{ message }}</span>
+  <div class="close-icon" (click)="hideErrorMessage()">
+    <mat-icon>close</mat-icon>
+  </div>
+</div>

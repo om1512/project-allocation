@@ -16,7 +16,7 @@ import { HorizontalNavComponent } from '../app/components/horizontal-nav/horizon
 import { HomeComponent } from '../app/pages/home/home.component';
 import { GroupComponent } from '../app/pages/group/group.component';
 import { ProjectComponent } from '../app/pages/project/project.component';
-
+import { ErrorMessageComponent } from './components/error-message/error-message.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +29,7 @@ import { ProjectComponent } from '../app/pages/project/project.component';
     HomeComponent,
     GroupComponent,
     ProjectComponent,
+    ErrorMessageComponent,
   ],
   imports: [
     BrowserModule,

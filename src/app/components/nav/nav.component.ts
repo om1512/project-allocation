@@ -1,6 +1,7 @@
-import { Component, Output, EventEmitter, NgZone } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToggleService } from '../../service/toggle.service';
+import { StateService } from '../../service/state.service';
 
 @Component({
   selector: 'app-nav',
@@ -20,7 +21,7 @@ export class NavComponent {
     { label: 'Project', icon: 'assessment', path: '/Dashboard', active: this.projectActive },
   ];
 
-  constructor(private router: Router, private toggleService: ToggleService, private ngZone: NgZone) { }
+  constructor(private router: Router, private toggleService: ToggleService, private stateService: StateService) { }
 
   isSidebarCollapsed = false;
   isToggleIconCollapsed = false;
@@ -63,6 +64,8 @@ export class NavComponent {
         { label: 'Project', icon: 'assessment', path: '/Dashboard', active: this.projectActive },
       ];
     }
+
+    this.stateService.updateState(this.homeActive, this.groupActive, this.projectActive);
   }
 
   onStateChange() {

@@ -8,13 +8,19 @@ body {
 .container {
   height: 100vh;
   width: 100%;
-  background-image: url("../../assets/Gradient.svg");
+  background-image: url("../../../assets/Gradient.svg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.lottie-animation {
+  width: 300px;
+  height: 300px;
+  background-color: #7f8497;
 }
 
 .sub-container {
@@ -27,7 +33,6 @@ body {
 
 .image-container {
   position: absolute;
-  background-image: url("../../assets/casual-life-3d-girl-chatting-remotely-with-group-of-three-people.png");
   width: 300;
   height: 300;
   top: 0;
