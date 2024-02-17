@@ -17,6 +17,7 @@ import { HomeComponent } from '../app/pages/home/home.component';
 import { GroupComponent } from '../app/pages/group/group.component';
 import { ProjectComponent } from '../app/pages/project/project.component';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
+import { CookieService } from 'ngx-cookie-service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,7 @@ import { ErrorMessageComponent } from './components/error-message/error-message.
     BrowserAnimationsModule,
     MatIconModule,
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef } from '@an
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginServiceService } from '../../service/login-service.service';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
+import { CookieService } from 'ngx-cookie-service';
 import * as lottie from 'lottie-web';
 
 @Component({
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   loading: boolean = false;
   animation: any;
 
-  constructor(private loginService: LoginServiceService) { }
+  constructor(private loginService: LoginServiceService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -39,17 +40,23 @@ export class LoginComponent implements OnInit {
   }
 
   handleSubmit(): void {
+    const password = this.loginForm.get('password').value
     if (this.loginForm.valid) {
       const email = this.loginForm.get('email').value;
-      this.loadData(email);
-      this.customErrorMessage = '';
+
+      if (password.length < 6) {
+        this.customErrorMessage = 'Password must be 6 digit long';
+      } else {
+        this.loadData(email);
+        this.customErrorMessage = '';
+      }
     } else {
       if (this.loginForm.get('email').errors) {
-        this.customErrorMessage = 'Email is required.';
+        this.customErrorMessage = 'Email is not valid.';
       } else if (this.loginForm.get('password').errors) {
         this.customErrorMessage = 'Password is required.';
       } else {
-        this.customErrorMessage = 'Email or password may be incorrect.';
+        this.customErrorMessage = 'Email is not valid.';
       }
 
       this.errorMessageComponent.showErrorMessage();
@@ -60,11 +67,16 @@ export class LoginComponent implements OnInit {
     this.loginService.getUsers(email).subscribe(
       (data) => {
         console.log(data);
+
+        if (data.password === this.loginForm.get("password").value) {
+          this.cookieService.set('Login-cred', JSON.stringify(data), 3);
+        } else {
+          this.customErrorMessage = 'Email or password may be incorrect.';
+          this.errorMessageComponent.showErrorMessage();
+        }
       },
       (error) => {
         console.log(error);
-        this.customErrorMessage = 'Email or password may be incorrect.';
-        this.errorMessageComponent.showErrorMessage();
       }
     );
   }
