@@ -4,20 +4,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomButtonComponent } from '../app/components/custom-button/custom-button.component';
-import { LoginComponent } from '../app/pages/login/login.component';
+import { LoginComponent } from '../app/authentication/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { DashboardComponent } from '../app/pages/dashboard/dashboard.component';
-import { NavComponent } from '../app/components/nav/nav.component';
-import { NavItemComponent } from '../app/components/nav-item/nav-item.component';
+import { DashboardComponent } from '../app/student/dashboard/dashboard.component';
+import { NavComponent } from './student/components/nav/nav.component';
+import { NavItemComponent } from './components/nav-item/nav-item.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
-import { HorizontalNavComponent } from '../app/components/horizontal-nav/horizontal-nav.component';
-import { HomeComponent } from '../app/pages/home/home.component';
-import { GroupComponent } from '../app/pages/group/group.component';
-import { ProjectComponent } from '../app/pages/project/project.component';
+import { HorizontalNavComponent } from './components/horizontal-nav/horizontal-nav.component';
+import { HomeComponent } from '../app/student/home/home.component';
+import { GroupComponent } from '../app/student/group/group.component';
+import { ProjectComponent } from '../app/student/project/project.component';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
-import { CookieService } from 'ngx-cookie-service';
+import { AddStudentsComponent } from './admin/add-students/add-students.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { AdminNavComponent } from './admin/components/admin-nav/admin-nav.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +33,9 @@ import { CookieService } from 'ngx-cookie-service';
     GroupComponent,
     ProjectComponent,
     ErrorMessageComponent,
+    AddStudentsComponent,
+    AdminDashboardComponent,
+    AdminNavComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,7 @@ import { CookieService } from 'ngx-cookie-service';
     BrowserAnimationsModule,
     MatIconModule,
   ],
-  providers: [CookieService],
-  bootstrap: [AppComponent]
+  providers: [],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

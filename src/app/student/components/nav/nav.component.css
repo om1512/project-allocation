@@ -1,0 +1,236 @@
+html,
+.sidebar {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  height: 95%;
+  width: 250px;
+  padding: 10px 14px;
+  background-color: #1e1d25;
+  border-radius: 8px;
+}
+
+.image-container {
+  position: fixed;
+  top: 50px;
+  left: 100px;
+  width: 50px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+}
+
+hr {
+  margin-top: 140px;
+  background-color: #282834;
+  height: 2px;
+  border: none;
+}
+
+.logout {
+  font-family: poppins;
+  color: white;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  position: fixed;
+  top: 90%;
+  left: 25px;
+  padding: 10px;
+  border-radius: 5px;
+  width: 210px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+span {
+  margin-left: 20px;
+}
+
+.logout:hover {
+  background-color: hsl(42, 90%, 76%);
+  color: #1e1d25;
+  font-weight: 600;
+}
+
+.toggle {
+  position: absolute;
+  top: 10%;
+  right: -25px;
+  transform: translateY(-50%);
+  height: 55px;
+  width: 55px;
+  background-color: hsl(42, 90%, 76%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: white;
+  font-size: 2;
+  cursor: pointer;
+}
+
+.toggle span {
+  font-size: 30px;
+  margin-right: 20px;
+  color: #1e1d25;
+}
+
+.sidebar.collapsed {
+  width: 70px;
+}
+
+.sidebar.collapsed .image-container {
+  position: fixed;
+  top: 50px;
+  left: 45px;
+}
+
+.sidebar.collapsed .image-container img {
+  width: 30px;
+  height: 30px;
+}
+.sidebar.collapsed hr {
+  margin-top: 140px;
+  background-color: #282834;
+  height: 2px;
+  border: none;
+}
+
+.sidebar.collapsed app-nav-item {
+  width: 60%;
+  position: relative;
+  top: 10px;
+  left: 6px;
+}
+
+.sidebar.collapsed .logout span {
+  display: none;
+}
+
+.sidebar.collapsed .logout {
+  position: fixed;
+  top: 90%;
+  left: 25px;
+  width: 30px;
+  margin-left: 9px;
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    height: 95%;
+    width: 150px;
+    padding: 10px 14px;
+    background-color: #1e1d25;
+    border-radius: 8px;
+  }
+
+  .image-container {
+    position: fixed;
+    top: 50px;
+    left: 60px;
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  hr {
+    margin-top: 140px;
+    background-color: #282834;
+    height: 2px;
+    border: none;
+  }
+
+  .logout {
+    font-family: poppins;
+    color: white;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    position: fixed;
+    top: 90%;
+    left: 25px;
+    padding: 10px;
+    border-radius: 5px;
+    width: 110px;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+
+  span {
+    margin-left: 20px;
+  }
+
+  .logout:hover {
+    background-color: hsl(42, 90%, 76%);
+    color: #1e1d25;
+    font-weight: 600;
+  }
+
+  .toggle {
+    position: absolute;
+    top: 10%;
+    right: -20px;
+    transform: translateY(-50%);
+    height: 45px;
+    width: 45px;
+    background-color: hsl(42, 90%, 76%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: white;
+    font-size: 2;
+    cursor: pointer;
+  }
+
+  .toggle span {
+    font-size: 30px;
+    margin-right: 20px;
+    color: #1e1d25;
+  }
+
+  .sidebar.collapsed {
+    width: 70px;
+  }
+
+  .sidebar.collapsed .image-container {
+    position: fixed;
+    top: 50px;
+    left: 45px;
+  }
+
+  .sidebar.collapsed .image-container img {
+    width: 30px;
+    height: 30px;
+  }
+  .sidebar.collapsed hr {
+    margin-top: 140px;
+    background-color: #282834;
+    height: 2px;
+    border: none;
+  }
+
+  .sidebar.collapsed app-nav-item {
+    width: 60%;
+    position: relative;
+    top: 10px;
+    left: 6px;
+  }
+
+  .sidebar.collapsed .logout span {
+    display: none;
+  }
+
+  .sidebar.collapsed .logout {
+    position: fixed;
+    top: 90%;
+    left: 25px;
+    width: 30px;
+    margin-left: 9px;
+  }
+}

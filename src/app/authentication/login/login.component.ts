@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LoginServiceService } from '../../service/login-service.service';
+import { LoginServiceService } from '../service/login-service.service';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
 import { CookieService } from 'ngx-cookie-service';
 import * as lottie from 'lottie-web';
