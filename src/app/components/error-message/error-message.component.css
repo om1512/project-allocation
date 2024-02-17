@@ -1,0 +1,35 @@
+.error-message {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  background-color: pink;
+  border: 1px solid red;
+  padding: 20px;
+  color: red;
+  width: 400px;
+  font-weight: bold;
+  border-radius: 6px;
+  animation: showMessage 1s forwards;
+}
+
+.close-icon {
+  position: absolute;
+  top: 8px;
+  right: 25px;
+  cursor: pointer;
+}
+
+mat-icon {
+  font-size: 20px;
+  color: red;
+}
+
+@keyframes showMessage {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(calc(100% - 400px));
+  }
+}
+

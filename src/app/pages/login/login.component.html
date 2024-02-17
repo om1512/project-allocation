@@ -1,4 +1,7 @@
 <div class="container">
+  <div #lottieAnimation></div>
+  <app-error-message *ngIf="customErrorMessage" [message]="customErrorMessage"></app-error-message>
+  <div id="animation-container" class="animation-container"></div>
   <div class="sub-container" id="subContainer">
     <div class="image-container">
       <img src="../../../assets/casual-life-3d-girl-chatting-remotely-with-group-of-three-people.png" alt="">
