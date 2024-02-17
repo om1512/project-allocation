@@ -1,4 +1,4 @@
-# SyncWave
+# Project Allocation
 
 <div align="center">
 
