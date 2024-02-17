@@ -24,21 +24,4 @@ export class DashboardComponent implements OnInit {
       this.isSidebarCollapsed = isCollapsed;
     });
   }
-
-  updateState() {
-    this.stateChange.emit({ homeActive: this.homeActive, groupActive: this.groupActive, projectActive: this.projectActive });
-    this.logTrueValues();
-  }
-
-  private logTrueValues() {
-    if (this.homeActive) {
-      console.log('homeActive is true');
-    }
-    if (this.groupActive) {
-      console.log('groupActive is true');
-    }
-    if (this.projectActive) {
-      console.log('projectActive is true');
-    }
-  }
 }

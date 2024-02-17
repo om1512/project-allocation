@@ -27,6 +27,7 @@ body {
 
 .image-container {
   position: absolute;
+  background-image: url("../../assets/casual-life-3d-girl-chatting-remotely-with-group-of-three-people.png");
   width: 300;
   height: 300;
   top: 0;
