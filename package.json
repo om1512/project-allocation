@@ -27,6 +27,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "boxicons": "^2.1.4",
     "lottie-web": "^5.12.2",
+    "ngx-lottie": "^11.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

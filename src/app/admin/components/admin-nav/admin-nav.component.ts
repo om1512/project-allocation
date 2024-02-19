@@ -10,16 +10,22 @@ import { AdminService } from '../../service/admin.service';
 })
 export class AdminNavComponent {
   @Output() stateChange = new EventEmitter<{
+    dashboardActive: boolean;
     homeActive: boolean;
   }>();
 
-  homeActive = true;
+  homeActive = false;
+  dashboardActive = true;
 
   items = [
     {
+      label: 'Dashboard',
+      icon: 'dashboard',
+      active: this.dashboardActive,
+    },
+    {
       label: 'Add Students',
       icon: 'face',
-      path: '/Dashboard',
       active: this.homeActive,
     },
   ];
@@ -41,23 +47,43 @@ export class AdminNavComponent {
 
   handleNavItemClicked(index: number): void {
     if (index === 0) {
-      this.homeActive = true;
-
+      this.dashboardActive = true;
+      this.homeActive = false;
       this.items = [
+        {
+          label: 'Dashboard',
+          icon: 'dashboard',
+          active: this.dashboardActive,
+        },
         {
           label: 'Add Students',
           icon: 'face',
-          path: '/Dashboard',
+          active: this.homeActive,
+        },
+      ];
+    } else if (index == 1) {
+      this.homeActive = true;
+      this.dashboardActive = false;
+      this.items = [
+        {
+          label: 'Dashboard',
+          icon: 'dashboard',
+          active: this.dashboardActive,
+        },
+        {
+          label: 'Add Students',
+          icon: 'face',
           active: this.homeActive,
         },
       ];
     }
 
-    this.stateService.updateState(this.homeActive);
+    this.stateService.updateState(this.dashboardActive, this.homeActive);
   }
 
   onStateChange() {
     this.stateChange.emit({
+      dashboardActive: this.dashboardActive,
       homeActive: this.homeActive,
     });
   }

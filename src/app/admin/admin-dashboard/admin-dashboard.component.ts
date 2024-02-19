@@ -8,8 +8,11 @@ import { AdminService } from '../service/admin.service';
   styleUrl: './admin-dashboard.component.css',
 })
 export class AdminDashboardComponent implements OnInit {
+  dashboard: boolean;
   addStudent: boolean;
   isSidebarCollapsed: boolean;
+  path: string = ' /';
+  tab: string = '';
 
   constructor(
     private toggleService: ToggleService,
@@ -23,7 +26,18 @@ export class AdminDashboardComponent implements OnInit {
 
     this.adminService._addStudents.subscribe((addStudent) => {
       this.addStudent = addStudent;
-      console.log(addStudent);
+      console.log('A  ' + addStudent);
+      this.path = 'Admin / Dashboard';
+      this.tab = 'Add Students';
+    });
+
+    this.adminService._dashboard.subscribe((dashboard) => {
+      this.dashboard = dashboard;
+      console.log(dashboard);
+      this.path = 'Admin /';
+      this.tab = 'Dashboard';
     });
   }
+
+
 }

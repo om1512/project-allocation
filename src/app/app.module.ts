@@ -17,9 +17,13 @@ import { HomeComponent } from '../app/student/home/home.component';
 import { GroupComponent } from '../app/student/group/group.component';
 import { ProjectComponent } from '../app/student/project/project.component';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
-import { AddStudentsComponent } from './admin/add-students/add-students.component';
+import { AddStudentsComponent } from './admin/tabs/add-students/add-students.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminNavComponent } from './admin/components/admin-nav/admin-nav.component';
+import { AdminNavHeaderComponent } from './admin/components/admin-nav-header/admin-nav-header.component';
+import { AdminDasboardTabComponent } from './admin/tabs/admin-dasboard-tab/admin-dasboard-tab.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +40,8 @@ import { AdminNavComponent } from './admin/components/admin-nav/admin-nav.compon
     AddStudentsComponent,
     AdminDashboardComponent,
     AdminNavComponent,
+    AdminNavHeaderComponent,
+    AdminDasboardTabComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +52,7 @@ import { AdminNavComponent } from './admin/components/admin-nav/admin-nav.compon
     FontAwesomeModule,
     BrowserAnimationsModule,
     MatIconModule,
+    MatProgressBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,9 +1,13 @@
 <div class="container">
   <app-admin-nav></app-admin-nav>
   <div class="right-container" [class.collapsed]="isSidebarCollapsed">
-    <app-horizontal-nav></app-horizontal-nav>
+    <app-admin-nav-header
+      [path]="path"
+      [currentComponent]="tab"
+    ></app-admin-nav-header>
     <div class="content">
-      <app-home *ngIf="addStudent"></app-home>
+      <app-admin-dasboard-tab *ngIf="dashboard"></app-admin-dasboard-tab>
+      <app-add-students *ngIf="addStudent"></app-add-students>
     </div>
   </div>
 </div>
