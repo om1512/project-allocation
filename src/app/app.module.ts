@@ -20,6 +20,12 @@ import { ErrorMessageComponent } from './components/error-message/error-message.
 import { AddStudentsComponent } from './admin/add-students/add-students.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminNavComponent } from './admin/components/admin-nav/admin-nav.component';
+import { ProfileCardComponent } from './components/profile-card/profile-card.component';
+import { ProfileTileComponent } from './components/profile-tile/profile-tile.component';
+import { MatTableModule } from '@angular/material/table';
+import { ProfileModalComponent } from './student/components/profile-modal/profile-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +42,9 @@ import { AdminNavComponent } from './admin/components/admin-nav/admin-nav.compon
     AddStudentsComponent,
     AdminDashboardComponent,
     AdminNavComponent,
+    ProfileCardComponent,
+    ProfileTileComponent,
+    ProfileModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,8 +55,11 @@ import { AdminNavComponent } from './admin/components/admin-nav/admin-nav.compon
     FontAwesomeModule,
     BrowserAnimationsModule,
     MatIconModule,
+    MatTableModule,
+    MatDialogModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

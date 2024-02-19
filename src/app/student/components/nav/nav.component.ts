@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToggleService } from '../../../service/toggle.service';
 import { StateService } from '../../service/state.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-nav',
@@ -43,8 +44,9 @@ export class NavComponent {
   constructor(
     private router: Router,
     private toggleService: ToggleService,
-    private stateService: StateService
-  ) {}
+    private stateService: StateService,
+    private cookieService: CookieService,
+  ) { }
 
   isSidebarCollapsed = false;
   isToggleIconCollapsed = false;
@@ -149,6 +151,7 @@ export class NavComponent {
   }
 
   handleLogout(): void {
+    this.cookieService.delete('Login-cred');
     this.router.navigate(['']);
   }
 }

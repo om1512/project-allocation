@@ -23,6 +23,7 @@
 .nav-item-container:hover {
   background-color: hsl(42, 90%, 76%);
   color: #1e1d25;
+  cursor: pointer;
 }
 
 mat-icon {
@@ -31,6 +32,34 @@ mat-icon {
   color: white;
 }
 
-.nav-item-container:hover mat-icon {
-  color: #1e1d25;
+mat-icon:hover {
+  color: black;
+  cursor: pointer;
+}
+
+.menu-icon {
+  display: none;
+  position: relative;
+  top: 8px;
+  left: 10px;
+  border-radius: 5px;
+  padding: 4px;
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    height: 50px;
+  }
+  .menu-icon {
+    display: flex;
+  }
+
+  mat-icon:hover {
+    color: white;
+  }
+
+  .nav-item-container:hover {
+    background-color: transparent;
+    color: white;
+  }
 }

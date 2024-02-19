@@ -7,5 +7,5 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './horizontal-nav.component.css'
 })
 export class HorizontalNavComponent {
-
+  
 }

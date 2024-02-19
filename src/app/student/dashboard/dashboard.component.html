@@ -3,7 +3,7 @@
   <div class="right-container" [class.collapsed]="isSidebarCollapsed">
     <app-horizontal-nav></app-horizontal-nav>
     <div class="content">
-      <app-home *ngIf="homeActive"></app-home>
+      <app-home *ngIf="homeActive" [profileId]="profileId" [profileEmail]="profileEmail"></app-home>
       <app-group *ngIf="groupActive"></app-group>
       <app-project *ngIf="projectActive"></app-project>
     </div>

@@ -1,3 +1,53 @@
 <div class="main-content">
+  <div class="profile">
+    <div class="image-container">
+      <app-profile-card [imageSrc]="profileImage" [name]="profileName" [specialization]="department">
+      </app-profile-card>
+    </div>
+    <div class="profile-data">
+      <app-profile-tile [title]="'Student id'" [value]="profileId"></app-profile-tile>
+      <app-profile-tile [title]="'Full Name'" [value]="profileName"></app-profile-tile>
+      <app-profile-tile [title]="'Email'" [value]="profileEmail"></app-profile-tile>
+      <app-profile-tile [title]="'Phone'" [value]="phoneNo"></app-profile-tile>
+      <app-profile-tile [title]="'Semester'" [value]="semester"></app-profile-tile>
+      <app-profile-tile [title]="'Cpi'" [value]="cpi"></app-profile-tile>
+    </div>
+  </div>
+  <div class="table">
+    <div class="decorator">
 
+    </div>
+    <div class="table-data">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+        <ng-container matColumnDef="no">
+          <th mat-header-cell *matHeaderCellDef>No.</th>
+          <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="student_id">
+          <th mat-header-cell *matHeaderCellDef>Student id</th>
+          <td mat-cell *matCellDef="let element">{{element.user.id}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">{{element.name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let element">{{element.user.email}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cpi">
+          <th mat-header-cell *matHeaderCellDef>CPI</th>
+          <td mat-cell *matCellDef="let element">{{element.resultList[element.resultList.length - 1].cpi}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row (click)="openModal(row)"
+          *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
 </div>

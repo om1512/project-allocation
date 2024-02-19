@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToggleService } from '../../service/toggle.service';
 import { StateService } from '../service/state.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,11 +13,14 @@ export class DashboardComponent implements OnInit {
   groupActive: boolean;
   projectActive: boolean;
   isSidebarCollapsed: boolean;
+  profileId: string;
+  profileEmail: string;
 
   constructor(
     private toggleService: ToggleService,
-    private stateService: StateService
-  ) {}
+    private stateService: StateService,
+    private cookieService: CookieService
+  ) { }
 
   ngOnInit(): void {
     this.toggleService.isSidebarCollapsed$.subscribe((isCollapsed) => {
@@ -25,20 +29,26 @@ export class DashboardComponent implements OnInit {
 
     this.stateService._homeActive.subscribe((homeActive) => {
       this.homeActive = homeActive;
-
-      console.log(homeActive);
     });
 
     this.stateService._groupActive.subscribe((groupActive) => {
       this.groupActive = groupActive;
-
-      console.log(groupActive);
     });
 
     this.stateService._projectActive.subscribe((projectActive) => {
       this.projectActive = projectActive;
-
-      console.log(projectActive);
     });
+
+    this.getStoredCookie();
+  }
+
+  getStoredCookie(): any {
+    const cookieValue = this.cookieService.get('Login-cred');
+
+    if (cookieValue) {
+      const parsedCookie = JSON.parse(cookieValue);
+      this.profileId = parsedCookie.id;
+      this.profileEmail = parsedCookie.email;
+    }
   }
 }
