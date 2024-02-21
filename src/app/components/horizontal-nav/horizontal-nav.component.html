@@ -1,8 +1,11 @@
 <div class="main-container">
   <div class="nav-item-container">
-    <mat-icon>comment</mat-icon>
+    <mat-icon (click)="openModal()">notifications</mat-icon>
   </div>
   <div class="menu-icon">
     <mat-icon>menu</mat-icon>
+  </div>
+  <div class="request-count" (click)="openModal()">
+    {{ requests.length }}
   </div>
 </div>

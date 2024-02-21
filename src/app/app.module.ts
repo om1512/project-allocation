@@ -26,6 +26,12 @@ import { MatTableModule } from '@angular/material/table';
 import { ProfileModalComponent } from './student/components/profile-modal/profile-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { RequestModalComponent } from './components/request-modal/request-modal.component';
+import { RequestCardComponent } from './components/request-card/request-card.component';
+import { ProjectModalComponent } from './student/components/project-modal/project-modal.component';
+import { FilterModalComponent } from './student/components/filter-modal/filter-modal.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +51,10 @@ import { MatButtonModule } from '@angular/material/button';
     ProfileCardComponent,
     ProfileTileComponent,
     ProfileModalComponent,
+    RequestModalComponent,
+    RequestCardComponent,
+    ProjectModalComponent,
+    FilterModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +68,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatTableModule,
     MatDialogModule,
     MatButtonModule,
+    MatProgressBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

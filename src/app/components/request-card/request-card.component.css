@@ -1,0 +1,81 @@
+.container {
+  margin: 8px;
+  border-bottom: 1px solid rgba(127, 132, 151, 0.1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  align-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  overflow-y: scroll;
+}
+
+.image {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  position: relative;
+  left: 30px;
+  object-fit: cover;
+}
+
+img {
+  width: 80px;
+  height: 80px;
+}
+
+.data {
+  position: relative;
+  left: 50px;
+  top: 8px;
+}
+
+.operation {
+  width: 100px;
+  height: 100%;
+  position: relative;
+  left: 120px;
+}
+
+.accept {
+  width: 100%;
+  background-color: #5bd850;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 6px;
+  font-family: poppins;
+  text-align: center;
+  font-size: 12px;
+  margin: 8px;
+}
+
+.accept:hover {
+  cursor: pointer;
+}
+
+.reject {
+  width: 100%;
+  background-color: transparent;
+  color: red;
+  border: none;
+  border-radius: 5px;
+  padding: 6px;
+  font-family: poppins;
+  text-align: center;
+  font-size: 12px;
+  margin: 8px;
+}
+
+.reject:hover {
+  background-color: pink;
+  cursor: pointer;
+  border: 1.5px solid red;
+}
+
+h4 {
+  color: #7f8497;
+  font-family: poppins;
+}
