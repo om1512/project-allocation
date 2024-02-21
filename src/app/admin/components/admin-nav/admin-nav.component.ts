@@ -12,11 +12,14 @@ export class AdminNavComponent {
   @Output() stateChange = new EventEmitter<{
     dashboardActive: boolean;
     homeActive: boolean;
+    addFaculties: boolean;
   }>();
+
+  @Output() dataEvent = new EventEmitter<any>();
 
   homeActive = false;
   dashboardActive = true;
-
+  addFaculties = false;
   items = [
     {
       label: 'Dashboard',
@@ -27,6 +30,11 @@ export class AdminNavComponent {
       label: 'Add Students',
       icon: 'face',
       active: this.homeActive,
+    },
+    {
+      label: 'Add Faculty',
+      icon: 'supervisor_account',
+      active: this.addFaculties,
     },
   ];
 
@@ -49,6 +57,7 @@ export class AdminNavComponent {
     if (index === 0) {
       this.dashboardActive = true;
       this.homeActive = false;
+      this.addFaculties = false;
       this.items = [
         {
           label: 'Dashboard',
@@ -60,10 +69,20 @@ export class AdminNavComponent {
           icon: 'face',
           active: this.homeActive,
         },
+        {
+          label: 'Add Faculty',
+          icon: 'supervisor_account',
+          active: this.addFaculties,
+        },
       ];
+
+      const path = 'Admin /';
+      const tab = 'Dashboard';
+      this.dataEvent.emit({ path, tab });
     } else if (index == 1) {
       this.homeActive = true;
       this.dashboardActive = false;
+      this.addFaculties = false;
       this.items = [
         {
           label: 'Dashboard',
@@ -75,16 +94,51 @@ export class AdminNavComponent {
           icon: 'face',
           active: this.homeActive,
         },
+        {
+          label: 'Add Faculty',
+          icon: 'supervisor_account',
+          active: this.addFaculties,
+        },
       ];
+
+      const path = 'Admin / Dashboard /';
+      const tab = 'Add Student';
+      this.dataEvent.emit({ path, tab });
+    } else if (index == 2) {
+      this.homeActive = false;
+      this.dashboardActive = false;
+      this.addFaculties = true;
+      this.items = [
+        {
+          label: 'Dashboard',
+          icon: 'dashboard',
+          active: this.dashboardActive,
+        },
+        {
+          label: 'Add Students',
+          icon: 'face',
+          active: this.homeActive,
+        },
+        {
+          label: 'Add Faculty',
+          icon: 'supervisor_account',
+          active: this.addFaculties,
+        },
+      ];
+
+      const path = 'Admin / Dashboard /';
+      const tab = 'Add Faculty';
+      this.dataEvent.emit({ path, tab });
     }
 
-    this.stateService.updateState(this.dashboardActive, this.homeActive);
+    this.stateService.updateState(this.dashboardActive, this.homeActive, this.addFaculties);
   }
 
   onStateChange() {
     this.stateChange.emit({
       dashboardActive: this.dashboardActive,
       homeActive: this.homeActive,
+      addFaculties: this.addFaculties,
     });
   }
 

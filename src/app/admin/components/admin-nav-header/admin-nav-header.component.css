@@ -41,6 +41,10 @@ span:hover{
   margin-right: 10px; 
 }
 
+p:hover{
+  cursor: pointer;
+}
+
 .nav-item-container:hover {
   background-color: hsl(42, 90%, 76%);
   color: #1e1d25;

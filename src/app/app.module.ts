@@ -23,6 +23,8 @@ import { AdminNavComponent } from './admin/components/admin-nav/admin-nav.compon
 import { AdminNavHeaderComponent } from './admin/components/admin-nav-header/admin-nav-header.component';
 import { AdminDasboardTabComponent } from './admin/tabs/admin-dasboard-tab/admin-dasboard-tab.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { AdminStudentViewComponent } from './admin/tabs/admin-student-view/admin-student-view.component';
+import { AddFacultiesComponent } from './admin/tabs/add-faculties/add-faculties.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     AdminNavComponent,
     AdminNavHeaderComponent,
     AdminDasboardTabComponent,
+    AdminStudentViewComponent,
+    AddFacultiesComponent,
   ],
   imports: [
     BrowserModule,

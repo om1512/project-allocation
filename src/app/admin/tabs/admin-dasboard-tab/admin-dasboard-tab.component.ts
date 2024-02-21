@@ -1,4 +1,11 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { AdminService } from '../../service/admin.service';
 
 @Component({
@@ -11,8 +18,10 @@ export class AdminDasboardTabComponent implements OnInit {
   students: any[] = [];
   faculties: any[] = [];
   loading: boolean = false;
+
   @ViewChild('lottieAnimation', { static: true })
   lottieAnimationContainer!: ElementRef;
+  @Output() pathChange = new EventEmitter<any>();
   constructor(private adminService: AdminService) {}
   ngOnInit(): void {
     this.loadStudents();
@@ -45,5 +54,12 @@ export class AdminDasboardTabComponent implements OnInit {
       return `${phone.slice(0, 5)} ${phone.slice(5)}`;
     }
     return phone;
+  }
+
+  onRowClick(s) {
+    const p = 'Admin / Dashboard / Student /';
+    const t = s.id;
+    const studentStatus = true;
+    this.pathChange.emit({ p, t, studentStatus, s });
   }
 }

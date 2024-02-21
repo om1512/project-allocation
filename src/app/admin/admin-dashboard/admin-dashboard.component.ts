@@ -10,10 +10,12 @@ import { AdminService } from '../service/admin.service';
 export class AdminDashboardComponent implements OnInit {
   dashboard: boolean;
   addStudent: boolean;
+  addFaculties: boolean;
+  studentView: boolean;
   isSidebarCollapsed: boolean;
-  path: string = ' /';
-  tab: string = '';
-
+  path: string = 'Admin /';
+  tab: string = 'Dashboard';
+  student: any = {};
   constructor(
     private toggleService: ToggleService,
     private adminService: AdminService
@@ -26,18 +28,41 @@ export class AdminDashboardComponent implements OnInit {
 
     this.adminService._addStudents.subscribe((addStudent) => {
       this.addStudent = addStudent;
-      console.log('A  ' + addStudent);
-      this.path = 'Admin / Dashboard';
-      this.tab = 'Add Students';
+      this.studentView = false;
     });
 
     this.adminService._dashboard.subscribe((dashboard) => {
       this.dashboard = dashboard;
-      console.log(dashboard);
-      this.path = 'Admin /';
-      this.tab = 'Dashboard';
+      this.studentView = false;
+    });
+
+    this.adminService._addFaculties.subscribe((addFaculties) => {
+      this.addFaculties = addFaculties;
+      this.studentView = false;
     });
   }
 
-
+  receiveData(data: any) {
+    this.path = data.path;
+    this.tab = data.tab;
+  }
+  receiveDataFromDashboard(data: any) {
+    console.log('data : ' + data.p + ' ' + data.t);
+    this.path = data.p;
+    this.tab = data.t;
+    this.studentView = data.studentStatus;
+    this.dashboard = false;
+    this.addStudent = false;
+    this.student = data.s;
+  }
+  pathClick() {
+    if (
+      this.path == 'Admin / Dashboard / Student /' ||
+      this.path == 'Admin /'
+    ) {
+      this.studentView = false;
+      this.dashboard = true;
+      this.addStudent = false;
+    }
+  }
 }
