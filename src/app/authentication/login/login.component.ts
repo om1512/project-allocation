@@ -12,10 +12,8 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
-  @ViewChild(ErrorMessageComponent) errorMessageComponent: ErrorMessageComponent;
-
   loginForm: FormGroup;
-  customErrorMessage: string = '';
+  customErrorMessage: string = undefined;
   loading: boolean = false;
   isLoading: boolean = false;
 
@@ -29,6 +27,10 @@ export class LoginComponent implements OnInit {
   }
 
   async handleSubmit(): Promise<void> {
+    setTimeout(() => {
+      this.closeError();
+    }, 7000);
+
     this.isLoading = true;
     const password = this.loginForm.get('password').value
     if (this.loginForm.valid) {
@@ -37,10 +39,9 @@ export class LoginComponent implements OnInit {
       if (password.length < 6) {
         this.isLoading = false;
         this.customErrorMessage = 'Password must be 6 digit long';
-        this.errorMessageComponent.showErrorMessage();
       } else {
         await this.loadData(email);
-        this.customErrorMessage = '';
+        this.customErrorMessage = undefined;
         this.isLoading = false;
       }
     } else {
@@ -51,16 +52,13 @@ export class LoginComponent implements OnInit {
       } else {
         this.customErrorMessage = 'Email is not valid.';
       }
-
       this.isLoading = false;
-      this.errorMessageComponent.showErrorMessage();
     }
   }
 
   async loadData(email: string): Promise<void> {
     this.loginService.getUsers(email).subscribe(
       (data) => {
-        console.log(data);
         if (data.password === this.loginForm.get("password").value) {
           this.cookieService.set('Login-cred', JSON.stringify(data), 3);
           this.isLoading = false;
@@ -74,15 +72,16 @@ export class LoginComponent implements OnInit {
         } else {
           this.isLoading = false;
           this.customErrorMessage = 'Email or password may be incorrect.';
-          this.errorMessageComponent.showErrorMessage();
         }
       },
       (error) => {
-        console.log(error);
         this.isLoading = false;
         this.customErrorMessage = 'Email or password may be incorrect.';
-        this.errorMessageComponent.showErrorMessage();
       }
     );
+  }
+
+  closeError() {
+    this.customErrorMessage = undefined;
   }
 }

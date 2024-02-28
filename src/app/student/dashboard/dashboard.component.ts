@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToggleService } from '../../service/toggle.service';
 import { StateService } from '../service/state.service';
 import { CookieService } from 'ngx-cookie-service';
+import { ProfileService } from '../service/profile.service';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -15,11 +17,13 @@ export class DashboardComponent implements OnInit {
   isSidebarCollapsed: boolean;
   profileId: string;
   profileEmail: string;
+  isInGroup: boolean = false;
 
   constructor(
     private toggleService: ToggleService,
     private stateService: StateService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit(): void {
@@ -49,6 +53,19 @@ export class DashboardComponent implements OnInit {
       const parsedCookie = JSON.parse(cookieValue);
       this.profileId = parsedCookie.id;
       this.profileEmail = parsedCookie.email;
+      this.loadProfile(this.profileId);
     }
+  }
+
+  async loadProfile(uid: string): Promise<void> {
+    this.profileService.getProfile(uid).subscribe(
+      (data) => {
+        console.log(data);
+
+        if(data.group.id != null || data.group.id != undefined, data.group.id != '') {
+          this.isInGroup = true;
+        }
+      }
+    );
   }
 }

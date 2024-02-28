@@ -31,7 +31,8 @@ import { RequestModalComponent } from './components/request-modal/request-modal.
 import { RequestCardComponent } from './components/request-card/request-card.component';
 import { ProjectModalComponent } from './student/components/project-modal/project-modal.component';
 import { FilterModalComponent } from './student/components/filter-modal/filter-modal.component';
-
+import { LottieAnimationComponent } from './student/components/lottie-animation/lottie-animation.component';
+import { CreateGroupModalComponent } from './student/components/create-group-modal/create-group-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +56,8 @@ import { FilterModalComponent } from './student/components/filter-modal/filter-m
     RequestCardComponent,
     ProjectModalComponent,
     FilterModalComponent,
+    LottieAnimationComponent,
+    CreateGroupModalComponent,
   ],
   imports: [
     BrowserModule,
