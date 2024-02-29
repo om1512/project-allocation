@@ -17,13 +17,13 @@
   grid-row-start: 1;
   grid-row-end: 4;
   grid-column-start: 1;
-  grid-column-end: 4; 
+  grid-column-end: 4;
 
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  
+
 }
 
 .item-2{
@@ -87,8 +87,8 @@
 }
 
 .image{
-  width: 100%; 
-  height: 100%; 
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 
@@ -143,7 +143,16 @@ p{
   font-size: 15px;
   font-weight: 550;
   color: #F9D88B;
+  display: flex;
+
+  grid-column-start: 1;
+  grid-column-end: 5;
+  justify-content: space-between;
+  align-items: baseline;
 }
+
+
+
 .res{
   border-radius: 7px;
   display: flex;
@@ -165,7 +174,7 @@ p{
   grid-row-start: 3;
   grid-row-end: 4;
   grid-column-start: 1;
-  grid-column-end: 3; 
+  grid-column-end: 3;
 }
 
 .spiscore{
@@ -179,5 +188,9 @@ p{
   grid-row-start: 3;
   grid-row-end: 4;
   grid-column-start: 3;
-  grid-column-end: 5; 
+  grid-column-end: 5;
+}
+
+.edit-icon:hover{
+  cursor: pointer;
 }

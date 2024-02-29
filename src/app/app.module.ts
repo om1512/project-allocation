@@ -22,9 +22,14 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
 import { AdminNavComponent } from './admin/components/admin-nav/admin-nav.component';
 import { AdminNavHeaderComponent } from './admin/components/admin-nav-header/admin-nav-header.component';
 import { AdminDasboardTabComponent } from './admin/tabs/admin-dasboard-tab/admin-dasboard-tab.component';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AdminStudentViewComponent } from './admin/tabs/admin-student-view/admin-student-view.component';
 import { AddFacultiesComponent } from './admin/tabs/add-faculties/add-faculties.component';
+import { AddUsersComponent } from './admin/tabs/add-users/add-users.component';
+import { AdminResultPopupComponent } from './admin/components/admin-result-popup/admin-result-popup.component';
+import { ManageFacultyComponent } from './admin/tabs/manage-faculty/manage-faculty.component';
+import { AdminFacultyCardComponent } from './admin/components/admin-faculty-card/admin-faculty-card.component';
+import { FacultyPopupComponent } from './admin/components/faculty-popup/faculty-popup.component';
+import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 
 @NgModule({
   declarations: [
@@ -46,6 +51,11 @@ import { AddFacultiesComponent } from './admin/tabs/add-faculties/add-faculties.
     AdminDasboardTabComponent,
     AdminStudentViewComponent,
     AddFacultiesComponent,
+    AddUsersComponent,
+    AdminResultPopupComponent,
+    ManageFacultyComponent,
+    AdminFacultyCardComponent,
+    FacultyPopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +66,8 @@ import { AddFacultiesComponent } from './admin/tabs/add-faculties/add-faculties.
     FontAwesomeModule,
     BrowserAnimationsModule,
     MatIconModule,
-    MatProgressBarModule,
+    NgxUiLoaderModule,
+    NgxUiLoaderHttpModule.forRoot({ showForeground: true }),
   ],
   providers: [],
   bootstrap: [AppComponent],

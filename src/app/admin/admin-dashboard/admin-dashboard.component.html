@@ -11,13 +11,13 @@
         *ngIf="dashboard"
         (pathChange)="receiveDataFromDashboard($event)"
       ></app-admin-dasboard-tab>
-      <app-add-students *ngIf="addStudent"></app-add-students>
+      <app-add-users *ngIf="addStudent"></app-add-users>
       <app-admin-student-view
         *ngIf="studentView"
         class="div"
         [student]="student"
       ></app-admin-student-view>
-      <app-add-faculties *ngIf="addFaculties"></app-add-faculties>
+      <app-manage-faculty *ngIf="addFaculties"></app-manage-faculty>
     </div>
   </div>
 </div>

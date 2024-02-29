@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="item item1">
+    <div class="row">
+      <div class="p">Available Faculties In Year {{ year }}</div>
+      <button (click)="addFaculties()" class="comic-button">Add</button>
+    </div>
+    <div class="faculty-details">
+      <div
+        *ngIf="availableFaculties.length == 0; else notLoggedIn"
+        class="noDataAvailable"
+      >
+        No Data Available
+      </div>
+      <ng-template #notLoggedIn>
+        <app-admin-faculty-card
+          *ngFor="let f of availableFaculties; let i = index"
+          [faculty]="f"
+          [index]="i"
+          (facultyRemoveEmitter)="removeFromAvailable($event)"
+        ></app-admin-faculty-card>
+      </ng-template>
+    </div>
+  </div>
+  <div class="item item2">
+    <div class="row"></div>
+  </div>
+
+  <div class="item item3"></div>
+</div>

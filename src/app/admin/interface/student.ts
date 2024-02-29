@@ -1,3 +1,4 @@
+import { Result } from './result';
 import { User } from './user';
 
 export interface Student {
@@ -7,5 +8,5 @@ export interface Student {
   year: Date;
   phone: string;
   user: User;
-  resultList: [];
+  resultList: Result[];
 }

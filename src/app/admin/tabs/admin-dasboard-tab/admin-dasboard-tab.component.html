@@ -91,20 +91,16 @@
             <th>Phone</th>
             <th>Email</th>
           </tr>
-          <tr *ngIf="!loading">
+          <tr>
             <td colspan="8"><div class="hr"></div></td>
           </tr>
-          <tr *ngIf="loading">
-            <td colspan="8">
-              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-            </td>
-          </tr>
+
           <tr class="row" *ngFor="let s of students" (click)="onRowClick(s)">
             <td>{{ s.id }}</td>
             <td>{{ s.name }}</td>
             <td>{{ s.year | date : "yyyy" }}</td>
             <td>+91 {{ formatPhoneNumber(s.phone) }}</td>
-            <td>{{ s.user.email }}</td>
+            <td>{{ s.user?.email }}</td>
           </tr>
         </table>
       </div>
@@ -119,14 +115,7 @@
             <th>Phone</th>
             <th>Email</th>
           </tr>
-          <tr *ngIf="!loading">
-            <td colspan="8"><div class="hr"></div></td>
-          </tr>
-          <tr *ngIf="loading">
-            <td colspan="8">
-              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-            </td>
-          </tr>
+
           <tr class="row" *ngFor="let f of faculties">
             <td>{{ f.id }}</td>
             <td>{{ f.name }}</td>

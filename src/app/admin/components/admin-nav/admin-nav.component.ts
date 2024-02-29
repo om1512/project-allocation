@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToggleService } from '../../../service/toggle.service';
 import { AdminService } from '../../service/admin.service';
+import { LoginServiceService } from '../../../authentication/service/login-service.service';
 
 @Component({
   selector: 'app-admin-nav',
@@ -27,13 +28,13 @@ export class AdminNavComponent {
       active: this.dashboardActive,
     },
     {
-      label: 'Add Students',
-      icon: 'face',
+      label: 'Add Users',
+      icon: 'supervisor_account',
       active: this.homeActive,
     },
     {
-      label: 'Add Faculty',
-      icon: 'supervisor_account',
+      label: 'Manage Faculty',
+      icon: 'donut_small',
       active: this.addFaculties,
     },
   ];
@@ -41,7 +42,8 @@ export class AdminNavComponent {
   constructor(
     private router: Router,
     private toggleService: ToggleService,
-    private stateService: AdminService
+    private stateService: AdminService,
+    private loginService: LoginServiceService
   ) {}
 
   isSidebarCollapsed = false;
@@ -65,13 +67,13 @@ export class AdminNavComponent {
           active: this.dashboardActive,
         },
         {
-          label: 'Add Students',
-          icon: 'face',
+          label: 'Add Users',
+          icon: 'supervisor_account',
           active: this.homeActive,
         },
         {
-          label: 'Add Faculty',
-          icon: 'supervisor_account',
+          label: 'Manage Faculty',
+          icon: 'donut_small',
           active: this.addFaculties,
         },
       ];
@@ -90,13 +92,13 @@ export class AdminNavComponent {
           active: this.dashboardActive,
         },
         {
-          label: 'Add Students',
-          icon: 'face',
+          label: 'Add Users',
+          icon: 'supervisor_account',
           active: this.homeActive,
         },
         {
-          label: 'Add Faculty',
-          icon: 'supervisor_account',
+          label: 'Manage Faculty',
+          icon: 'donut_small',
           active: this.addFaculties,
         },
       ];
@@ -115,23 +117,27 @@ export class AdminNavComponent {
           active: this.dashboardActive,
         },
         {
-          label: 'Add Students',
-          icon: 'face',
+          label: 'Add Users',
+          icon: 'supervisor_account',
           active: this.homeActive,
         },
         {
-          label: 'Add Faculty',
-          icon: 'supervisor_account',
+          label: 'Manage Faculty',
+          icon: 'donut_small',
           active: this.addFaculties,
         },
       ];
 
       const path = 'Admin / Dashboard /';
-      const tab = 'Add Faculty';
+      const tab = 'Manage Faculty';
       this.dataEvent.emit({ path, tab });
     }
 
-    this.stateService.updateState(this.dashboardActive, this.homeActive, this.addFaculties);
+    this.stateService.updateState(
+      this.dashboardActive,
+      this.homeActive,
+      this.addFaculties
+    );
   }
 
   onStateChange() {
@@ -143,6 +149,7 @@ export class AdminNavComponent {
   }
 
   handleLogout(): void {
+    this.loginService.logout();
     this.router.navigate(['']);
   }
 }

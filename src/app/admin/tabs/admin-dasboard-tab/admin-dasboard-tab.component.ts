@@ -17,7 +17,6 @@ export class AdminDasboardTabComponent implements OnInit {
   selectedTab: string = 'tab1';
   students: any[] = [];
   faculties: any[] = [];
-  loading: boolean = false;
 
   @ViewChild('lottieAnimation', { static: true })
   lottieAnimationContainer!: ElementRef;
@@ -33,7 +32,6 @@ export class AdminDasboardTabComponent implements OnInit {
   }
 
   async loadStudents(): Promise<void> {
-    this.loading = true;
     this.adminService.getAllStudents().subscribe((data) => {
       console.log(data);
       this.students = data;
@@ -41,11 +39,9 @@ export class AdminDasboardTabComponent implements OnInit {
   }
 
   async loadFaculty(): Promise<void> {
-    this.loading = true;
     this.adminService.getAllFaculties().subscribe((data) => {
       console.log('Faculties : ' + data);
       this.faculties = data;
-      this.loading = false;
     });
   }
 
