@@ -3,6 +3,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  align-items: center;
+
 }
 .row{
   width: 100%;
@@ -11,7 +13,7 @@
   background-color: #5c5a692a;
   border-radius: 10px;
   align-items: center;
-  margin-top: 10px;
+  flex-direction: row;
 }
 
 .id{
@@ -36,15 +38,46 @@
 }
 
 
-button{
-  height: 38px;
-  background-color: #5c5a692a;
+
+button {
   border-radius: 10px;
-  align-items: center;
-  margin-top: 10px;
-  color: white;
-  margin-left: 10px;
-}
-button:hover{
+  background-color: #25242b;
+  border: none;
+  color: #FFF;
+  text-align: center;
+  font-size: 10px;
+  width: 100px;
+  height: 38px;
+  transition: all 0.5s;
   cursor: pointer;
-}
+  height: 40px;
+  font-family: poppins;
+  font-weight: 800;
+  margin: 5px;  
+
+ }
+ 
+ button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+ }
+ 
+ button span:after {
+  content: '»';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -15px;
+  transition: 0.5s;
+ }
+ 
+ button:hover span {
+  padding-right: 15px;
+ }
+ 
+ button:hover span:after {
+  opacity: 1;
+  right: 0;
+ }

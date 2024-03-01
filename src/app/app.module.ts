@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomButtonComponent } from '../app/components/custom-button/custom-button.component';
 import { LoginComponent } from '../app/authentication/login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from '../app/student/dashboard/dashboard.component';
 import { NavComponent } from './student/components/nav/nav.component';
 import { NavItemComponent } from './components/nav-item/nav-item.component';
@@ -30,6 +30,9 @@ import { ManageFacultyComponent } from './admin/tabs/manage-faculty/manage-facul
 import { AdminFacultyCardComponent } from './admin/components/admin-faculty-card/admin-faculty-card.component';
 import { FacultyPopupComponent } from './admin/components/faculty-popup/faculty-popup.component';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
+import { LoginServiceService } from './authentication/service/login-service.service';
+import { AuthGuard } from './authentication/service/auth.guard';
+import { AuthInterceptor } from './authentication/service/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -69,7 +72,11 @@ import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
     NgxUiLoaderModule,
     NgxUiLoaderHttpModule.forRoot({ showForeground: true }),
   ],
-  providers: [],
+  providers: [
+    LoginServiceService,
+    AuthGuard,
+    [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

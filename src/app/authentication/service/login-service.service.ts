@@ -23,6 +23,11 @@ export class LoginServiceService {
     localStorage.setItem('token', token);
     localStorage.setItem('role', role);
   }
+
+  getToken(): string {
+    return localStorage.getItem('token');
+  }
+
   isLoggedIn() {
     let token = localStorage.getItem('token');
     if (token == undefined || token === '' || token == null) {

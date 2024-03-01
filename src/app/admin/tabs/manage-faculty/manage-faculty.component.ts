@@ -37,6 +37,25 @@ export class ManageFacultyComponent implements OnInit {
     );
   }
 
+  workloadClick() {
+    console.log(this.availableFaculties);
+
+    const savePromises: Promise<any>[] = [];
+
+    this.availableFaculties.forEach((faculty) => {
+      const savePromise = this.adminService.saveFaculty(faculty).toPromise(); 
+      savePromises.push(savePromise); 
+    });
+
+    Promise.all(savePromises)
+      .then(() => {
+        console.log('All faculties saved successfully');
+      })
+      .catch((error) => {
+        console.error('Error saving faculties:', error);
+      });
+  }
+
   getAvailableFaculties(faculty: any[]) {
     faculty.forEach((f) => {
       if (f.available === true) {
