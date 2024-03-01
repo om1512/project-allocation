@@ -14,8 +14,6 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   customErrorMessage: string = undefined;
-  loading: boolean = false;
-  isLoading: boolean = false;
 
   constructor(private loginService: LoginServiceService, private cookieService: CookieService, private router: Router) { }
 
@@ -31,18 +29,15 @@ export class LoginComponent implements OnInit {
       this.closeError();
     }, 7000);
 
-    this.isLoading = true;
     const password = this.loginForm.get('password').value
     if (this.loginForm.valid) {
       const email = this.loginForm.get('email').value;
 
       if (password.length < 6) {
-        this.isLoading = false;
         this.customErrorMessage = 'Password must be 6 digit long';
       } else {
         await this.loadData(email);
         this.customErrorMessage = undefined;
-        this.isLoading = false;
       }
     } else {
       if (this.loginForm.get('email').errors) {
@@ -52,7 +47,6 @@ export class LoginComponent implements OnInit {
       } else {
         this.customErrorMessage = 'Email is not valid.';
       }
-      this.isLoading = false;
     }
   }
 
@@ -61,7 +55,6 @@ export class LoginComponent implements OnInit {
       (data) => {
         if (data.password === this.loginForm.get("password").value) {
           this.cookieService.set('Login-cred', JSON.stringify(data), 3);
-          this.isLoading = false;
           if (data.type == "Student") {
             this.router.navigate(['student/dashboard']);
           } else if (data.type == "Faculty") {
@@ -70,12 +63,10 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['admin/dashboard']);
           }
         } else {
-          this.isLoading = false;
           this.customErrorMessage = 'Email or password may be incorrect.';
         }
       },
       (error) => {
-        this.isLoading = false;
         this.customErrorMessage = 'Email or password may be incorrect.';
       }
     );

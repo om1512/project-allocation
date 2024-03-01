@@ -1,7 +1,6 @@
 import { Component, ViewChild, Inject } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ProfileService } from '../../service/profile.service';
-import { ErrorMessageComponent } from '../../../components/error-message/error-message.component';
 import { GroupServiceService } from '../../service/group-service.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -15,7 +14,6 @@ export class CreateGroupModalComponent {
   student: any;
   customErrorMessage: string = undefined;
   year: number;
-  isLoading: boolean = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private cookieService: CookieService, private profileService: ProfileService, private groupService: GroupServiceService, private dialogRef: MatDialogRef<CreateGroupModalComponent>,
   ) { }
@@ -28,7 +26,6 @@ export class CreateGroupModalComponent {
       return;
     }
 
-    this.isLoading = true;
     await this.getStoredCookie();
     this.year = new Date().getFullYear();
 
@@ -51,8 +48,6 @@ export class CreateGroupModalComponent {
         });
       }
     );
-
-    this.isLoading = false;
   }
 
   async getStoredCookie(): Promise<any> {

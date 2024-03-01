@@ -33,6 +33,17 @@ import { ProjectModalComponent } from './student/components/project-modal/projec
 import { FilterModalComponent } from './student/components/filter-modal/filter-modal.component';
 import { LottieAnimationComponent } from './student/components/lottie-animation/lottie-animation.component';
 import { CreateGroupModalComponent } from './student/components/create-group-modal/create-group-modal.component';
+import { NgxUiLoaderConfig, NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
+import { GroupTileComponent } from './components/group-tile/group-tile.component';
+import { MemberCardComponent } from './components/member-card/member-card.component';
+import { AddMemberCardComponent } from './components/add-member-card/add-member-card.component';
+import { CustomProjectModalComponent } from './student/components/custom-project-modal/custom-project-modal.component';
+
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  fgsColor: 'transparent',
+  pbColor: '#F9D88B',
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +69,10 @@ import { CreateGroupModalComponent } from './student/components/create-group-mod
     FilterModalComponent,
     LottieAnimationComponent,
     CreateGroupModalComponent,
+    GroupTileComponent,
+    MemberCardComponent,
+    AddMemberCardComponent,
+    CustomProjectModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,6 +87,10 @@ import { CreateGroupModalComponent } from './student/components/create-group-mod
     MatDialogModule,
     MatButtonModule,
     MatProgressBarModule,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    NgxUiLoaderHttpModule.forRoot({
+      showForeground: true,
+    })
   ],
   providers: [],
   bootstrap: [AppComponent],

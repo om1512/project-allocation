@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   profileId: string;
   profileEmail: string;
   isInGroup: boolean = false;
+  Student: any;
 
   constructor(
     private toggleService: ToggleService,
@@ -27,6 +28,8 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.homeActive = true;
+
     this.toggleService.isSidebarCollapsed$.subscribe((isCollapsed) => {
       this.isSidebarCollapsed = isCollapsed;
     });
@@ -60,9 +63,9 @@ export class DashboardComponent implements OnInit {
   async loadProfile(uid: string): Promise<void> {
     this.profileService.getProfile(uid).subscribe(
       (data) => {
-        console.log(data);
+        this.Student = data;
 
-        if(data.group.id != null || data.group.id != undefined, data.group.id != '') {
+        if (data.group.id != null || data.group.id != undefined, data.group.id != '') {
           this.isInGroup = true;
         }
       }

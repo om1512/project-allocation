@@ -23,4 +23,9 @@ export class GroupServiceService {
       })
     );
   }
+
+  getGroup(gid: string): Observable<any> {
+    const url = 'http://localhost:8080/api/group/' + gid;
+    return this.http.get<any>(url);
+  }
 }

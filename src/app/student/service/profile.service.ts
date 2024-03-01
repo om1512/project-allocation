@@ -18,4 +18,9 @@ export class ProfileService {
     const url = 'http://localhost:8080/api/student';
     return this.http.get<any>(url);
   }
+
+  getStudent(sid: string): Observable<any> {
+    const url = 'http://localhost:8080/api/student/' + sid;
+    return this.http.get<any>(url);
+  }
 }
