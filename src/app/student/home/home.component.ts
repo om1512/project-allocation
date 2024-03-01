@@ -34,19 +34,27 @@ export class HomeComponent implements OnInit {
   async loadProfile(uid: string): Promise<void> {
     this.profileService.getProfile(uid).subscribe(
       (data) => {
+        console.log(data);
         this.profileName = data.name;
         this.phoneNo = '(+91) ' + data.phone;
         this.resultList = data.resultList;
-        this.semester = this.resultList[this.resultList.length - 1].semNo;
-        this.cpi = this.resultList[this.resultList.length - 1].cpi;
+
+        if (!this.resultList || this.resultList.length === 0) {
+          this.semester = '-';
+          this.cpi = '-';
+        } else {
+          const lastIndex = this.resultList.length - 1;
+          this.semester = this.resultList[lastIndex].semNo;
+          this.cpi = this.resultList[lastIndex].cpi;
+        }
       }
     );
   }
 
+
   async loadStudents(): Promise<void> {
     this.profileService.getAll().subscribe(
       (data) => {
-        console.log(data);
         this.students = data;
         this.dataSource = this.students;
       }

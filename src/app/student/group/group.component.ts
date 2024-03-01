@@ -37,22 +37,18 @@ export class GroupComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
+    this.isInGroup = false;
     this.group_id = this.Student.group.id;
-    this.group_name = this.Student.group.groupName;
-    this.rank = this.Student.group.rank;
-    this.allocated_project = this.Student.group.project;
 
-    if (this.rank == '0') {
-      this.rank = '-';
-    }
-
-    if (this.allocated_project == null) {
-      this.allocated_project = '-';
-    }
-
+    console.log(this.Student);
+    await this.loadProfile(this.Student.user.id);
     await this.loadProject();
-    await this.loadGroup();
-    this.members = this.Group.studentList;
+
+    if (this.Student.group != null) {
+      this.isInGroup = true;
+      await this.loadGroup(this.Student.group.id);
+      this.members = this.Group.studentList;
+    }
   }
 
   openModal(): void {
@@ -61,24 +57,56 @@ export class GroupComponent implements OnInit {
       height: '280px',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      this.isInGroup = result.status;
-      this.customErrorMessage = result.message;
-
-      console.log(this.customErrorMessage);
-
+    dialogRef.afterClosed().subscribe(async (result) => {
       setTimeout(() => {
         this.closeError();
       }, 7000);
+
+      this.isInGroup = result.status;
+      this.customErrorMessage = result.message;
+      this.Student = result.student;
+
+      console.log(this.Student);
+
+      if (this.isInGroup) {
+        await this.loadProject();
+        await this.loadGroup(this.Student.group.id);
+        this.members = this.Group.studentList;
+      }
     });
   }
 
-  async loadGroup() {
-    this.groupService.getGroup(this.group_id).subscribe(
+  async loadProfile(uid: string): Promise<void> {
+    this.profileService.getProfile(uid).subscribe(
+      (data) => {
+        this.Student = data;
+
+        if (data.group.id != null || data.group.id != undefined, data.group.id != '') {
+          this.isInGroup = true;
+        }
+      }
+    );
+  }
+
+  async loadGroup(gid: string) {
+    this.groupService.getGroup(gid).subscribe(
       (data) => {
         this.Group = data;
         this.members = this.Group.studentList;
         this.loadStudents();
+
+        this.group_id = this.Student.group.id;
+        this.group_name = this.Student.group.groupName;
+        this.rank = this.Student.group.rank;
+        this.allocated_project = this.Student.group.project;
+
+        if (this.rank == '0') {
+          this.rank = '-';
+        }
+
+        if (this.allocated_project == null) {
+          this.allocated_project = '-';
+        }
       }
     );
   }
@@ -138,16 +166,39 @@ export class GroupComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.isInGroup = result.status;
-      this.customErrorMessage = result.message;
-      
       setTimeout(() => {
         this.closeError();
       }, 7000);
+
+      this.isInGroup = result.status;
+      this.customErrorMessage = result.message;
+
+      this.loadProject();
     });
   }
 
+  async leaveGroup(): Promise<void> {
+    try {
+      const result = await this.groupService.leaveGroup({
+        student_id: this.Student.id,
+        group_id: this.Group.id,
+      }).toPromise();
+
+      console.log('Success:', result);
+
+      this.isInGroup = false;
+      await this.loadProfile(this.Student.user.id);
+      console.log(this.Student);
+    } catch (error) {
+      this.isInGroup = false;
+      await this.loadProfile(this.Student.user.id);
+      console.error('Error:', error);
+    }
+  }
+
+
   closeError() {
+    console.log(this.customErrorMessage);
     this.customErrorMessage = undefined;
   }
 }

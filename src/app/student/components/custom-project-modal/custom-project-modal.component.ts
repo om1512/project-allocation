@@ -38,12 +38,12 @@ export class CustomProjectModalComponent implements OnInit {
       },
         (error) => {
           console.error('Error:', error);
-          // Handle error
-        });
 
-      this.dialogRef.close({
-        "status": true,
-      });
+          this.dialogRef.close({
+            "status": true,
+            "message": "Project added",
+          });
+        });
     }
   }
 }

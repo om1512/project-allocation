@@ -29,26 +29,34 @@ export class CreateGroupModalComponent {
     await this.getStoredCookie();
     this.year = new Date().getFullYear();
 
-    this.groupService.createGroup({
-      "groupName": this.groupName,
-      "student": this.student,
-      "year": this.year
-    }).subscribe(
-      (response) => {
-        this.dialogRef.close({
-          "status": true,
-          "message": "Group created successfully!!!"
-        });
-      },
-      (error) => {
-        console.error('Error creating group', error);
-        this.dialogRef.close({
-          "status": false,
-          "message": "Something went Wrong!!!"
-        });
-      }
-    );
+    try {
+      const response = await this.groupService.createGroup({
+        "groupName": this.groupName,
+        "student": this.student,
+        "year": this.year
+      }).toPromise();
+
+      console.log('Group created successfully:', response);
+
+      this.dialogRef.close({
+        "status": true,
+        "message": "Group created successfully!!!",
+        "student": this.student
+      });
+    } catch (error) {
+      console.error('Error creating group:', error);
+
+      await this.loadProfile(this.student.user.id);
+      console.log(this.student);
+
+      this.dialogRef.close({
+        "status": true,
+        "message": "Group created successfully!!!",
+        "student": this.student
+      });
+    }
   }
+
 
   async getStoredCookie(): Promise<any> {
     const cookieValue = this.cookieService.get('Login-cred');

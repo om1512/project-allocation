@@ -23,7 +23,7 @@
     </svg>
   </div>
   <div class="success__title">{{ customErrorMessage }}</div>
-  <div class="success__close"><svg height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+  <div class="success__close" ><svg height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
       <path
         d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z"
         fill="#393a37"></path>
@@ -34,7 +34,7 @@
     [width]="'400px'"></app-lottie-animation>
   <h1>Join or Create a group</h1>
   <div class="create-button" *ngIf="!isInGroup" (click)="openModal()">
-    <h3>+ Create</h3>
+    <span>+ Create</span>
   </div>
 </div>
 
@@ -45,7 +45,7 @@
         <button class="new-button" (click)="openCustomProjectModal()">+ New Project</button>
       </div>
       <div>
-        <button mat-flat-button color="warn">Leave</button>
+        <button mat-flat-button color="warn" (click)="leaveGroup()">Leave</button>
         <button mat-flat-button color="primary">Save</button>
       </div>
     </div>
@@ -63,7 +63,7 @@
             <h3>Members</h3>
             <div id="members">
               <app-member-card *ngFor="let member of members" [name]="member.name"
-                [specialization]="member.resultList[member.resultList.length - 1].cpi"></app-member-card>
+                [specialization]="member.resultList.length === 0 ? '-' : member.resultList[member.resultList.length - 1].cpi || '-'"></app-member-card>
             </div>
           </div>
         </div>
@@ -99,7 +99,7 @@
         </div>
       </div>
       <div class="right">
-        <app-add-member-card *ngFor="let student of students" [name]="student.name" [id]="student.resultList[student.resultList.length - 1].cpi"></app-add-member-card>
+        <app-add-member-card *ngFor="let student of students" [name]="student.name" [id]="student.resultList.length === 0 ? '-' : student.resultList[student.resultList.length - 1].cpi || '-'"></app-add-member-card>
       </div>
     </div>
     <div class="lower">

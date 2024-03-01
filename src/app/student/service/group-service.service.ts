@@ -12,20 +12,19 @@ export class GroupServiceService {
   createGroup(data: any): Observable<any> {
     console.log(data);
     const url = 'http://localhost:8080/api/group/createGroup/' + data.student.id;
-    return this.http.post(url, data).pipe(
-      map((response: any) => {
-        console.log('POST request successful', response);
-        return true;
-      }),
-      catchError((error) => {
-        console.error('Error in POST request', error);
-        return of(false);
-      })
-    );
+    return this.http.post(url, {
+      groupName: data.groupName,
+      year: data.year
+    });
   }
 
   getGroup(gid: string): Observable<any> {
     const url = 'http://localhost:8080/api/group/' + gid;
     return this.http.get<any>(url);
+  }
+
+  leaveGroup(data: any): Observable<any> {
+    const url = 'http://localhost:8080/api/group/leaveGroup/' + data.student_id + '/' + data.group_id;
+    return this.http.post<any>(url, {});
   }
 }

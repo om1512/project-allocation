@@ -64,11 +64,12 @@ export class DashboardComponent implements OnInit {
     this.profileService.getProfile(uid).subscribe(
       (data) => {
         this.Student = data;
-
-        if (data.group.id != null || data.group.id != undefined, data.group.id != '') {
-          this.isInGroup = true;
-        }
+        this.isInGroup = data.group.id != null || data.group.id != undefined;
+        this.homeActive = true;
+        this.groupActive = false;
+        this.projectActive = false;
       }
     );
   }
+
 }
