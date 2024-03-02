@@ -1,0 +1,124 @@
+<div class="container">
+  <div class="choice">
+    <div
+      class="item-1"
+      [ngClass]="{ 'item-1-active': type === 1 }"
+      (click)="mainTypeClick(1)"
+    >
+      Authentication Credentials
+    </div>
+    <div
+      class="item-2"
+      [ngClass]="{ 'item-2-active': type === 2 }"
+      (click)="mainTypeClick(2)"
+    >
+      Other Message
+    </div>
+  </div>
+  <div class="tabs">
+    <div
+      class="tab"
+      [ngClass]="{
+        active: selectedTab === 'tab1'
+      }"
+      (click)="selectTab('tab1')"
+    >
+      <div class="tab-c">
+        <div class="tab-title">Student</div>
+        <div [ngClass]="{ line: selectedTab === 'tab1' }"></div>
+      </div>
+    </div>
+
+    <div
+      class="tab"
+      [ngClass]="{
+        active: selectedTab === 'tab2'
+      }"
+      (click)="selectTab('tab2')"
+      style="margin-left: 10px"
+    >
+      <div class="tab-c">
+        <div class="tab-title">Faculty</div>
+        <div [ngClass]="{ line: selectedTab === 'tab2' }"></div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-content" *ngIf="selectedTab === 'tab1'">
+    <div class="title">
+      Student
+      <div class="end">
+        <button>
+          <div class="svg-wrapper-1">
+            <div class="svg-wrapper">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="14"
+                height="14"
+              >
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path
+                  fill="currentColor"
+                  d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <span>Send</span>
+        </button>
+        <div class="content">
+          <label class="checkBox">
+            <input id="ch1" type="checkbox" />
+            <div class="transition"></div>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="user-tab" *ngFor="let s of allStudents; let i = index">
+      <p>{{ i + 1 }}. {{ s.name }} ( {{ s.user.email }} )</p>
+      <div class="content">
+        <label class="checkBox" style="border: 3px solid #fff">
+          <input
+            id="ch{{ i }}"
+            type="checkbox"
+            [(ngModel)]="selectedStudents[i]"
+            (change)="toggleSelection(i)"
+          />
+          <div class="transition" style="background-color: white"></div>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="tab-content" *ngIf="selectedTab === 'tab2'">
+    <div class="title">
+      Faculty
+      <div class="end">
+        <button>
+          <div class="svg-wrapper-1">
+            <div class="svg-wrapper">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="14"
+                height="14"
+              >
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path
+                  fill="currentColor"
+                  d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <span>Send</span>
+        </button>
+        <div class="content">
+          <label class="checkBox1">
+            <input id="ch1" type="checkbox1" />
+            <div class="transition1"></div>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

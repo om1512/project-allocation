@@ -7,7 +7,7 @@
       (click)="pathClick()"
     ></app-admin-nav-header>
     <div class="content">
-      <app-admin-dasboard-tab
+      <!-- <app-admin-dasboard-tab
         *ngIf="dashboard"
         (pathChange)="receiveDataFromDashboard($event)"
       ></app-admin-dasboard-tab>
@@ -17,7 +17,9 @@
         class="div"
         [student]="student"
       ></app-admin-student-view>
-      <app-manage-faculty *ngIf="addFaculties"></app-manage-faculty>
+      <app-manage-faculty *ngIf="addFaculties"></app-manage-faculty> -->
+      <!-- <app-phase-control *ngIf="phaseControl"></app-phase-control> -->
+      <app-communication *ngIf="communication"></app-communication>
     </div>
   </div>
 </div>

@@ -14,6 +14,8 @@ export class AdminNavComponent {
     dashboardActive: boolean;
     homeActive: boolean;
     addFaculties: boolean;
+    phaseControl: boolean;
+    communication: boolean;
   }>();
 
   @Output() dataEvent = new EventEmitter<any>();
@@ -21,6 +23,8 @@ export class AdminNavComponent {
   homeActive = false;
   dashboardActive = true;
   addFaculties = false;
+  phaseControl = false;
+  communication = false;
   items = [
     {
       label: 'Dashboard',
@@ -36,6 +40,16 @@ export class AdminNavComponent {
       label: 'Manage Faculty',
       icon: 'donut_small',
       active: this.addFaculties,
+    },
+    {
+      label: 'Phase Control',
+      icon: 'view_carousel',
+      active: this.phaseControl,
+    },
+    {
+      label: 'Communication',
+      icon: 'settings_input_antenna',
+      active: this.communication,
     },
   ];
 
@@ -60,6 +74,9 @@ export class AdminNavComponent {
       this.dashboardActive = true;
       this.homeActive = false;
       this.addFaculties = false;
+      this.phaseControl = false;
+      this.communication = false;
+
       this.items = [
         {
           label: 'Dashboard',
@@ -75,6 +92,16 @@ export class AdminNavComponent {
           label: 'Manage Faculty',
           icon: 'donut_small',
           active: this.addFaculties,
+        },
+        {
+          label: 'Phase Control',
+          icon: 'view_carousel',
+          active: this.phaseControl,
+        },
+        {
+          label: 'Communication',
+          icon: 'settings_input_antenna',
+          active: this.communication,
         },
       ];
 
@@ -85,6 +112,9 @@ export class AdminNavComponent {
       this.homeActive = true;
       this.dashboardActive = false;
       this.addFaculties = false;
+      this.phaseControl = false;
+      this.communication = false;
+
       this.items = [
         {
           label: 'Dashboard',
@@ -100,6 +130,16 @@ export class AdminNavComponent {
           label: 'Manage Faculty',
           icon: 'donut_small',
           active: this.addFaculties,
+        },
+        {
+          label: 'Phase Control',
+          icon: 'view_carousel',
+          active: this.phaseControl,
+        },
+        {
+          label: 'Communication',
+          icon: 'settings_input_antenna',
+          active: this.communication,
         },
       ];
 
@@ -110,6 +150,9 @@ export class AdminNavComponent {
       this.homeActive = false;
       this.dashboardActive = false;
       this.addFaculties = true;
+      this.phaseControl = false;
+      this.communication = false;
+
       this.items = [
         {
           label: 'Dashboard',
@@ -125,6 +168,91 @@ export class AdminNavComponent {
           label: 'Manage Faculty',
           icon: 'donut_small',
           active: this.addFaculties,
+        },
+        {
+          label: 'Phase Control',
+          icon: 'view_carousel',
+          active: this.phaseControl,
+        },
+        {
+          label: 'Communication',
+          icon: 'settings_input_antenna',
+          active: this.communication,
+        },
+      ];
+
+      const path = 'Admin / Dashboard /';
+      const tab = 'Manage Faculty';
+      this.dataEvent.emit({ path, tab });
+    } else if (index == 3) {
+      this.homeActive = false;
+      this.dashboardActive = false;
+      this.addFaculties = false;
+      this.phaseControl = true;
+      this.communication = false;
+
+      this.items = [
+        {
+          label: 'Dashboard',
+          icon: 'dashboard',
+          active: this.dashboardActive,
+        },
+        {
+          label: 'Add Users',
+          icon: 'supervisor_account',
+          active: this.homeActive,
+        },
+        {
+          label: 'Manage Faculty',
+          icon: 'donut_small',
+          active: this.addFaculties,
+        },
+        {
+          label: 'Phase Control',
+          icon: 'view_carousel',
+          active: this.phaseControl,
+        },
+        {
+          label: 'Communication',
+          icon: 'settings_input_antenna',
+          active: this.communication,
+        },
+      ];
+
+      const path = 'Admin / Dashboard /';
+      const tab = 'Manage Faculty';
+      this.dataEvent.emit({ path, tab });
+    } else if (index == 4) {
+      this.homeActive = false;
+      this.dashboardActive = false;
+      this.addFaculties = false;
+      this.phaseControl = false;
+      this.communication = true;
+      this.items = [
+        {
+          label: 'Dashboard',
+          icon: 'dashboard',
+          active: this.dashboardActive,
+        },
+        {
+          label: 'Add Users',
+          icon: 'supervisor_account',
+          active: this.homeActive,
+        },
+        {
+          label: 'Manage Faculty',
+          icon: 'donut_small',
+          active: this.addFaculties,
+        },
+        {
+          label: 'Phase Control',
+          icon: 'view_carousel',
+          active: this.phaseControl,
+        },
+        {
+          label: 'Communication',
+          icon: 'settings_input_antenna',
+          active: this.communication,
         },
       ];
 
@@ -136,7 +264,9 @@ export class AdminNavComponent {
     this.stateService.updateState(
       this.dashboardActive,
       this.homeActive,
-      this.addFaculties
+      this.addFaculties,
+      this.phaseControl,
+      this.communication
     );
   }
 
@@ -145,6 +275,8 @@ export class AdminNavComponent {
       dashboardActive: this.dashboardActive,
       homeActive: this.homeActive,
       addFaculties: this.addFaculties,
+      phaseControl: this.phaseControl,
+      communication: this.communication,
     });
   }
 

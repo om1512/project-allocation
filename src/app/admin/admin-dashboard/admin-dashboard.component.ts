@@ -11,6 +11,8 @@ export class AdminDashboardComponent implements OnInit {
   dashboard: boolean;
   addStudent: boolean;
   addFaculties: boolean;
+  phaseControl: boolean;
+  communication: boolean;
   studentView: boolean;
   isSidebarCollapsed: boolean;
   path: string = 'Admin /';
@@ -38,6 +40,16 @@ export class AdminDashboardComponent implements OnInit {
 
     this.adminService._addFaculties.subscribe((addFaculties) => {
       this.addFaculties = addFaculties;
+      this.studentView = false;
+    });
+
+    this.adminService._phaseControl.subscribe((phaseControl) => {
+      this.phaseControl = phaseControl;
+      this.studentView = false;
+    });
+
+    this.adminService._communication.subscribe((communication) => {
+      this.communication = communication;
       this.studentView = false;
     });
   }

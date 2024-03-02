@@ -33,6 +33,8 @@ import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 import { LoginServiceService } from './authentication/service/login-service.service';
 import { AuthGuard } from './authentication/service/auth.guard';
 import { AuthInterceptor } from './authentication/service/auth.interceptor';
+import { PhaseControlComponent } from './admin/tabs/phase-control/phase-control.component';
+import { CommunicationComponent } from './admin/tabs/communication/communication.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import { AuthInterceptor } from './authentication/service/auth.interceptor';
     ManageFacultyComponent,
     AdminFacultyCardComponent,
     FacultyPopupComponent,
+    PhaseControlComponent,
+    CommunicationComponent,
   ],
   imports: [
     BrowserModule,
