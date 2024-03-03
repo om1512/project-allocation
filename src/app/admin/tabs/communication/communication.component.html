@@ -43,11 +43,26 @@
       </div>
     </div>
   </div>
+
   <div class="tab-content" *ngIf="selectedTab === 'tab1'">
+    <div class="text-editor" *ngIf="type == 2">
+      <input
+        type="text"
+        placeholder="Subject"
+        class="subjectField"
+        style="border: 1px solid white"
+        [(ngModel)]="subject"
+      />
+      <editor
+        apiKey="pf4vafvnrtbluyg8m14mrvksmslue42xhpas6lhrrtsc8qr6"
+        [init]="{ plugins: 'lists link image table code help wordcount' }"
+        [(ngModel)]="editorContent"
+      ></editor>
+    </div>
     <div class="title">
       Student
       <div class="end">
-        <button>
+        <button (click)="studentSendClick()">
           <div class="svg-wrapper-1">
             <div class="svg-wrapper">
               <svg
@@ -66,34 +81,47 @@
           </div>
           <span>Send</span>
         </button>
-        <div class="content">
-          <label class="checkBox">
-            <input id="ch1" type="checkbox" />
-            <div class="transition"></div>
-          </label>
-        </div>
+        <div
+          [ngClass]="{
+            allChecked: allChecked,
+            allUnchecked: !allChecked
+          }"
+          (click)="allSelectedStatus(allChecked)"
+        ></div>
       </div>
     </div>
-    <div class="user-tab" *ngFor="let s of allStudents; let i = index">
+    <div
+      class="user-tab"
+      *ngFor="let s of allStudents; let i = index"
+      (click)="userTabClick(i)"
+    >
       <p>{{ i + 1 }}. {{ s.name }} ( {{ s.user.email }} )</p>
-      <div class="content">
-        <label class="checkBox" style="border: 3px solid #fff">
-          <input
-            id="ch{{ i }}"
-            type="checkbox"
-            [(ngModel)]="selectedStudents[i]"
-            (change)="toggleSelection(i)"
-          />
-          <div class="transition" style="background-color: white"></div>
-        </label>
-      </div>
+      <div
+        [ngClass]="{
+          checked: studentSelectionStatus[i],
+          unchecked: !studentSelectionStatus[i]
+        }"
+      ></div>
     </div>
   </div>
   <div class="tab-content" *ngIf="selectedTab === 'tab2'">
+    <div class="text-editor" *ngIf="type == 2">
+      <input
+        type="text"
+        placeholder="Subject"
+        class="subjectField"
+        style="border: 1px solid white"
+        [(ngModel)]="subject"
+      />
+      <editor
+        apiKey="pf4vafvnrtbluyg8m14mrvksmslue42xhpas6lhrrtsc8qr6"
+        [init]="{ plugins: 'lists link image table code help wordcount' }"
+      ></editor>
+    </div>
     <div class="title">
       Faculty
       <div class="end">
-        <button>
+        <button (click)="facultySendClick()">
           <div class="svg-wrapper-1">
             <div class="svg-wrapper">
               <svg
@@ -112,13 +140,27 @@
           </div>
           <span>Send</span>
         </button>
-        <div class="content">
-          <label class="checkBox1">
-            <input id="ch1" type="checkbox1" />
-            <div class="transition1"></div>
-          </label>
-        </div>
+        <div
+          [ngClass]="{
+            allChecked: allFChecked,
+            allUnchecked: !allFChecked
+          }"
+          (click)="allSelectedFacultiesStatus(allFChecked)"
+        ></div>
       </div>
+    </div>
+    <div
+      class="user-tab"
+      *ngFor="let f of allFaculties; let i = index"
+      (click)="facultyTabClick(i)"
+    >
+      <p>{{ i + 1 }}. {{ f.name }} ( {{ f.user.email }} )</p>
+      <div
+        [ngClass]="{
+          checked: facultySelectionStatus[i],
+          unchecked: !facultySelectionStatus[i]
+        }"
+      ></div>
     </div>
   </div>
 </div>

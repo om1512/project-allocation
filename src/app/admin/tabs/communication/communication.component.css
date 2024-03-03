@@ -225,3 +225,53 @@ button:active {
   justify-content: space-between;
 }
 
+.unchecked{
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border: 1px solid white; 
+}
+.checked{
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border: 2px solid #FFF; 
+  background-color: #F9D88B;
+}
+
+
+.user-tab:hover{
+  background-color: #f9d88b60;
+  cursor: pointer;
+}
+
+.allChecked{
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 2px solid #FFF; 
+  background-color: #1E1D25; 
+  margin-left: 5px;
+  cursor: pointer;
+}
+.allUnchecked{
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 2px solid #1E1D25;  
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.text-editor{
+  margin-block: 5px;
+}
+input{
+  margin-left: 4px;
+  border-color: #F9D88B;
+  width: 40%;
+}
+.subjectField{
+  padding: 10px;
+  font-size: 15px;
+}

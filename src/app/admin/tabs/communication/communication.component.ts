@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../service/admin.service';
+import { TinymceComponent } from 'ngx-tinymce';
+import { EmailService } from '../../../authentication/service/email.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-communication',
@@ -8,21 +11,223 @@ import { AdminService } from '../../service/admin.service';
 })
 export class CommunicationComponent implements OnInit {
   allStudents: any[] = [];
-  selectedStudents: boolean[] = [];
+  allFaculties: any[] = [];
 
-  // allFaculty: any[] = [];
-  constructor(private adminService: AdminService) {
-    this.allStudents.forEach(() => this.selectedStudents.push(false));
-  }
+  studentSelectionStatus: boolean[] = [];
+  facultySelectionStatus: boolean[] = [];
+  selectedStudents: string[] = [];
+  selectedFaculties: string[] = [];
+
+  allChecked: boolean = false;
+  allFChecked: boolean = false;
+
+  editorContent: string = '';
+  subject: string = '';
+
+  constructor(
+    private adminService: AdminService,
+    private emailService: EmailService,
+    private _snackBar: MatSnackBar
+  ) {}
   ngOnInit(): void {
-    this.adminService.getAllStudents().subscribe((data) => {
-      this.allStudents = data;
-    });
-    // this.adminService.getAllFaculties().subscribe((data) => {
-    //   this.allFaculty = data;
-    // });
+    this.loadStudents();
+    this.loadFaculties();
   }
-  type: number;
+
+  async loadStudents(): Promise<void> {
+    this.adminService.getAllStudents().subscribe((data) => {
+      console.log(data);
+      this.allStudents = data;
+      this.allStudents.forEach(() => this.studentSelectionStatus.push(false));
+      console.log('student length : ' + this.allStudents.length);
+      console.log(
+        'student selection status length : ' +
+          this.studentSelectionStatus.length
+      );
+    });
+  }
+
+  studentSendClick() {
+    console.log('clicked');
+    if (this.type == 1) {
+      this.studentSelectionStatus.forEach((data, index) => {
+        if (data == true) {
+          this.selectedStudents.push(this.allStudents[index].user.email);
+          const emailRequest = {
+            to: this.selectedStudents,
+            subject: 'Portal Authentication Credentials',
+            body: `<p><strong>Email : </strong>${this.allStudents[index].user.email}</p>
+            <p><strong>Password : </strong>${this.allStudents[index].user.password}</p>`,
+          };
+          this.emailService.sendEmail(emailRequest).subscribe(
+            (response) => {
+              if (response.success) {
+                this._snackBar.open(
+                  `Email Sent To ${this.allStudents[index].user.email} Successfully`,
+                  'Close',
+                  {
+                    duration: 3000,
+                    verticalPosition: 'top',
+                  }
+                );
+              } else {
+                this._snackBar.open(
+                  'Error Occurred. Please Try Again.',
+                  'Close',
+                  {
+                    duration: 3000,
+                    verticalPosition: 'top',
+                  }
+                );
+              }
+            },
+            (error) => {
+              this._snackBar.open(
+                'Error Occurred. Please Try Again.',
+                'Close',
+                {
+                  duration: 3000,
+                  verticalPosition: 'top',
+                }
+              );
+            }
+          );
+        }
+      });
+    } else {
+      this.studentSelectionStatus.forEach((data, index) => {
+        if (data == true) {
+          this.selectedStudents.push(this.allStudents[index].user.email);
+        }
+      });
+      const emailRequest = {
+        to: this.selectedStudents,
+        subject: this.subject,
+        body: this.editorContent,
+      };
+
+      console.log(this.editorContent);
+      this.emailService.sendEmail(emailRequest).subscribe(
+        (response) => {
+          if (response.success) {
+            this._snackBar.open('Email Sent To All Students.', 'Close', {
+              duration: 3000,
+              verticalPosition: 'top',
+            });
+          } else {
+            this._snackBar.open('Error Occurred. Please Try Again.', 'Close', {
+              duration: 3000,
+              verticalPosition: 'top',
+            });
+          }
+        },
+        (error) => {
+          this._snackBar.open('Error Occurred. Please Try Again.', 'Close', {
+            duration: 3000,
+            verticalPosition: 'top',
+          });
+        }
+      );
+    }
+
+    this.studentSelectionStatus.fill(false);
+    this.selectedStudents = [];
+  }
+
+  facultySendClick() {
+    console.log('clicked');
+    if (this.type == 1) {
+      this.facultySelectionStatus.forEach((data, index) => {
+        if (data == true) {
+          const emailRequest = {
+            to: [this.allFaculties[index].user.email],
+            subject: 'Portal Authentication Credentials',
+            body: `<p><strong>Email : </strong>${this.allFaculties[index].user.email}</p>
+            <p><strong>Password : </strong>${this.allFaculties[index].user.password}</p>`,
+          };
+          this.emailService.sendEmail(emailRequest).subscribe(
+            (response) => {
+              if (response.success) {
+                this._snackBar.open(
+                  `Email Sent To ${this.allStudents[index].user.email} Successfully`,
+                  'Close',
+                  {
+                    duration: 3000,
+                    verticalPosition: 'top',
+                  }
+                );
+              } else {
+                this._snackBar.open(
+                  'Error Occurred. Please Try Again.',
+                  'Close',
+                  {
+                    duration: 3000,
+                    verticalPosition: 'top',
+                  }
+                );
+              }
+            },
+            (error) => {
+              this._snackBar.open(
+                'Error Occurred. Please Try Again.',
+                'Close',
+                {
+                  duration: 3000,
+                  verticalPosition: 'top',
+                }
+              );
+            }
+          );
+        }
+      });
+    } else {
+      this.facultySelectionStatus.forEach((data, index) => {
+        if (data == true) {
+          this.selectedFaculties.push(this.allFaculties[index].user.email);
+        }
+      });
+      const emailRequest = {
+        to: this.selectedFaculties,
+        subject: this.subject,
+        body: this.editorContent,
+      };
+
+      console.log(this.editorContent);
+      this.emailService.sendEmail(emailRequest).subscribe(
+        (response) => {
+          if (response.success) {
+            this._snackBar.open('Email Sent To All Students.', 'Close', {
+              duration: 3000,
+              verticalPosition: 'top',
+            });
+          } else {
+            this._snackBar.open('Error Occurred. Please Try Again.', 'Close', {
+              duration: 3000,
+              verticalPosition: 'top',
+            });
+          }
+        },
+        (error) => {
+          this._snackBar.open('Error Occurred. Please Try Again.', 'Close', {
+            duration: 3000,
+            verticalPosition: 'top',
+          });
+        }
+      );
+    }
+
+    this.facultySelectionStatus.fill(false);
+    this.selectedFaculties = [];
+  }
+
+  async loadFaculties(): Promise<void> {
+    this.adminService.getAllFaculties().subscribe((data) => {
+      this.allFaculties = data;
+      this.allFaculties.forEach(() => this.facultySelectionStatus.push(false));
+    });
+  }
+
+  type: number = 1;
   selectedTab: string = 'tab1';
   mainTypeClick(type: number) {
     this.type = type;
@@ -32,7 +237,21 @@ export class CommunicationComponent implements OnInit {
     this.selectedTab = tab;
   }
 
-  toggleSelection(index: number) {
-    this.selectedStudents[index] = !this.selectedStudents[index];
+  userTabClick(i: number) {
+    this.studentSelectionStatus[i] = !this.studentSelectionStatus[i];
+  }
+
+  facultyTabClick(i: number) {
+    this.facultySelectionStatus[i] = !this.facultySelectionStatus[i];
+  }
+
+  allSelectedStatus(currentStatus: boolean) {
+    this.allChecked = !currentStatus;
+    this.studentSelectionStatus.fill(this.allChecked);
+  }
+
+  allSelectedFacultiesStatus(currentStatus: boolean) {
+    this.allFChecked = !currentStatus;
+    this.facultySelectionStatus.fill(this.allFChecked);
   }
 }

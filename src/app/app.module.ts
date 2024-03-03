@@ -35,6 +35,7 @@ import { AuthGuard } from './authentication/service/auth.guard';
 import { AuthInterceptor } from './authentication/service/auth.interceptor';
 import { PhaseControlComponent } from './admin/tabs/phase-control/phase-control.component';
 import { CommunicationComponent } from './admin/tabs/communication/communication.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { CommunicationComponent } from './admin/tabs/communication/communication
     MatIconModule,
     NgxUiLoaderModule,
     NgxUiLoaderHttpModule.forRoot({ showForeground: true }),
+    EditorModule,
   ],
   providers: [
     LoginServiceService,
