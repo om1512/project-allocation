@@ -4,7 +4,7 @@
     <app-horizontal-nav></app-horizontal-nav>
     <div class="content">
       <app-home *ngIf="homeActive" [profileId]="profileId" [profileEmail]="profileEmail"></app-home>
-      <app-group *ngIf="groupActive" [isInGroup]="isInGroup" [Student]="Student"></app-group>
+      <app-group *ngIf="groupActive" [Student]="Student"></app-group>
       <app-project *ngIf="projectActive"></app-project>
     </div>
   </div>

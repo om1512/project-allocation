@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RequestModalComponent } from '../request-modal/request-modal.component';
+import { GroupServiceService } from '../../student/service/group-service.service';
+import { ProfileService } from '../../student/service/profile.service';
+import { CookieService } from 'ngx-cookie-service';
+
 
 @Component({
   selector: 'app-horizontal-nav',
@@ -9,11 +13,21 @@ import { RequestModalComponent } from '../request-modal/request-modal.component'
 })
 export class HorizontalNavComponent implements OnInit {
   requests: any[];
+  Student: any;
+  customErrorMessage: string;
+  customSuccessMessage: string;
 
-  constructor(private dailog: MatDialog) { }
+  constructor(
+    private dailog: MatDialog,
+    private groupService: GroupServiceService,
+    private profileService: ProfileService,
+    private cookieService: CookieService,
+  ) { }
 
-  ngOnInit(): void {
-    this.requests = ["hl"]
+  async ngOnInit(): Promise<void> {
+    await this.getStoredCookie();
+    console.log(this.Student);
+    this.loadRequests();
   }
 
   openModal(): void {
@@ -23,12 +37,56 @@ export class HorizontalNavComponent implements OnInit {
       position: {
         top: '85px',
         right: '20px'
+      },
+      data: {
+        "requests": this.requests,
+        "student": this.Student
       }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log("dailog closed");
-      console.log(result);
+      setTimeout(() => {
+        this.closeError();
+      }, 4000);
+
+      this.loadRequests();
+
+      if (result.action == true) {
+        this.customSuccessMessage = result.message;
+      } else {
+        this.customErrorMessage = result.message;
+      }
     });
+  }
+
+  async getStoredCookie(): Promise<any> {
+    const cookieValue = this.cookieService.get('Login-cred');
+
+    if (cookieValue) {
+      const parsedCookie = JSON.parse(cookieValue);
+      await this.loadProfile(parsedCookie.id);
+    }
+  }
+
+  async loadProfile(uid: string): Promise<void> {
+    try {
+      const data = await this.profileService.getProfile(uid).toPromise();
+      this.Student = data;
+    } catch (error) {
+      console.error("Error loading profile:", error);
+    }
+  }
+
+  async loadRequests(): Promise<void> {
+    try {
+      const data = await this.groupService.getStudentRequest(this.Student.id).toPromise();
+      this.requests = data.filter(item => item.status === "PENDING");
+    } catch (error) {
+      console.error("Error loading requests:", error);
+    }
+  }
+
+  closeError() {
+    this.customErrorMessage = undefined;
   }
 }

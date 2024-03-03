@@ -3,3 +3,10 @@
   height: 100%;
   background-color: #1e1d25;
 }
+
+h4 {
+  color: #dfb46a;
+  font-family: poppins;
+  display: block;
+  text-align: center;
+}

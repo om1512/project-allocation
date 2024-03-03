@@ -37,18 +37,8 @@ export class GroupComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
-    this.isInGroup = false;
-    this.group_id = this.Student.group.id;
-
-    console.log(this.Student);
     await this.loadProfile(this.Student.user.id);
     await this.loadProject();
-
-    if (this.Student.group != null) {
-      this.isInGroup = true;
-      await this.loadGroup(this.Student.group.id);
-      this.members = this.Group.studentList;
-    }
   }
 
   openModal(): void {
@@ -77,15 +67,18 @@ export class GroupComponent implements OnInit {
   }
 
   async loadProfile(uid: string): Promise<void> {
-    this.profileService.getProfile(uid).subscribe(
-      (data) => {
-        this.Student = data;
+    try {
+      const data = await this.profileService.getProfile(uid).toPromise();
+      this.Student = data;
 
-        if (data.group.id != null || data.group.id != undefined, data.group.id != '') {
-          this.isInGroup = true;
-        }
+      if (this.Student.group != null) {
+        this.isInGroup = true;
+        this.loadGroup(this.Student.group.id);
       }
-    );
+
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async loadGroup(gid: string) {
@@ -168,7 +161,7 @@ export class GroupComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       setTimeout(() => {
         this.closeError();
-      }, 7000);
+      }, 4000);
 
       this.isInGroup = result.status;
       this.customErrorMessage = result.message;

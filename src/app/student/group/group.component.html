@@ -99,7 +99,7 @@
         </div>
       </div>
       <div class="right">
-        <app-add-member-card *ngFor="let student of students" [name]="student.name" [id]="student.resultList.length === 0 ? '-' : student.resultList[student.resultList.length - 1].cpi || '-'"></app-add-member-card>
+        <app-add-member-card *ngFor="let student of students" [name]="student.name" [id]="student.resultList.length === 0 ? '-' : student.resultList[student.resultList.length - 1].cpi || '-'" [Student]="student" [senderId]="Student"></app-add-member-card>
       </div>
     </div>
     <div class="lower">
