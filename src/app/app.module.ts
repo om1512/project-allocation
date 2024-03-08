@@ -36,6 +36,7 @@ import { AuthInterceptor } from './authentication/service/auth.interceptor';
 import { PhaseControlComponent } from './admin/tabs/phase-control/phase-control.component';
 import { CommunicationComponent } from './admin/tabs/communication/communication.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { FacultyModule } from './faculty/faculty.module';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     NgxUiLoaderModule,
     NgxUiLoaderHttpModule.forRoot({ showForeground: true }),
     EditorModule,
+    FacultyModule,
   ],
   providers: [
     LoginServiceService,

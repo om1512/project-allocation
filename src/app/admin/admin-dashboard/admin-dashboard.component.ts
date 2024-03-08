@@ -77,4 +77,10 @@ export class AdminDashboardComponent implements OnInit {
       this.addStudent = false;
     }
   }
+  collapsed = false;
+  screenWidth = 0;
+  onToggleSideNav(data: any): void {
+    this.screenWidth = data.screenWidth;
+    this.collapsed = data.collapsed;
+  } 
 }
