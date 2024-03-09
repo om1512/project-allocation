@@ -33,6 +33,7 @@ export class RequestModalComponent implements OnInit {
   }
 
   handleCloseModal(success: boolean): void {
+
     if (true) {
       var data;
 

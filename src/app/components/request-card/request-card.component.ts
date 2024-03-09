@@ -35,14 +35,8 @@ export class RequestCardComponent implements OnInit {
       this.closeError();
     }, 4000);
 
-    if (this.requestData.student.group != null) {
-      this.emitCloseModal(false);
-      return;
-    }
-
     try {
       const data = await this.groupService.approveRequest(this.requestData).toPromise();
-      this.emitCloseModal(false);
     } catch (error) {
       this.emitCloseModal(true);
       console.log(error);
@@ -56,8 +50,6 @@ export class RequestCardComponent implements OnInit {
 
     try {
       const data = await this.groupService.rejectRequest(this.requestData).toPromise();
-      this.emitCloseModal(false);
-      this.customErrorMessage = "You rejected the request of " + this.group_name;
     } catch (error) {
       this.emitCloseModal(false);
       console.log(error);

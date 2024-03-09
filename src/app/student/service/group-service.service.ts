@@ -38,6 +38,11 @@ export class GroupServiceService {
     return this.http.get<any>(url);
   }
 
+  removeMember(studentId: string, groupId: string) {
+    const url = 'http://localhost:8080/api/group/leaveGroup/' + studentId + '/' + groupId;
+    return this.http.post<any>(url, {});
+  }
+
   getGroupRequest(group_id: string): Observable<any> {
     const url = 'http://localhost:8080/api/request/group/' + group_id;
     return this.http.get<any>(url);

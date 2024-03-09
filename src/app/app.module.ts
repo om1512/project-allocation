@@ -38,6 +38,7 @@ import { GroupTileComponent } from './components/group-tile/group-tile.component
 import { MemberCardComponent } from './components/member-card/member-card.component';
 import { AddMemberCardComponent } from './components/add-member-card/add-member-card.component';
 import { CustomProjectModalComponent } from './student/components/custom-project-modal/custom-project-modal.component';
+import { ConfirmLeaveComponent } from './student/components/confirm-leave/confirm-leave.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   fgsColor: 'transparent',
@@ -73,6 +74,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     MemberCardComponent,
     AddMemberCardComponent,
     CustomProjectModalComponent,
+    ConfirmLeaveComponent,
   ],
   imports: [
     BrowserModule,

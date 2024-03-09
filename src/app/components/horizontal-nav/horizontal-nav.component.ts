@@ -4,6 +4,7 @@ import { RequestModalComponent } from '../request-modal/request-modal.component'
 import { GroupServiceService } from '../../student/service/group-service.service';
 import { ProfileService } from '../../student/service/profile.service';
 import { CookieService } from 'ngx-cookie-service';
+import { GroupComponent } from '../../student/group/group.component';
 
 
 @Component({
@@ -45,16 +46,18 @@ export class HorizontalNavComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      setTimeout(() => {
-        this.closeError();
-      }, 4000);
-
       this.loadRequests();
 
       if (result.action == true) {
         this.customSuccessMessage = result.message;
+        setTimeout(() => {
+          this.closeError();
+        }, 4000);
       } else {
         this.customErrorMessage = result.message;
+        setTimeout(() => {
+          this.closeError();
+        }, 4000);
       }
     });
   }

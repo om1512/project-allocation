@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   margin: 10px;
-  max-width: 130px;
+  max-width: 150px;
 }
 
 .image {
@@ -36,4 +36,22 @@ h4 {
   bottom: 10px;
   color: #7f8497;
   font-family: poppins;
+}
+
+.remove {
+  cursor: pointer;
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: red;
+}
+
+h1 {
+  color: white;
+  position: relative;
+  top: 6.6px;
 }

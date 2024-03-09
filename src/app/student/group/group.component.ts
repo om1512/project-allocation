@@ -5,6 +5,8 @@ import { GroupServiceService } from '../service/group-service.service';
 import { ProfileService } from '../service/profile.service';
 import { ProjectService } from '../service/project.service';
 import { CustomProjectModalComponent } from '../components/custom-project-modal/custom-project-modal.component';
+import { ConfirmLeaveComponent } from '../components/confirm-leave/confirm-leave.component';
+import { group } from '@angular/animations';
 
 @Component({
   selector: 'app-group',
@@ -14,6 +16,7 @@ import { CustomProjectModalComponent } from '../components/custom-project-modal/
 export class GroupComponent implements OnInit {
   @Input() isInGroup: boolean = false;
   @Input() Student: any;
+  isAdmin: boolean = false;
   customErrorMessage: string = undefined;
   success: boolean = false;
   fail: boolean = false;
@@ -27,6 +30,7 @@ export class GroupComponent implements OnInit {
   Group: any;
   members: any[];
   tempProjects: any[];
+  projectChoices: any[];
   dataSource: any[];
 
   constructor(
@@ -38,7 +42,9 @@ export class GroupComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.loadProfile(this.Student.user.id);
+    await this.loadGroup(this.Student.group.id);
     await this.loadProject();
+    await this.loadProjectChoices();
   }
 
   openModal(): void {
@@ -60,7 +66,6 @@ export class GroupComponent implements OnInit {
 
       if (this.isInGroup) {
         await this.loadProject();
-        await this.loadGroup(this.Student.group.id);
         this.members = this.Group.studentList;
       }
     });
@@ -73,7 +78,7 @@ export class GroupComponent implements OnInit {
 
       if (this.Student.group != null) {
         this.isInGroup = true;
-        this.loadGroup(this.Student.group.id);
+        await this.loadGroup(this.Student.group.id);
       }
 
     } catch (error) {
@@ -85,6 +90,10 @@ export class GroupComponent implements OnInit {
     this.groupService.getGroup(gid).subscribe(
       (data) => {
         this.Group = data;
+        console.log(this.Group);
+        console.log(this.Student);
+        this.isAdmin = (this.Group.student.id === this.Student.id);
+        console.log(this.isAdmin + this.Group.student.id + this.Student.id);
         this.members = this.Group.studentList;
         this.loadStudents();
 
@@ -100,6 +109,8 @@ export class GroupComponent implements OnInit {
         if (this.allocated_project == null) {
           this.allocated_project = '-';
         }
+
+        return data;
       }
     );
   }
@@ -170,28 +181,83 @@ export class GroupComponent implements OnInit {
     });
   }
 
-  async leaveGroup(): Promise<void> {
+  async loadProjectChoices(): Promise<void> {
     try {
-      const result = await this.groupService.leaveGroup({
-        student_id: this.Student.id,
-        group_id: this.Group.id,
-      }).toPromise();
-
-      console.log('Success:', result);
-
-      this.isInGroup = false;
-      await this.loadProfile(this.Student.user.id);
-      console.log(this.Student);
+      console.log(this.Student.group.id);
+      await this.projectService.getProjectChoice(this.Student.group.id).subscribe(
+        (data) => {
+          this.projectChoices = data;
+          console.log(data);
+        }
+      );
     } catch (error) {
-      this.isInGroup = false;
-      await this.loadProfile(this.Student.user.id);
-      console.error('Error:', error);
+      console.log(error);
     }
   }
 
+  async addToProjectChoices(project: any): Promise<void> {
+    console.log(this.projectChoices[0]);
+    console.log(project);
+    for (const item of this.projectChoices) {
+      if (item.projects.id === project.id) {
+        console.log(item.id + " " + project.id);
+        this.customErrorMessage = "This project is already in your choices.";
+        setTimeout(() => {
+          this.closeError();
+        }, 4000);
+        return;
+      }
+    }
+    try {
+      await this.projectService.saveProjectChoice(this.Student.group.id, this.Student.id, project.id).toPromise();
+    } catch (error) {
+      await this.loadProjectChoices();
+      console.log("Error while adding project : " + error);
+      this.customErrorMessage = "Project added in your choices";
+      setTimeout(() => {
+        this.closeError();
+      }, 4000);
+    }
+  }
+
+  async removeFromProjectChoices(element: any): Promise<void> {
+    try {
+      await this.projectService.removeProjectChoice(element.projects.id, element.group.id).toPromise();
+    } catch (error) {
+      await this.loadProjectChoices();
+      console.error("Error removing project choice:", error);
+    }
+  }
+
+  async leaveGroup(): Promise<void> {
+    const dialogRef = this.dailog.open(ConfirmLeaveComponent, {
+      width: '400px',
+      height: '180px',
+      disableClose: true,
+      data: {
+        "student": this.Student,
+        "group": this.Group
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      setTimeout(() => {
+        this.closeError();
+      }, 4000);
+
+      this.isInGroup = result
+    });
+  }
+
+  async onMemberRemoved(): Promise<void> {
+    await this.refreshGroupAfterRemoval();
+  }
+
+  async refreshGroupAfterRemoval(): Promise<void> {
+    await this.loadGroup(this.Student.group.id);
+  }
 
   closeError() {
-    console.log(this.customErrorMessage);
     this.customErrorMessage = undefined;
   }
 }
