@@ -6,7 +6,8 @@ import { ProfileService } from '../service/profile.service';
 import { ProjectService } from '../service/project.service';
 import { CustomProjectModalComponent } from '../components/custom-project-modal/custom-project-modal.component';
 import { ConfirmLeaveComponent } from '../components/confirm-leave/confirm-leave.component';
-import { group } from '@angular/animations';
+import { RequestService } from '../service/request.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-group',
@@ -32,12 +33,15 @@ export class GroupComponent implements OnInit {
   tempProjects: any[];
   projectChoices: any[];
   dataSource: any[];
+  acceptRequestSubscription: Subscription;
+
 
   constructor(
     private dailog: MatDialog,
     private groupService: GroupServiceService,
     private profileService: ProfileService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private requestService: RequestService,
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -45,6 +49,16 @@ export class GroupComponent implements OnInit {
     await this.loadGroup(this.Student.group.id);
     await this.loadProject();
     await this.loadProjectChoices();
+
+    this.acceptRequestSubscription = this.requestService.getAcceptRequestObservable()
+      .subscribe(async (requestData: any) => {
+        console.log("Not in group" + this.Group);
+        await this.loadGroup(this.Student.group.id);
+        console.log(this.Group);
+        setTimeout(() => {
+          this.closeError();
+        }, 4000);
+      });
   }
 
   openModal(): void {
@@ -90,10 +104,7 @@ export class GroupComponent implements OnInit {
     this.groupService.getGroup(gid).subscribe(
       (data) => {
         this.Group = data;
-        console.log(this.Group);
-        console.log(this.Student);
         this.isAdmin = (this.Group.student.id === this.Student.id);
-        console.log(this.isAdmin + this.Group.student.id + this.Student.id);
         this.members = this.Group.studentList;
         this.loadStudents();
 

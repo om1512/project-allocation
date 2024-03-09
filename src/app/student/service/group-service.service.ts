@@ -9,6 +9,11 @@ export class GroupServiceService {
 
   constructor(private http: HttpClient) { }
 
+  getAllGroup(): Observable<any> {
+    const url = 'http://localhost:8080/api/group';
+    return this.http.get<any>(url);
+  }
+
   createGroup(data: any): Observable<any> {
     console.log(data);
     const url = 'http://localhost:8080/api/group/createGroup/' + data.student.id;

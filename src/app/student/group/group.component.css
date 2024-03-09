@@ -345,3 +345,35 @@ h3 {
 .error__close path {
   fill: #fff;
 }
+
+.actionsCol {
+  display: flex;
+  flex-direction: row;
+  height: 52px;
+  justify-content: center;
+  align-items: center;
+}
+
+.up {
+  display: flex;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid green;
+  width: 30px;
+  align-items: center;
+  justify-content: center;
+  color: green;
+  margin: 8px;
+}
+
+.down {
+  display: flex;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid red;
+  width: 30px;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  margin: 8px;
+}

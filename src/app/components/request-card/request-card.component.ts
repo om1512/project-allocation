@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { GroupServiceService } from '../../student/service/group-service.service';
+import { RequestService } from '../../student/service/request.service';
 
 @Component({
   selector: 'app-request-card',
@@ -18,6 +19,7 @@ export class RequestCardComponent implements OnInit {
 
   constructor(
     private groupService: GroupServiceService,
+    private requestService: RequestService,
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +40,7 @@ export class RequestCardComponent implements OnInit {
     try {
       const data = await this.groupService.approveRequest(this.requestData).toPromise();
     } catch (error) {
+      this.requestService.acceptRequest(this.requestData);
       this.emitCloseModal(true);
       console.log(error);
     }

@@ -14,11 +14,13 @@ export class NavComponent {
     homeActive: boolean;
     groupActive: boolean;
     projectActive: boolean;
+    groupsActive: boolean;
   }>();
 
   homeActive = true;
   groupActive = false;
   projectActive = false;
+  groupsActive = false;
 
   items = [
     {
@@ -39,6 +41,12 @@ export class NavComponent {
       path: '/Dashboard',
       active: this.projectActive,
     },
+    {
+      label: 'Groups',
+      icon: 'group',
+      path: '/Dashboard',
+      active: this.groupsActive,
+    }
   ];
 
   constructor(
@@ -62,6 +70,7 @@ export class NavComponent {
       this.homeActive = true;
       this.groupActive = false;
       this.projectActive = false;
+      this.groupsActive = false;
 
       this.items = [
         {
@@ -82,11 +91,18 @@ export class NavComponent {
           path: '/Dashboard',
           active: this.projectActive,
         },
+        {
+          label: 'Groups',
+          icon: 'group',
+          path: '/Dashboard',
+          active: this.groupsActive,
+        }
       ];
     } else if (index == 1) {
       this.homeActive = false;
       this.groupActive = true;
       this.projectActive = false;
+      this.groupsActive = false
 
       this.items = [
         {
@@ -107,11 +123,50 @@ export class NavComponent {
           path: '/Dashboard',
           active: this.projectActive,
         },
+        {
+          label: 'Groups',
+          icon: 'group',
+          path: '/Dashboard',
+          active: this.groupsActive,
+        }
+      ];
+    } else if (index == 2) {
+      this.homeActive = false;
+      this.groupActive = false;
+      this.projectActive = true;
+      this.groupsActive = false;
+
+      this.items = [
+        {
+          label: 'Home',
+          icon: 'home',
+          path: '/Dashboard',
+          active: this.homeActive,
+        },
+        {
+          label: 'Group',
+          icon: 'group',
+          path: '/Dashboard',
+          active: this.groupActive,
+        },
+        {
+          label: 'Project',
+          icon: 'assessment',
+          path: '/Dashboard',
+          active: this.projectActive,
+        },
+        {
+          label: 'Groups',
+          icon: 'group',
+          path: '/Dashboard',
+          active: this.groupsActive,
+        }
       ];
     } else {
       this.homeActive = false;
       this.groupActive = false;
-      this.projectActive = true;
+      this.projectActive = false;
+      this.groupsActive = true;
 
       this.items = [
         {
@@ -132,13 +187,20 @@ export class NavComponent {
           path: '/Dashboard',
           active: this.projectActive,
         },
+        {
+          label: 'Groups',
+          icon: 'group',
+          path: '/Dashboard',
+          active: this.groupsActive,
+        }
       ];
     }
 
     this.stateService.updateState(
       this.homeActive,
       this.groupActive,
-      this.projectActive
+      this.projectActive,
+      this.groupsActive
     );
   }
 
@@ -147,6 +209,7 @@ export class NavComponent {
       homeActive: this.homeActive,
       groupActive: this.groupActive,
       projectActive: this.projectActive,
+      groupsActive: this.groupsActive
     });
   }
 

@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   margin: 10px;
-  max-width: 150px;
+  max-width: 200px;
 }
 
 .image {
@@ -29,6 +29,7 @@ h3 {
   font-weight: 600;
   color: #7f8497;
   font-family: poppins;
+  font-size: 15px;
 }
 
 h4 {
@@ -36,6 +37,7 @@ h4 {
   bottom: 10px;
   color: #7f8497;
   font-family: poppins;
+  font: 15px;
 }
 
 .remove {

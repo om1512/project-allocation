@@ -39,6 +39,8 @@ import { MemberCardComponent } from './components/member-card/member-card.compon
 import { AddMemberCardComponent } from './components/add-member-card/add-member-card.component';
 import { CustomProjectModalComponent } from './student/components/custom-project-modal/custom-project-modal.component';
 import { ConfirmLeaveComponent } from './student/components/confirm-leave/confirm-leave.component';
+import { GroupsComponent } from './student/components/groups/groups.component';
+import { GroupCardComponent } from './student/components/group-card/group-card.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   fgsColor: 'transparent',
@@ -75,6 +77,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     AddMemberCardComponent,
     CustomProjectModalComponent,
     ConfirmLeaveComponent,
+    GroupsComponent,
+    GroupCardComponent,
   ],
   imports: [
     BrowserModule,

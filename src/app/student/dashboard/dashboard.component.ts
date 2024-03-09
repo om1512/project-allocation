@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
   homeActive: boolean;
   groupActive: boolean;
   projectActive: boolean;
+  groupsActive: boolean;
   isSidebarCollapsed: boolean;
   profileId: string;
   profileEmail: string;
@@ -44,6 +45,10 @@ export class DashboardComponent implements OnInit {
 
     this.stateService._projectActive.subscribe((projectActive) => {
       this.projectActive = projectActive;
+    });
+
+    this.stateService._groupsActive.subscribe((groupsActive) => {
+      this.groupsActive = groupsActive;
     });
 
     this.getStoredCookie();
