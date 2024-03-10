@@ -45,42 +45,29 @@
     </div>
   </div>
   <div class="group-tab-container">
-    <div class="tab">
+    <div class="tab" *ngFor="let g of facultyData.groupList">
       <div class="tab-header">
         <div class="group-title">
-          Phoenix Codes
-          <div class="year">2024</div>
-          <div class="year">Rank 2</div>
+          {{ g.groupName }}
+          <div class="year">{{ g.year }}</div>
+          <div class="year">Rank {{ g.rank }}</div>
+          <div class="group-member">
+            <div class="member-tab" *ngFor="let m of g.studentList">
+              <mat-icon *ngIf="m.name === g.student.name">flash_on</mat-icon>
+              {{ m.name }}
+            </div>
+          </div>
         </div>
         <button class="group-view-btn">view</button>
       </div>
       <div class="project-content">
         <div class="project-label">Project</div>
-        <div class="project-name">Online Admission Portal</div>
-      </div>
-      <div class="group-member">
-        <div class="member-tab">Member 1</div>
-        <div class="member-tab">Member 2</div>
-        <div class="member-tab">Member 3</div>
-      </div>
-    </div>
-    <div class="tab">
-      <div class="tab-header">
-        <div class="group-title">
-          Phoenix Codes
-          <div class="year">2024</div>
-          <div class="year">Rank 2</div>
+        <div class="project-info">
+          <div class="project-name">{{ g.project.name }}</div>
+          <div class="project-desc">
+            {{ g.project.description }}
+          </div>
         </div>
-        <button class="group-view-btn">view</button>
-      </div>
-      <div class="project-content">
-        <div class="project-label">Project</div>
-        <div class="project-name">Online Admission Portal</div>
-      </div>
-      <div class="group-member">
-        <div class="member-tab">Member 1</div>
-        <div class="member-tab">Member 2</div>
-        <div class="member-tab">Member 3</div>
       </div>
     </div>
   </div>

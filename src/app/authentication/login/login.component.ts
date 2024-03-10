@@ -8,6 +8,7 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginServiceService } from '../service/login-service.service';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -25,8 +26,11 @@ export class LoginComponent implements OnInit {
   customErrorMessage: string = '';
   loading: boolean = false;
   animation: any;
-
-  constructor(private loginService: LoginServiceService) {}
+  public facultyId: string = '';
+  constructor(
+    private loginService: LoginServiceService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -44,14 +48,17 @@ export class LoginComponent implements OnInit {
         .generateToken({ email: email, password: password })
         .subscribe(
           (response: any) => {
+            console.log('Response ' + response);
             console.log('TOKEN ' + response.jwtToken);
             console.log('ROLE ' + response.role);
             if (response.role === 'student') {
             } else if (response.role === 'faculty') {
+              this.facultyId = response.userName;
+              this.router.navigate(['/faculty/home']);
             } else if (response.role === 'admin') {
               window.location.href = '/admin/dashboard';
             }
-            this.loginService.login(response.jwtToken, response.role);
+            this.loginService.login(response.jwtToken, response.role, email);
           },
           (error) => {
             console.log('ERROR');

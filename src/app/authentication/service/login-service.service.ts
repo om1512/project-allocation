@@ -19,7 +19,8 @@ export class LoginServiceService {
     return this.http.post(`${this.url}/auth/login`, credentials);
   }
 
-  login(token: string, role: string) {
+  login(token: string, role: string, email: string) {
+    localStorage.setItem('email', email);
     localStorage.setItem('token', token);
     localStorage.setItem('role', role);
   }
@@ -40,6 +41,7 @@ export class LoginServiceService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    localStorage.removeItem('email');
     return true;
   }
 }

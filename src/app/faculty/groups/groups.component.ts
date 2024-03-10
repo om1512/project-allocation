@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FacultyService } from '../faculty.service';
 
 @Component({
   selector: 'app-groups',
@@ -6,10 +7,18 @@ import { Component } from '@angular/core';
   styleUrl: './groups.component.css',
 })
 export class GroupsComponent {
-  dropdownOptions = [
-    { value: 'option1', viewValue: 'Option 1' },
-    { value: 'option2', viewValue: 'Option 2' },
-    { value: 'option3', viewValue: 'Option 3' },
-  ];
+  facultyData: any = {};
+  constructor(private facultyService: FacultyService) {
+    this.getDataFromAPI();
+  }
   selectedOption: string;
+
+  getDataFromAPI() {
+    this.facultyService
+      .getData(localStorage.getItem('email'))
+      .subscribe((data) => {
+        this.facultyData = data;
+        console.log(this.facultyData);
+      });
+  }
 }

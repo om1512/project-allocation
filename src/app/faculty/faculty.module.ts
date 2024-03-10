@@ -14,9 +14,17 @@ import { GroupsComponent } from './groups/groups.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { GroupViewComponent } from './group-view/group-view.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
-  declarations: [FacultyComponent, HomeComponent, GroupsComponent],
+  declarations: [
+    FacultyComponent,
+    HomeComponent,
+    GroupsComponent,
+    GroupViewComponent,
+  ],
   imports: [
     BrowserModule,
     FacultyRoutingModule,
@@ -30,6 +38,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   bootstrap: [FacultyComponent],
 })

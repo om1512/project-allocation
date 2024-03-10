@@ -155,11 +155,12 @@ p{
   flex-direction: row;
   background-color: #6454cb0e;
   border: 1px solid #6354CB;
-  height: 60px;
+  height: max-content;
   margin-inline: 20px;
   margin-top: 10px;
   border-radius: 15px;
   align-items: center;
+  padding-block: 10px;
 }
 
 .project-label{
@@ -178,9 +179,9 @@ p{
 
 .project-name{
   font-family: poppins;
-  font-size: medium;
+  font-size: large;
   color: white;
-  margin-left: 10px;
+  font-weight: 500;
 }
 
 .year{
@@ -216,4 +217,21 @@ p{
   font-size: small;
   padding: 10px;
   margin-left: 10px;
+  color: white;
+  font-weight: 100;
+}
+
+.project-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  padding-left: 10px;
+}
+
+.project-desc{
+  font-family: poppins;
+  font-weight: 100;
+  color: white;
+  font-size: 10px;
 }

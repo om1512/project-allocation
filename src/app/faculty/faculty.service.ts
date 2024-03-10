@@ -59,8 +59,8 @@ export class FacultyService {
       );
   }
 
-  mapDomainWithFaculty(facId: number, domainId: number) {
-    const url = `${this.url}/api/domain/map/${facId}/${domainId}`;
+  mapDomainWithFaculty(facEmail: string, domainId: number) {
+    const url = `${this.url}/api/domain/map/${facEmail}/${domainId}`;
     return this.http
       .post(url, {}, { observe: 'response', responseType: 'text' })
       .pipe(
@@ -82,5 +82,37 @@ export class FacultyService {
 
   getAllDomains() {
     return this.http.get<any>(`${this.url}/api/domain`);
+  }
+
+  getAllGroups() {
+    return this.http.get<any>(`${this.url}/api/group`);
+  }
+
+  saveTask(
+    task: any,
+    groupId: number
+  ): Observable<{ success: boolean; data?: any; error?: any }> {
+    const url = `${this.url}/api/task/${groupId}`;
+    return this.http
+      .post(url, task, { observe: 'response', responseType: 'text' })
+      .pipe(
+        map((response: HttpResponse<any>) => {
+          if (response.status === 200) {
+            console.log('POST request successful', response);
+            return { success: true, data: response.body };
+          } else {
+            console.error('Error in POST request', response);
+            return { success: false, error: response.body };
+          }
+        }),
+        catchError((error) => {
+          console.error('Error in POST request', error);
+          return of({ success: false, error });
+        })
+      );
+  }
+
+  getTask(groupId: number) {
+    return this.http.get<any>(`${this.url}/api/task/${groupId}`);
   }
 }

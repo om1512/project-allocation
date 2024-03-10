@@ -1,26 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FacultyService } from '../faculty.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
+import { faC } from '@fortawesome/free-solid-svg-icons';
+import { LoginServiceService } from '../../authentication/service/login-service.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   edit: boolean = false;
   otherInterest: string = '';
   allDomains: any[] = [];
-  faculty: any = {
-    name: '',
-  };
+  faculty: any = {};
+  facId: any = '';
   constructor(
     private facultyService: FacultyService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private route: ActivatedRoute,
+    private loginService: LoginServiceService
   ) {
     this.getDataFromAPI();
     this.getDomainFromAPI();
   }
+
+  ngOnInit() {}
 
   click() {
     if (this.edit === true) {
@@ -50,16 +56,16 @@ export class HomeComponent {
   }
 
   getDataFromAPI() {
-    this.facultyService.getData('ADEE@gmail.com').subscribe((data) => {
-      this.faculty = data;
-      this.allDomains = this.allDomains.filter(
-        (item1) =>
-          !this.faculty.domainSet.some((item2) => item1.id === item2.id)
-      );
-      this.allDomains.filter((data) => {
-
+    this.facultyService
+      .getData(localStorage.getItem('email'))
+      .subscribe((data) => {
+        this.faculty = data;
+        this.allDomains = this.allDomains.filter(
+          (item1) =>
+            !this.faculty.domainSet.some((item2) => item1.id === item2.id)
+        );
+        this.allDomains.filter((data) => {});
       });
-    });
   }
 
   getDomainFromAPI() {
@@ -103,28 +109,30 @@ export class HomeComponent {
   mapClicked(domainId: number) {
     console.log('domainId : ' + domainId + ' facId : ' + 1);
 
-    this.facultyService.mapDomainWithFaculty(1, domainId).subscribe(
-      (response) => {
-        if (response.success) {
-          this._snackBar.open('Domain Mapped Successfully.', 'Close', {
-            duration: 3000,
-            verticalPosition: 'top',
-          });
-          // this.getDomainFromAPI();
-          this.getDataFromAPI();
-        } else {
+    this.facultyService
+      .mapDomainWithFaculty(localStorage.getItem('email'), domainId)
+      .subscribe(
+        (response) => {
+          if (response.success) {
+            this._snackBar.open('Domain Mapped Successfully.', 'Close', {
+              duration: 3000,
+              verticalPosition: 'top',
+            });
+            // this.getDomainFromAPI();
+            this.getDataFromAPI();
+          } else {
+            this._snackBar.open('Error Occurred. Please Try Again.', 'Close', {
+              duration: 3000,
+              verticalPosition: 'top',
+            });
+          }
+        },
+        (error) => {
           this._snackBar.open('Error Occurred. Please Try Again.', 'Close', {
             duration: 3000,
             verticalPosition: 'top',
           });
         }
-      },
-      (error) => {
-        this._snackBar.open('Error Occurred. Please Try Again.', 'Close', {
-          duration: 3000,
-          verticalPosition: 'top',
-        });
-      }
-    );
+      );
   }
 }
