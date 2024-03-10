@@ -1,32 +1,32 @@
-import { Component, Inject, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { GroupServiceService } from '../../student/service/group-service.service';
+import { Component, Inject, Input } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { GroupServiceService } from '../../service/group-service.service';
 
 @Component({
-  selector: 'app-request-modal',
-  templateUrl: './request-modal.component.html',
-  styleUrl: './request-modal.component.css'
+  selector: 'app-group-modal',
+  templateUrl: './group-modal.component.html',
+  styleUrl: './group-modal.component.css'
 })
-
-export class RequestModalComponent implements OnInit {
+export class GroupModalComponent {
+  @Input() group: any;
   request: any[];
-  Student: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private groupService: GroupServiceService,
-    private dialogRef: MatDialogRef<RequestModalComponent>
+    private dialogRef: MatDialogRef<GroupModalComponent>
   ) { }
 
   async ngOnInit(): Promise<void> {
-    this.Student = this.data.student;
     await this.loadRequests();
   }
 
   async loadRequests(): Promise<void> {
     try {
-      const data = await this.groupService.getStudentRequest(this.Student.id).toPromise();
+      console.log(this.data)
+      const data = await this.groupService.getGroupRequest(this.data.id).toPromise();
       this.request = data.filter(item => item.status === "PENDING" && !item.studentRequested);
+      console.log(this.request);
     } catch (error) {
       console.error("Error loading requests:", error);
     }

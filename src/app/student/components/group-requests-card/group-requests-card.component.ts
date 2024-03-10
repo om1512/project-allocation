@@ -1,14 +1,13 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { GroupServiceService } from '../../student/service/group-service.service';
-import { RequestService } from '../../student/service/request.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { GroupServiceService } from '../../service/group-service.service';
+import { RequestService } from '../../service/request.service';
 
 @Component({
-  selector: 'app-request-card',
-  templateUrl: './request-card.component.html',
-  styleUrl: './request-card.component.css'
+  selector: 'app-group-requests-card',
+  templateUrl: './group-requests-card.component.html',
+  styleUrl: './group-requests-card.component.css'
 })
-
-export class RequestCardComponent implements OnInit {
+export class GroupRequestsCardComponent {
   @Input() requestData: any;
   @Output() closeModal = new EventEmitter<boolean>();
   id: string = '';

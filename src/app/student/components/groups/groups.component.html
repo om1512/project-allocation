@@ -3,16 +3,16 @@
     <mat-icon>filter_list</mat-icon>
   </div>
   <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Search for a group..."/>
+    <input type="text" id="searchInput" placeholder="Search for a group..." [(ngModel)]="searchText" (input)="onSearch()"/>
     <span class="search-icon">
       <mat-icon>search</mat-icon>
     </span>
   </div>
 </div>
 <div class="main-container">
-  <ng-container *ngFor="let group of groups; let i = index">
+  <ng-container *ngFor="let group of filteredGroups; let i = index">
     <div class="col-md-3">
-      <app-group-card [group]="group"></app-group-card>
+      <app-group-card [group]="group" [Student]="Student"></app-group-card>
     </div>
     <div *ngIf="(i + 1) % 4 === 0" class="w-100"></div>
   </ng-container>

@@ -8,6 +8,8 @@ import { CustomProjectModalComponent } from '../components/custom-project-modal/
 import { ConfirmLeaveComponent } from '../components/confirm-leave/confirm-leave.component';
 import { RequestService } from '../service/request.service';
 import { Subscription } from 'rxjs';
+import { FacultyService } from '../service/faculty.service';
+import { GroupModalComponent } from '../components/group-modal/group-modal.component';
 
 @Component({
   selector: 'app-group',
@@ -19,6 +21,7 @@ export class GroupComponent implements OnInit {
   @Input() Student: any;
   isAdmin: boolean = false;
   customErrorMessage: string = undefined;
+  customSuccessMessage: string = undefined;
   success: boolean = false;
   fail: boolean = false;
   displayedColumns: string[] = ['no', 'project_id', 'name', 'actions'];
@@ -32,7 +35,10 @@ export class GroupComponent implements OnInit {
   members: any[];
   tempProjects: any[];
   projectChoices: any[];
+  facultyChoices: any[];
   dataSource: any[];
+  faculties: any[];
+  tempFaculty: any[];
   acceptRequestSubscription: Subscription;
 
 
@@ -42,6 +48,7 @@ export class GroupComponent implements OnInit {
     private profileService: ProfileService,
     private projectService: ProjectService,
     private requestService: RequestService,
+    private facultyService: FacultyService,
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -49,12 +56,12 @@ export class GroupComponent implements OnInit {
     await this.loadGroup(this.Student.group.id);
     await this.loadProject();
     await this.loadProjectChoices();
+    await this.loadFaculties();
+    await this.loadFacultyChoices();
 
     this.acceptRequestSubscription = this.requestService.getAcceptRequestObservable()
       .subscribe(async (requestData: any) => {
-        console.log("Not in group" + this.Group);
         await this.loadGroup(this.Student.group.id);
-        console.log(this.Group);
         setTimeout(() => {
           this.closeError();
         }, 4000);
@@ -195,15 +202,24 @@ export class GroupComponent implements OnInit {
   async loadProjectChoices(): Promise<void> {
     try {
       console.log(this.Student.group.id);
-      await this.projectService.getProjectChoice(this.Student.group.id).subscribe(
-        (data) => {
-          this.projectChoices = data;
-          console.log(data);
-        }
-      );
+      await this.projectService.getProjectChoice(this.Student.group.id).toPromise()
+        .then((data) => {
+          this.projectChoices = data.sort((a, b) => a.priority - b.priority);
+          console.log(this.projectChoices);
+        });
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async loadFaculties(): Promise<void> {
+    await this.facultyService.getAllFaculties().subscribe(
+      (data) => {
+        console.log(data);
+        this.faculties = data;
+        this.tempFaculty = data;
+      }
+    );
   }
 
   async addToProjectChoices(project: any): Promise<void> {
@@ -223,8 +239,7 @@ export class GroupComponent implements OnInit {
       await this.projectService.saveProjectChoice(this.Student.group.id, this.Student.id, project.id).toPromise();
     } catch (error) {
       await this.loadProjectChoices();
-      console.log("Error while adding project : " + error);
-      this.customErrorMessage = "Project added in your choices";
+      this.customSuccessMessage = "Project added in your choices";
       setTimeout(() => {
         this.closeError();
       }, 4000);
@@ -245,10 +260,6 @@ export class GroupComponent implements OnInit {
       width: '400px',
       height: '180px',
       disableClose: true,
-      data: {
-        "student": this.Student,
-        "group": this.Group
-      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -268,7 +279,177 @@ export class GroupComponent implements OnInit {
     await this.loadGroup(this.Student.group.id);
   }
 
+  async moveUp(index: number, element: any) {
+    if (index === 0) {
+      this.customErrorMessage = "Cannot decrement priority.";
+      setTimeout(() => {
+        this.customErrorMessage = undefined;
+      }, 4000);
+      return;
+    }
+
+    try {
+      await this.projectService.changePriority(this.Group.id, element.projects.id, index).toPromise();
+    } catch (error) {
+      await this.loadProjectChoices();
+      this.customSuccessMessage = "Priority changed!";
+      setTimeout(() => {
+        this.closeError();
+      }, 4000);
+      return;
+    }
+  }
+
+  async moveDown(index: number, element: any) {
+    if (index === this.projectChoices.length - 1) {
+      this.customErrorMessage = "Cannot increment priority.";
+      setTimeout(() => {
+        this.closeError();
+      }, 4000);
+      return;
+    }
+    try {
+      await this.projectService.changePriority(this.Group.id, element.projects.id, index + 2).toPromise();
+    } catch (error) {
+      await this.loadProjectChoices();
+      this.customSuccessMessage = "Priority changed!";
+      setTimeout(() => {
+        this.closeError();
+      }, 4000);
+      return;
+    }
+  }
+
+  searchFaculty(event: Event): void {
+    const searchText = (event.target as HTMLInputElement).value.trim().toLowerCase();
+
+    if (!searchText) {
+      this.faculties = this.tempFaculty;
+      return;
+    }
+
+    const searchResults = this.tempFaculty.filter(faculty =>
+      faculty.name.toString().toLowerCase().includes(searchText)
+    );
+
+    if (searchResults.length > 0) {
+      this.faculties = [
+        ...searchResults,
+      ];
+    }
+  }
+
+  async loadFacultyChoices(): Promise<void> {
+    try {
+      await this.facultyService.getAllFacultyChoices().toPromise()
+        .then((data) => {
+          console.log(data);
+          this.facultyChoices = data.sort((a, b) => a.priority - b.priority);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async addToFacultyChoices(element: any) {
+    for (const item of this.facultyChoices) {
+      if (item.faculty.id === element.id) {
+        this.customErrorMessage = "This faculty is already in your choices.";
+        setTimeout(() => {
+          this.closeError();
+        }, 4000);
+        return;
+      }
+    }
+    try {
+      await this.facultyService.saveFacultyChoice(this.Group.id, element.id).toPromise();
+      await this.loadFacultyChoices();
+      this.customSuccessMessage = "Faculty added in your choices";
+      setTimeout(() => {
+        this.closeError();
+      }, 4000);
+    } catch (error) {
+
+    }
+  }
+
+  async removeFromFacultyChoices(element: any): Promise<void> {
+    try {
+      await this.facultyService.removeFacultyChoice(element.faculty.id, this.Group.id).toPromise();
+      await this.loadFacultyChoices();
+    } catch (error) {
+      await this.loadFacultyChoices();
+      console.error("Error removing project choice:", error);
+    }
+  }
+
+  async moveFacultyUp(index: number, element: any) {
+    if (index === 0) {
+      this.customErrorMessage = "Cannot decrement priority.";
+      setTimeout(() => {
+        this.customErrorMessage = undefined;
+      }, 4000);
+      return;
+    }
+
+    try {
+      await this.facultyService.changePriority(this.Group.id, element.faculty.id, index).toPromise();
+      await this.loadFacultyChoices();
+      this.customSuccessMessage = "Priority changed!";
+      setTimeout(() => {
+        this.closeError();
+      }, 4000);
+    } catch (error) {
+      console.log(error);
+      await this.loadFacultyChoices();
+      this.customSuccessMessage = "Priority changed!";
+      setTimeout(() => {
+        this.closeError();
+      }, 4000);
+      return;
+    }
+  }
+
+  async moveFacultyDown(index: number, element: any) {
+    if (index === this.facultyChoices.length - 1) {
+      this.customErrorMessage = "Cannot increment priority.";
+      setTimeout(() => {
+        this.closeError();
+      }, 4000);
+      return;
+    }
+    try {
+      await this.facultyService.changePriority(this.Group.id, element.faculty.id, index + 2).toPromise();
+      await this.loadFacultyChoices();
+      this.customSuccessMessage = "Priority changed!";
+      setTimeout(() => {
+        this.closeError();
+      }, 4000);
+    } catch (error) {
+      console.log(error);
+      await this.loadProjectChoices();
+      this.customSuccessMessage = "Priority changed!";
+      setTimeout(() => {
+        this.closeError();
+      }, 4000);
+      return;
+    }
+  }
+
+  openGroupRequests() {
+    const dialogRef = this.dailog.open(GroupModalComponent, {
+      width: '500px',
+      height: '450px',
+      data: this.Group
+    });
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      await this.loadGroup(this.Student.group.id);
+    });
+  }
+
   closeError() {
     this.customErrorMessage = undefined;
+    this.customSuccessMessage = undefined;
   }
 }

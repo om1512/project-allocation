@@ -1,4 +1,4 @@
-<div class="error" *ngIf="customErrorMessage != undefined && isInGroup == false">
+<div class="error" *ngIf="customErrorMessage != undefined">
   <div class="error__icon">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none">
       <path fill="#393a37"
@@ -14,7 +14,7 @@
       </path>
     </svg></div>
 </div>
-<div class="success" *ngIf="customErrorMessage != undefined && isInGroup == true">
+<div class="success" *ngIf="customSuccessMessage != undefined && isInGroup == true">
   <div class="success__icon">
     <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
       <path clip-rule="evenodd"
@@ -22,7 +22,7 @@
         fill="#393a37" fill-rule="evenodd"></path>
     </svg>
   </div>
-  <div class="success__title">{{ customErrorMessage }}</div>
+  <div class="success__title">{{ customSuccessMessage }}</div>
   <div class="success__close" ><svg height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
       <path
         d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z"
@@ -46,7 +46,7 @@
       </div>
       <div>
         <button mat-flat-button color="warn" (click)="leaveGroup()">Leave</button>
-        <button mat-flat-button color="primary">Save</button>
+        <button mat-flat-button color="primary" (click)="openGroupRequests()" *ngIf="isAdmin">Requests</button>
       </div>
     </div>
     <div class="upper">
@@ -87,12 +87,12 @@
 
               <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let element" class="actionsCol">
+                <td mat-cell *matCellDef="let element; let i = index" class="actionsCol">
                   <button mat-button color="warn" class="remove-button" (click)="removeFromProjectChoices(element)">Remove</button>
-                  <div class="up">
+                  <div class="up" (click)="moveUp(i, element)">
                     <mat-icon>keyboard_arrow_up</mat-icon>
                   </div>
-                  <div class="down">
+                  <div class="down" (click)="moveDown(i, element)">
                     <mat-icon>keyboard_arrow_down</mat-icon>
                   </div>
                 </td>
@@ -145,6 +145,84 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
       </div>
+    </div>
+  </div>
+  <h3>Faculty choices</h3><br>
+  <div class="choices" style="height: 34%;">
+    <div class="table-data">
+      <table mat-table [dataSource]="facultyChoices" class="mat-elevation-z8 demo-table">
+        <ng-container matColumnDef="no">
+          <th mat-header-cell *matHeaderCellDef>Priority</th>
+          <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="project_id">
+          <th mat-header-cell *matHeaderCellDef>Faculty id</th>
+          <td mat-cell *matCellDef="let element">{{element.faculty.id}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name" id="name-column">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">{{element.faculty.name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element; let i = index" class="actionsCol">
+            <button mat-button color="warn" class="remove-button"
+              (click)="removeFromFacultyChoices(element)">Remove</button>
+            <div class="up" (click)="moveFacultyUp(i, element)">
+              <mat-icon>keyboard_arrow_up</mat-icon>
+            </div>
+            <div class="down" (click)="moveFacultyDown(i, element)">
+              <mat-icon>keyboard_arrow_down</mat-icon>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="lower">
+    <div class="search-container">
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search for a faculty..." (input)="searchFaculty($event)" />
+        <span class="search-icon">
+          <mat-icon>search</mat-icon>
+        </span>
+      </div>
+    </div>
+    <div class="table-data">
+      <table mat-table [dataSource]="faculties" class="mat-elevation-z8 demo-table">
+        <ng-container matColumnDef="no">
+          <th mat-header-cell *matHeaderCellDef>No.</th>
+          <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="project_id">
+          <th mat-header-cell *matHeaderCellDef>Faculty id</th>
+          <td mat-cell *matCellDef="let element">{{element.id}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name" id="name-column">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">{{element.name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions" class="rightAligned">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-flat-button color="primary" class="add-button" (click)="addToFacultyChoices(element)">+
+              Add</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
     </div>
   </div>
 </div>

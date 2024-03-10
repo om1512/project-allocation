@@ -27,6 +27,7 @@ export class AddMemberCardComponent implements OnInit {
   }
 
   async sendRequest() {
+    console.log(this.senderId);
     setTimeout(() => {
       this.closeError();
     }, 4000);

@@ -38,6 +38,11 @@ export class GroupServiceService {
     return this.http.post<any>(url, {});
   }
 
+  sendRequestByStudent(data: any): Observable<any> {
+    const url = 'http://localhost:8080/api/request/send/' + data.student.id + '/' + data.sender.group.id;
+    return this.http.post<any>(url, {});
+  }
+
   getStudentRequest(student_id: string): Observable<any> {
     const url = 'http://localhost:8080/api/request/student/' + student_id;
     return this.http.get<any>(url);

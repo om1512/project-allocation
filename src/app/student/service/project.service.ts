@@ -16,8 +16,6 @@ export class ProjectService {
   }
 
   customProject(data: any): Observable<any> {
-    console.log(data);
-
     const url = 'http://localhost:8080/api/project/custom/' + data.id;
     return this.http.post<any>(url, {
       name: data.name,
@@ -32,6 +30,11 @@ export class ProjectService {
 
   saveProjectChoice(groupId: string, studentId: string, projectId: string): Observable<any> {
     const url = 'http://localhost:8080/api/projectChoice/' + groupId + '/' + studentId + '/' + projectId;
+    return this.http.post<any>(url, {});
+  }
+
+  changePriority(groupId: string, projectId: string, priority: number): Observable<any> {
+    const url = 'http://localhost:8080/api/projectChoice/changePriority/' + groupId + '/' + projectId + '/' + priority;
     return this.http.post<any>(url, {});
   }
 

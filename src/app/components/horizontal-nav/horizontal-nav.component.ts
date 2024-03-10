@@ -26,9 +26,10 @@ export class HorizontalNavComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
+
     await this.getStoredCookie();
-    console.log(this.Student);
-    this.loadRequests();
+    await this.loadRequests();
+    console.log(this.requests);
   }
 
   openModal(): void {
@@ -83,7 +84,7 @@ export class HorizontalNavComponent implements OnInit {
   async loadRequests(): Promise<void> {
     try {
       const data = await this.groupService.getStudentRequest(this.Student.id).toPromise();
-      this.requests = data.filter(item => item.status === "PENDING");
+      this.requests = data.filter(item => item.status === "PENDING" && !item.studentRequested);
     } catch (error) {
       console.error("Error loading requests:", error);
     }
@@ -91,5 +92,6 @@ export class HorizontalNavComponent implements OnInit {
 
   closeError() {
     this.customErrorMessage = undefined;
+    this.customSuccessMessage = undefined;
   }
 }
