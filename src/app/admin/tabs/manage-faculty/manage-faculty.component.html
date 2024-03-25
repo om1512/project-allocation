@@ -1,7 +1,9 @@
 <div class="container">
   <div class="item item1">
     <div class="row">
-      <div class="p">Available Faculties In Year {{ year }}</div>
+      <div class="p" style="font-size: medium">
+        Available Faculties In Year {{ year }}
+      </div>
       <button (click)="addFaculties()" style="height: 40px">
         <span>Add</span>
       </button>
@@ -33,7 +35,7 @@
     <div class="container">
       <div class="field" *ngFor="let f of availableFaculties">
         <div class="name-field">
-          <p>{{ f.name }}</p>
+          <p style="font-size: medium">{{ f.name }}</p>
           <div class="av-label">
             <div class="round"></div>
             available

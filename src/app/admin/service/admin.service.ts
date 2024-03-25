@@ -10,7 +10,6 @@ import {
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Student } from '../interface/student';
 import { Faculty } from '../interface/faculty';
-import { faC } from '@fortawesome/free-solid-svg-icons';
 
 @Injectable({
   providedIn: 'root',
@@ -124,6 +123,21 @@ export class AdminService {
 
   getAllPhases(): Observable<any> {
     const url = this.apiUrl + '/api/phase';
+    return this.httpClient.get<any>(url);
+  }
+
+  groupAllocation(): Observable<any> {
+    const url = this.apiUrl + '/api/group/assignRank';
+    return this.httpClient.get<any>(url);
+  }
+
+  projectAllocation(): Observable<any> {
+    const url = this.apiUrl + '/api/projectChoice/assignProject';
+    return this.httpClient.get<any>(url);
+  }
+
+  facultyAllocation(): Observable<any> {
+    const url = this.apiUrl + '/api/facultyChoice/assignFaculty';
     return this.httpClient.get<any>(url);
   }
 

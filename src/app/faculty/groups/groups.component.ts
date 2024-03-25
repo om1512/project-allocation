@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FacultyService } from '../faculty.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-groups',
@@ -8,7 +9,7 @@ import { FacultyService } from '../faculty.service';
 })
 export class GroupsComponent {
   facultyData: any = {};
-  constructor(private facultyService: FacultyService) {
+  constructor(private facultyService: FacultyService, private router: Router) {
     this.getDataFromAPI();
   }
   selectedOption: string;
@@ -20,5 +21,9 @@ export class GroupsComponent {
         this.facultyData = data;
         console.log(this.facultyData);
       });
+  }
+
+  groupView() {
+    window.location.href = '/faculty/groups/detail';
   }
 }

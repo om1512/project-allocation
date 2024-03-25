@@ -17,26 +17,13 @@ import { HomeComponent } from '../app/student/home/home.component';
 import { GroupComponent } from '../app/student/group/group.component';
 import { ProjectComponent } from '../app/student/project/project.component';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
-import { AddStudentsComponent } from './admin/tabs/add-students/add-students.component';
-import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
-import { AdminNavComponent } from './admin/components/admin-nav/admin-nav.component';
-import { AdminNavHeaderComponent } from './admin/components/admin-nav-header/admin-nav-header.component';
-import { AdminDasboardTabComponent } from './admin/tabs/admin-dasboard-tab/admin-dasboard-tab.component';
-import { AdminStudentViewComponent } from './admin/tabs/admin-student-view/admin-student-view.component';
-import { AddFacultiesComponent } from './admin/tabs/add-faculties/add-faculties.component';
-import { AddUsersComponent } from './admin/tabs/add-users/add-users.component';
-import { AdminResultPopupComponent } from './admin/components/admin-result-popup/admin-result-popup.component';
-import { ManageFacultyComponent } from './admin/tabs/manage-faculty/manage-faculty.component';
-import { AdminFacultyCardComponent } from './admin/components/admin-faculty-card/admin-faculty-card.component';
-import { FacultyPopupComponent } from './admin/components/faculty-popup/faculty-popup.component';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 import { LoginServiceService } from './authentication/service/login-service.service';
 import { AuthGuard } from './authentication/service/auth.guard';
 import { AuthInterceptor } from './authentication/service/auth.interceptor';
-import { PhaseControlComponent } from './admin/tabs/phase-control/phase-control.component';
-import { CommunicationComponent } from './admin/tabs/communication/communication.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { FacultyModule } from './faculty/faculty.module';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -51,20 +38,6 @@ import { FacultyModule } from './faculty/faculty.module';
     GroupComponent,
     ProjectComponent,
     ErrorMessageComponent,
-    AddStudentsComponent,
-    AdminDashboardComponent,
-    AdminNavComponent,
-    AdminNavHeaderComponent,
-    AdminDasboardTabComponent,
-    AdminStudentViewComponent,
-    AddFacultiesComponent,
-    AddUsersComponent,
-    AdminResultPopupComponent,
-    ManageFacultyComponent,
-    AdminFacultyCardComponent,
-    FacultyPopupComponent,
-    PhaseControlComponent,
-    CommunicationComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +52,7 @@ import { FacultyModule } from './faculty/faculty.module';
     NgxUiLoaderHttpModule.forRoot({ showForeground: true }),
     EditorModule,
     FacultyModule,
+    AdminModule
   ],
   providers: [
     LoginServiceService,

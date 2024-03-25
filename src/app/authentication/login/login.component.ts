@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
               this.facultyId = response.userName;
               this.router.navigate(['/faculty/home']);
             } else if (response.role === 'admin') {
-              window.location.href = '/admin/dashboard';
+              this.router.navigate(['/admin/home']);
             }
             this.loginService.login(response.jwtToken, response.role, email);
           },

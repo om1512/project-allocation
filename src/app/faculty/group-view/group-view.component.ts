@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FacultyService } from '../faculty.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-group-view',
@@ -21,7 +22,8 @@ export class GroupViewComponent {
   pendingTask: number = 0;
   constructor(
     private facultyService: FacultyService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private router: Router
   ) {
     this.getTask(2);
   }

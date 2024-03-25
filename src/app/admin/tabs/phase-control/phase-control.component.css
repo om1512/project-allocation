@@ -157,6 +157,7 @@ button{
   width: fit-content;
   padding-block: 10px;
   font-family: poppins;
+  font-size: medium;
 }
 .open{
   border: 1px solid #4CAF50;

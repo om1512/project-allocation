@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AdminService } from '../../service/admin.service';
 import { TinymceComponent } from 'ngx-tinymce';
 import { EmailService } from '../../../authentication/service/email.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-communication',
   templateUrl: './communication.component.html',
   styleUrl: './communication.component.css',
 })
-export class CommunicationComponent implements OnInit {
+export class CommunicationComponent implements OnInit, OnDestroy {
   allStudents: any[] = [];
   allFaculties: any[] = [];
-
+  studentSubscribe: Subscription;
+  facultySubscribe: Subscription;
   studentSelectionStatus: boolean[] = [];
   facultySelectionStatus: boolean[] = [];
   selectedStudents: string[] = [];
@@ -29,22 +31,28 @@ export class CommunicationComponent implements OnInit {
     private emailService: EmailService,
     private _snackBar: MatSnackBar
   ) {}
+  ngOnDestroy(): void {
+    this.studentSubscribe.unsubscribe();
+    this.facultySubscribe.unsubscribe();
+  }
   ngOnInit(): void {
     this.loadStudents();
     this.loadFaculties();
   }
 
   async loadStudents(): Promise<void> {
-    this.adminService.getAllStudents().subscribe((data) => {
-      console.log(data);
-      this.allStudents = data;
-      this.allStudents.forEach(() => this.studentSelectionStatus.push(false));
-      console.log('student length : ' + this.allStudents.length);
-      console.log(
-        'student selection status length : ' +
-          this.studentSelectionStatus.length
-      );
-    });
+    this.studentSubscribe = this.adminService
+      .getAllStudents()
+      .subscribe((data) => {
+        console.log(data);
+        this.allStudents = data;
+        this.allStudents.forEach(() => this.studentSelectionStatus.push(false));
+        console.log('student length : ' + this.allStudents.length);
+        console.log(
+          'student selection status length : ' +
+            this.studentSelectionStatus.length
+        );
+      });
   }
 
   studentSendClick() {
@@ -221,10 +229,14 @@ export class CommunicationComponent implements OnInit {
   }
 
   async loadFaculties(): Promise<void> {
-    this.adminService.getAllFaculties().subscribe((data) => {
-      this.allFaculties = data;
-      this.allFaculties.forEach(() => this.facultySelectionStatus.push(false));
-    });
+    this.facultySubscribe = this.adminService
+      .getAllFaculties()
+      .subscribe((data) => {
+        this.allFaculties = data;
+        this.allFaculties.forEach(() =>
+          this.facultySelectionStatus.push(false)
+        );
+      });
   }
 
   type: number = 1;

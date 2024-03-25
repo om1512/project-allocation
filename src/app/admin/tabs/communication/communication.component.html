@@ -4,6 +4,7 @@
       class="item-1"
       [ngClass]="{ 'item-1-active': type === 1 }"
       (click)="mainTypeClick(1)"
+      style="font-size: medium"
     >
       Authentication Credentials
     </div>
@@ -11,6 +12,7 @@
       class="item-2"
       [ngClass]="{ 'item-2-active': type === 2 }"
       (click)="mainTypeClick(2)"
+      style="font-size: medium"
     >
       Other Message
     </div>
@@ -95,7 +97,9 @@
       *ngFor="let s of allStudents; let i = index"
       (click)="userTabClick(i)"
     >
-      <p>{{ i + 1 }}. {{ s.name }} ( {{ s.user.email }} )</p>
+      <p style="font-size: medium">
+        {{ i + 1 }}. {{ s.name }} ( {{ s.user.email }} )
+      </p>
       <div
         [ngClass]="{
           checked: studentSelectionStatus[i],
@@ -154,7 +158,9 @@
       *ngFor="let f of allFaculties; let i = index"
       (click)="facultyTabClick(i)"
     >
-      <p>{{ i + 1 }}. {{ f.name }} ( {{ f.user.email }} )</p>
+      <p style="font-size: medium">
+        {{ i + 1 }}. {{ f.name }} ( {{ f.user.email }} )
+      </p>
       <div
         [ngClass]="{
           checked: facultySelectionStatus[i],

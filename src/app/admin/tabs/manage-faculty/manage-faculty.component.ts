@@ -1,24 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AdminService } from '../../service/admin.service';
-import { FacultyPopupComponent } from '../../components/faculty-popup/faculty-popup.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscriber, Subscription } from 'rxjs';
+import { FacultyPopupComponent } from '../../components/faculty-popup/faculty-popup.component';
 
 @Component({
   selector: 'app-manage-faculty',
   templateUrl: './manage-faculty.component.html',
   styleUrl: './manage-faculty.component.css',
 })
-export class ManageFacultyComponent implements OnInit {
+export class ManageFacultyComponent implements OnInit, OnDestroy {
   year: number = 2024;
   faculties = [];
   availableFaculties = [];
   unAvailableFaculties = [];
+  facultySubscribe: Subscription;
+
   constructor(public adminService: AdminService, private dialog: MatDialog) {}
+  ngOnDestroy(): void {
+    this.facultySubscribe.unsubscribe();
+  }
   ngOnInit(): void {
-    this.adminService.getAllFaculties().subscribe((data) => {
-      this.faculties = data;
-      this.getAvailableFaculties(this.faculties);
-    });
+    this.facultySubscribe = this.adminService
+      .getAllFaculties()
+      .subscribe((data) => {
+        this.faculties = data;
+        this.getAvailableFaculties(this.faculties);
+      });
   }
 
   removeFromAvailable(data: any) {
@@ -43,8 +51,8 @@ export class ManageFacultyComponent implements OnInit {
     const savePromises: Promise<any>[] = [];
 
     this.availableFaculties.forEach((faculty) => {
-      const savePromise = this.adminService.saveFaculty(faculty).toPromise(); 
-      savePromises.push(savePromise); 
+      const savePromise = this.adminService.saveFaculty(faculty).toPromise();
+      savePromises.push(savePromise);
     });
 
     Promise.all(savePromises)

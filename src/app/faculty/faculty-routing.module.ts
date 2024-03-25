@@ -19,7 +19,7 @@ const routes: Routes = [
         component: GroupsComponent,
       },
       {
-        path: 'group/detail',
+        path: 'groups/detail',
         component: GroupViewComponent,
       },
     ],
