@@ -16,6 +16,7 @@ import { GroupModalComponent } from '../components/group-modal/group-modal.compo
   templateUrl: './group.component.html',
   styleUrl: './group.component.css'
 })
+
 export class GroupComponent implements OnInit {
   @Input() isInGroup: boolean = false;
   @Input() Student: any;
@@ -80,13 +81,15 @@ export class GroupComponent implements OnInit {
       }, 7000);
 
       this.isInGroup = result.status;
-      this.customErrorMessage = result.message;
+      this.customSuccessMessage = result.message;
       this.Student = result.student;
 
       console.log(this.Student);
 
+      await this.loadGroup(this.Student.group.id);
       if (this.isInGroup) {
         await this.loadProject();
+        await this.loadFaculties();
         this.members = this.Group.studentList;
       }
     });
@@ -341,7 +344,7 @@ export class GroupComponent implements OnInit {
 
   async loadFacultyChoices(): Promise<void> {
     try {
-      await this.facultyService.getAllFacultyChoices().toPromise()
+      await this.facultyService.getAllFacultyChoices(this.Student.group.id).toPromise()
         .then((data) => {
           console.log(data);
           this.facultyChoices = data.sort((a, b) => a.priority - b.priority);

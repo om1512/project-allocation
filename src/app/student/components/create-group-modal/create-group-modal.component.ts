@@ -47,7 +47,6 @@ export class CreateGroupModalComponent {
       console.error('Error creating group:', error);
 
       await this.loadProfile(this.student.user.id);
-      console.log(this.student);
 
       this.dialogRef.close({
         "status": true,

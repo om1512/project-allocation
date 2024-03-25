@@ -43,6 +43,8 @@ import { GroupsComponent } from './student/components/groups/groups.component';
 import { GroupCardComponent } from './student/components/group-card/group-card.component';
 import { GroupModalComponent } from './student/components/group-modal/group-modal.component';
 import { GroupRequestsCardComponent } from './student/components/group-requests-card/group-requests-card.component';
+import { FlowModalComponent } from './student/components/flow-modal/flow-modal.component';
+import { FlowTileComponent } from './student/components/flow-tile/flow-tile.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   fgsColor: 'transparent',
@@ -83,6 +85,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     GroupCardComponent,
     GroupModalComponent,
     GroupRequestsCardComponent,
+    FlowModalComponent,
+    FlowTileComponent,
   ],
   imports: [
     BrowserModule,

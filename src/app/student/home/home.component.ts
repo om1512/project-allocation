@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ProfileService } from '../service/profile.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfileModalComponent } from '../components/profile-modal/profile-modal.component';
+import { FlowModalComponent } from '../components/flow-modal/flow-modal.component';
 
 @Component({
   selector: 'app-home',
@@ -22,19 +23,23 @@ export class HomeComponent implements OnInit {
   students: any[];
   dataSource: any[];
 
-  constructor(private profileService: ProfileService, private dailog: MatDialog) { }
+  constructor(
+    private profileService: ProfileService,
+    private dailog: MatDialog
+  ) { }
 
   displayedColumns: string[] = ['no', 'student_id', 'name', 'email', 'cpi'];
 
   ngOnInit(): void {
     this.loadProfile(this.profileId);
     this.loadStudents();
+    this.openFlowModal();
   }
 
   async loadProfile(uid: string): Promise<void> {
     this.profileService.getProfile(uid).subscribe(
       (data) => {
-        console.log(data);
+        this.studentId = data.id;
         this.profileName = data.name;
         this.phoneNo = '(+91) ' + data.phone;
         this.resultList = data.resultList;
@@ -51,7 +56,6 @@ export class HomeComponent implements OnInit {
     );
   }
 
-
   async loadStudents(): Promise<void> {
     this.profileService.getAll().subscribe(
       (data) => {
@@ -67,11 +71,15 @@ export class HomeComponent implements OnInit {
       data: rowData,
     });
 
-    console.log(rowData);
+    dialogRef.afterClosed().subscribe(() => { });
+  }
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log("dailog closed");
-      console.log(result);
+  openFlowModal(): void {
+    const dailogRef = this.dailog.open(FlowModalComponent, {
+      width: '500px',
+      height: '700px'
     });
+
+    dailogRef.afterClosed().subscribe(() => { });
   }
 }

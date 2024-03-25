@@ -3,6 +3,7 @@
   height: 100%;
   border-radius: 8px;
   overflow-y: scroll;
+  background-color: #111;
 }
 
 .main-content {
