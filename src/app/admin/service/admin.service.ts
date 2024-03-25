@@ -126,19 +126,46 @@ export class AdminService {
     return this.httpClient.get<any>(url);
   }
 
-  groupAllocation(): Observable<any> {
+  groupAllocation(): Observable<boolean> {
     const url = this.apiUrl + '/api/group/assignRank';
-    return this.httpClient.get<any>(url);
+    return this.httpClient.post(url, {}).pipe(
+      map((response: any) => {
+        console.log('POST request successful', response);
+        return true;
+      }),
+      catchError((error) => {
+        console.error('Error in POST request', error);
+        return of(false);
+      })
+    );
   }
 
-  projectAllocation(): Observable<any> {
+  projectAllocation(): Observable<boolean> {
     const url = this.apiUrl + '/api/projectChoice/assignProject';
-    return this.httpClient.get<any>(url);
+    return this.httpClient.post(url, {}).pipe(
+      map((response: any) => {
+        console.log('POST request successful', response);
+        return true;
+      }),
+      catchError((error) => {
+        console.error('Error in POST request', error);
+        return of(false);
+      })
+    );
   }
 
-  facultyAllocation(): Observable<any> {
+  facultyAllocation(): Observable<boolean> {
     const url = this.apiUrl + '/api/facultyChoice/assignFaculty';
-    return this.httpClient.get<any>(url);
+    return this.httpClient.post(url, {}).pipe(
+      map((response: any) => {
+        console.log('POST request successful', response);
+        return true;
+      }),
+      catchError((error) => {
+        console.error('Error in POST request', error);
+        return of(false);
+      })
+    );
   }
 
   savePhase(

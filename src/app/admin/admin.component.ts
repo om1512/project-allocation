@@ -63,9 +63,21 @@ export class AdminComponent implements OnInit {
     );
   }
 
-  groupAssign() {}
-  projectAssign() {}
-  facultyAssign() {}
+  groupAssign() {
+    this.adminService.groupAllocation().subscribe((data) => {
+      console.log('Rank Assigned');
+    });
+  }
+  projectAssign() {
+    this.adminService.projectAllocation().subscribe((data) => {
+      console.log('project Assigned');
+    });
+  }
+  facultyAssign() {
+    this.adminService.facultyAllocation().subscribe((data) => {
+      console.log('Faculty Assigned');
+    });
+  }
 
   findTimeDifference(dateTime1: string): number {
     const date1 = new Date(dateTime1).getTime();
