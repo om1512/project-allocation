@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-// import { AdminResultPopupComponent } from '../../components/admin-result-popup/admin-result-popup.component';
+import { AdminResultPopupComponent } from '../../components/admin-result-popup/admin-result-popup.component';
 
 @Component({
   selector: 'app-admin-student-view',
@@ -14,14 +14,21 @@ export class AdminStudentViewComponent implements OnInit {
   }
   constructor(private dialog: MatDialog) {}
 
+  @Output() dataEvent = new EventEmitter<boolean>();
+
+  sendDataToParent() {
+    this.dataEvent.emit(false);
+  }
+
+
   openDialog(semNo: number): void {
-    // const dialogRef = this.dialog.open(AdminResultPopupComponent, {
-    //   data: { semNo: semNo, student: this.student },
-    //   width: '250px',
-    // });
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   console.log('The dialog was closed');
-    // });
+    const dialogRef = this.dialog.open(AdminResultPopupComponent, {
+      data: { semNo: semNo, student: this.student },
+      width: '250px',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
   }
 
   formatPhoneNumber(phone: string): string {

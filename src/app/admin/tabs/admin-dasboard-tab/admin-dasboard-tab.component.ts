@@ -20,12 +20,12 @@ export class AdminDasboardTabComponent implements OnInit, OnDestroy {
   selectedTab: string = 'tab1';
   students: any[] = [];
   faculties: any[] = [];
+  student: any = {};
   private studentSubscription: Subscription;
   private facultySubscription: Subscription;
-
+  studentView: boolean = false;
   @ViewChild('lottieAnimation', { static: true })
   lottieAnimationContainer!: ElementRef;
-  @Output() pathChange = new EventEmitter<any>();
   constructor(
     private adminService: AdminService,
     private loader: NgxUiLoaderService
@@ -85,9 +85,13 @@ export class AdminDasboardTabComponent implements OnInit, OnDestroy {
   }
 
   onRowClick(s) {
-    const p = 'Admin / Dashboard / Student /';
-    const t = s.id;
-    const studentStatus = true;
-    this.pathChange.emit({ p, t, studentStatus, s });
+    console.log('clicked');
+    this.student = s;
+    this.studentView = true;
+  }
+
+  receiveDataFromChild(data: boolean) {
+    this.studentView = data;
+    this.student = {};
   }
 }

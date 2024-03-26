@@ -92,21 +92,33 @@
         ></div>
       </div>
     </div>
-    <div
-      class="user-tab"
-      *ngFor="let s of allStudents; let i = index"
-      (click)="userTabClick(i)"
-    >
-      <p style="font-size: medium">
-        {{ i + 1 }}. {{ s.name }} ( {{ s.user.email }} )
-      </p>
-      <div
-        [ngClass]="{
-          checked: studentSelectionStatus[i],
-          unchecked: !studentSelectionStatus[i]
-        }"
-      ></div>
-    </div>
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Roll No.</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let s of allStudents; let i = index"
+          (click)="userTabClick(i)"
+          [class.active-row]="i % 2 === 0"
+        >
+          <td>{{ s.rollNumber }}</td>
+          <td>{{ s.name }}</td>
+          <td>{{ s.user.email }}</td>
+          <td
+            [ngClass]="{
+              checked: studentSelectionStatus[i],
+              unchecked: !studentSelectionStatus[i]
+            }"
+          ></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   <div class="tab-content" *ngIf="selectedTab === 'tab2'">
     <div class="text-editor" *ngIf="type == 2">
@@ -153,20 +165,32 @@
         ></div>
       </div>
     </div>
-    <div
-      class="user-tab"
-      *ngFor="let f of allFaculties; let i = index"
-      (click)="facultyTabClick(i)"
-    >
-      <p style="font-size: medium">
-        {{ i + 1 }}. {{ f.name }} ( {{ f.user.email }} )
-      </p>
-      <div
-        [ngClass]="{
-          checked: facultySelectionStatus[i],
-          unchecked: !facultySelectionStatus[i]
-        }"
-      ></div>
-    </div>
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let f of allFaculties; let i = index"
+          (click)="userTabClick(i)"
+          [class.active-row]="i % 2 === 0"
+        >
+          <td>{{ i + 1 }}</td>
+          <td>{{ f.name }}</td>
+          <td>{{ f.user.email }}</td>
+          <td
+            [ngClass]="{
+              checked: studentSelectionStatus[i],
+              unchecked: !studentSelectionStatus[i]
+            }"
+          ></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

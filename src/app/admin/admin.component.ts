@@ -35,7 +35,7 @@ export class AdminComponent implements OnInit {
         localStorage.setItem('phase', JSON.stringify(this.phase));
         const currentTime = new Date().toISOString().slice(0, 16);
         for (const element of this.phase) {
-          if (element.end >= currentTime) {
+          if (element.open && element.end >= currentTime) {
             const differenceInMilliseconds = this.findTimeDifference(
               element.end
             );
@@ -51,8 +51,6 @@ export class AdminComponent implements OnInit {
                 this.facultyAssign();
               }
             }, differenceInMilliseconds);
-            console.log('After TimeOut');
-
             break;
           }
         }
