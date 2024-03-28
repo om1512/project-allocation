@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
             console.log('TOKEN ' + response.jwtToken);
             console.log('ROLE ' + response.role);
             if (response.role === 'student') {
+              this.router.navigate(['/student/home']);
             } else if (response.role === 'faculty') {
               this.facultyId = response.userName;
               this.router.navigate(['/faculty/home']);

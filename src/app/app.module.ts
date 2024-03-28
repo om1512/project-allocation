@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CustomButtonComponent } from '../app/components/custom-button/custom-button.component';
+import { CustomButtonComponent } from './components/custom-button/custom-button.component';
 import { LoginComponent } from '../app/authentication/login/login.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -17,6 +17,8 @@ import { AuthInterceptor } from './authentication/service/auth.interceptor';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { FacultyModule } from './faculty/faculty.module';
 import { AdminModule } from './admin/admin.module';
+import { StudentModule } from './student/student.module';
+
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { AdminModule } from './admin/admin.module';
     CustomButtonComponent,
     LoginComponent,
     ErrorMessageComponent,
+    CustomButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +42,7 @@ import { AdminModule } from './admin/admin.module';
     EditorModule,
     FacultyModule,
     AdminModule,
+    StudentModule
   ],
   providers: [
     LoginServiceService,

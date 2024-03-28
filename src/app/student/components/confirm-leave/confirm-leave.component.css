@@ -1,0 +1,19 @@
+.container {
+  width: 100%;
+  height: 100%;
+  background-color: #1e1d25;
+}
+
+.title {
+  font-family: poppins;
+  color: #f9d88b;
+}
+
+.message {
+  font-family: poppins;
+  color: #7f8497;
+}
+
+.actions {
+  padding-left: 20px;
+}
