@@ -38,5 +38,16 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+<<<<<<< HEAD
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+=======
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+>>>>>>> 2e50e62dad0c80403a2f6a633b3586e703e21905
