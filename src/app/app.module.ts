@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomButtonComponent } from '../app/components/custom-button/custom-button.component';
 import { LoginComponent } from '../app/authentication/login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from '../app/student/dashboard/dashboard.component';
 import { NavComponent } from './student/components/nav/nav.component';
 import { NavItemComponent } from './components/nav-item/nav-item.component';
@@ -17,6 +17,7 @@ import { HomeComponent } from '../app/student/home/home.component';
 import { GroupComponent } from '../app/student/group/group.component';
 import { ProjectComponent } from '../app/student/project/project.component';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
+<<<<<<< HEAD
 import { AddStudentsComponent } from './admin/add-students/add-students.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminNavComponent } from './admin/components/admin-nav/admin-nav.component';
@@ -54,6 +55,15 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   fgsColor: 'transparent',
   pbColor: '#F9D88B',
 };
+=======
+import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
+import { LoginServiceService } from './authentication/service/login-service.service';
+import { AuthGuard } from './authentication/service/auth.guard';
+import { AuthInterceptor } from './authentication/service/auth.interceptor';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { FacultyModule } from './faculty/faculty.module';
+import { AdminModule } from './admin/admin.module';
+>>>>>>> 2e50e62dad0c80403a2f6a633b3586e703e21905
 
 @NgModule({
   declarations: [
@@ -68,6 +78,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     GroupComponent,
     ProjectComponent,
     ErrorMessageComponent,
+<<<<<<< HEAD
     AddStudentsComponent,
     AdminDashboardComponent,
     AdminNavComponent,
@@ -95,6 +106,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     SendRequestComponent,
     ProjectChoiceComponent,
     RemoveMemberComponent,
+=======
+>>>>>>> 2e50e62dad0c80403a2f6a633b3586e703e21905
   ],
   imports: [
     BrowserModule,
@@ -105,6 +118,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     FontAwesomeModule,
     BrowserAnimationsModule,
     MatIconModule,
+<<<<<<< HEAD
     MatTableModule,
     MatDialogModule,
     MatButtonModule,
@@ -113,8 +127,19 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     NgxUiLoaderHttpModule.forRoot({
       showForeground: true,
     })
+=======
+    NgxUiLoaderModule,
+    NgxUiLoaderHttpModule.forRoot({ showForeground: true }),
+    EditorModule,
+    FacultyModule,
+    AdminModule
   ],
-  providers: [],
+  providers: [
+    LoginServiceService,
+    AuthGuard,
+    [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+>>>>>>> 2e50e62dad0c80403a2f6a633b3586e703e21905
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

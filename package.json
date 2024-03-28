@@ -26,12 +26,18 @@
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@tinymce/tinymce-angular": "^7.0.0",
+    "bootstrap": "^5.3.3",
     "boxicons": "^2.1.4",
     "lottie-web": "^5.12.2",
+<<<<<<< HEAD
     "ng-lottie": "^0.3.2",
     "ngx-cookie-service": "^17.1.0",
     "ngx-lottie": "^11.0.1",
     "ngx-ui-loader": "^13.0.0",
+=======
+
+>>>>>>> 2e50e62dad0c80403a2f6a633b3586e703e21905
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
