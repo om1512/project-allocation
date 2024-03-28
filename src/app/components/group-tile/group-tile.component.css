@@ -1,5 +1,5 @@
 .container {
-  margin-bottom: 8px;
+  margin: 8px;
   width: 98%;
   height: 20px;
   padding-right: 5px;
@@ -18,7 +18,7 @@
   font-family: poppins;
   letter-spacing: 1px;
   font-weight: 500;
-  font-size: 0.9vw;
+  font-size: 1.1vw;
 }
 
 #value {

@@ -24,10 +24,7 @@ export class ConfirmLeaveComponent implements OnInit {
 
   async leave(): Promise<void> {
     try {
-      await this.groupService.leaveGroup({
-        student_id: this.Student.id,
-        group_id: this.Group.id
-      }).toPromise();
+      await this.groupService.leaveGroup(this.Student.id, this.Group.id).toPromise();
     } catch (error) {
       this.dialogRef.close(false);
     }

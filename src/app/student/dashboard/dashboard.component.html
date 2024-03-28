@@ -4,9 +4,12 @@
     <app-horizontal-nav></app-horizontal-nav>
     <div class="content">
       <app-home *ngIf="homeActive" [profileId]="profileId" [profileEmail]="profileEmail"></app-home>
-      <app-group *ngIf="groupActive" [Student]="Student"></app-group>
+      <app-group *ngIf="groupActive" [Student]="Student" [profileId]="profileId"></app-group>
       <app-project *ngIf="projectActive"></app-project>
       <app-groups *ngIf="groupsActive" [Student]="Student"></app-groups>
+      <app-send-request *ngIf="sendRequestActive" [Student]="Student" [Group]="Group"></app-send-request>
+      <app-project-choice *ngIf="projectChoiceActive" [Student]="Student" [profileId]="profileId"></app-project-choice>
+      <app-remove-member *ngIf="removeMemberActive" [Student]="Student"></app-remove-member>
     </div>
   </div>
 </div>

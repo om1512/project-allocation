@@ -45,6 +45,10 @@ import { GroupModalComponent } from './student/components/group-modal/group-moda
 import { GroupRequestsCardComponent } from './student/components/group-requests-card/group-requests-card.component';
 import { FlowModalComponent } from './student/components/flow-modal/flow-modal.component';
 import { FlowTileComponent } from './student/components/flow-tile/flow-tile.component';
+import { GroupFilterComponent } from './student/components/group-filter/group-filter.component';
+import { SendRequestComponent } from './student/send-request/send-request.component';
+import { ProjectChoiceComponent } from './student/project-choice/project-choice.component';
+import { RemoveMemberComponent } from './student/remove-member/remove-member.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   fgsColor: 'transparent',
@@ -87,6 +91,10 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     GroupRequestsCardComponent,
     FlowModalComponent,
     FlowTileComponent,
+    GroupFilterComponent,
+    SendRequestComponent,
+    ProjectChoiceComponent,
+    RemoveMemberComponent,
   ],
   imports: [
     BrowserModule,

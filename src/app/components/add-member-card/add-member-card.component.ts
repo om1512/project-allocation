@@ -38,19 +38,19 @@ export class AddMemberCardComponent implements OnInit {
       return;
     }
 
-    try {
-      const result = await this.groupService.sendRequest({
-        "student": this.Student,
-        "sender": this.senderId
-      }).toPromise();
+    // try {
+    //   const result = await this.groupService.sendRequest({
+    //     "student": this.Student,
+    //     "sender": this.senderId
+    //   }).toPromise();
 
-    } catch (error) {
-      error = false;
-      this.customErrorMessage = 'Request Send!';
-      setTimeout(() => {
-        this.closeError();
-      }, 4000);
-    }
+    // } catch (error) {
+    //   error = false;
+    //   this.customErrorMessage = 'Request Send!';
+    //   setTimeout(() => {
+    //     this.closeError();
+    //   }, 4000);
+    // }
   }
 
   async loadProfile(uid: string): Promise<void> {

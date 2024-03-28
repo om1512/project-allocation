@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
   async loadProfile(uid: string): Promise<void> {
     this.profileService.getProfile(uid).subscribe(
       (data) => {
-        this.studentId = data.id;
+        this.studentId = data.rollNumber;
         this.profileName = data.name;
         this.phoneNo = '(+91) ' + data.phone;
         this.resultList = data.resultList;

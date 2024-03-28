@@ -28,18 +28,18 @@ export class GroupServiceService {
     return this.http.get<any>(url);
   }
 
-  leaveGroup(data: any): Observable<any> {
-    const url = 'http://localhost:8080/api/group/leaveGroup/' + data.student_id + '/' + data.group_id;
+  leaveGroup(studentId: string, groupId: string): Observable<any> {
+    const url = 'http://localhost:8080/api/group/leaveGroup/' + studentId + '/' + groupId;
     return this.http.post<any>(url, {});
   }
 
-  sendRequest(data: any): Observable<any> {
-    const url = 'http://localhost:8080/api/request/' + data.student.id + '/' + data.sender.group.id;
+  sendRequest(studentId: string, groupId: string): Observable<any> {
+    const url = 'http://localhost:8080/api/request/' + studentId + '/' + groupId;
     return this.http.post<any>(url, {});
   }
 
-  sendRequestByStudent(data: any): Observable<any> {
-    const url = 'http://localhost:8080/api/request/send/' + data.student.id + '/' + data.sender.group.id;
+  sendRequestByStudent(studentId: string, groupId: string): Observable<any> {
+    const url = 'http://localhost:8080/api/request/send/' + studentId + '/' + groupId;
     return this.http.post<any>(url, {});
   }
 

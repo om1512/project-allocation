@@ -30,14 +30,7 @@ export class GroupCardComponent implements OnInit {
       return;
     }
     try {
-      await this.groupService.sendRequestByStudent({
-        student: this.Student,
-        sender: {
-          group: {
-            id: this.group.id
-          }
-        }
-      }).toPromise();
+      await this.groupService.sendRequestByStudent(this.Student.id, this.group.id).toPromise();
     } catch (error) {
       setTimeout(() => {
         this.closeError();
