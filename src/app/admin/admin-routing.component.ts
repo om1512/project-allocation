@@ -6,6 +6,7 @@ import { ManageFacultyComponent } from './tabs/manage-faculty/manage-faculty.com
 import { PhaseControlComponent } from './tabs/phase-control/phase-control.component';
 import { CommunicationComponent } from './tabs/communication/communication.component';
 import { AdminComponent } from './admin.component';
+import { AuthGuard } from '../authentication/service/auth.guard';
 
 const routes: Routes = [
   {
@@ -15,22 +16,27 @@ const routes: Routes = [
       {
         path: 'home',
         component: AdminDasboardTabComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'addUsers',
         component: AddUsersComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'manageFaculties',
         component: ManageFacultyComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'phaseControl',
         component: PhaseControlComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'communication',
         component: CommunicationComponent,
+        canActivate: [AuthGuard],
       },
     ],
   },

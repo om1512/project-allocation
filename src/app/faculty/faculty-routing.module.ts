@@ -4,6 +4,7 @@ import { FacultyComponent } from './faculty.component';
 import { HomeComponent } from './home/home.component';
 import { GroupsComponent } from './groups/groups.component';
 import { GroupViewComponent } from './group-view/group-view.component';
+import { AuthGuard } from '../authentication/service/auth.guard';
 
 const routes: Routes = [
   {
@@ -13,14 +14,17 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'groups',
         component: GroupsComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'groups/detail',
         component: GroupViewComponent,
+        canActivate: [AuthGuard],
       },
     ],
   },
