@@ -17,17 +17,6 @@
       <img src="../../../assets/logo.svg" alt="Loading.." />
     </div>
 
-    <div class="text-container">
-      <p>Don't have an account?</p>
-      <p><a href="#" class="create-link">Create one</a></p>
-    </div>
-
-    <div class="divider-container">
-      <hr />
-      <p class="or-text">OR</p>
-      <hr />
-    </div>
-
     <form [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
       <div class="login-form">
         <input placeholder="Email" formControlName="email" />

@@ -2,9 +2,9 @@ html,
 .sidebar {
   position: fixed;
   top: 10px;
-  left: 10px;
-  height: 95%;
-  width: 250px;
+  left: 20px;
+  height: 94%;
+  width: 220px;
   padding: 10px 14px;
   background-color: #1e1d25;
   border-radius: 8px;

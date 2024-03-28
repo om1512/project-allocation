@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="search-field">
+    <input appearance="fill" placeholder="Search" />
+    <div class="dropdown">
+      <button class="dropbtn">
+        Year
+        <mat-icon style="font-size: 15px; margin-top: 5px"
+          >arrow_drop_down</mat-icon
+        >
+      </button>
+      <div class="dropdown-content">
+        <a href="#">Current</a>
+        <a href="#">2023</a>
+        <a href="#">2022</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">
+        Group
+        <mat-icon style="font-size: 15px; margin-top: 5px"
+          >arrow_drop_down</mat-icon
+        >
+      </button>
+      <div class="dropdown-content">
+        <a href="#">Group</a>
+        <a href="#">Project</a>
+        <a href="#">Technology</a>
+      </div>
+    </div>
+    <div class="search-btn">
+      <p style="width: 100%; text-align: center">Search</p>
+      <mat-icon
+        style="
+          height: 100%;
+          background-color: rgb(122, 122, 122);
+          color: #2b2a34;
+          align-items: center;
+          justify-content: center;
+          display: flex;
+          width: 100%;
+          border-radius: 0px 8px 8px 0px;
+        "
+        >search</mat-icon
+      >
+    </div>
+  </div>
+  <div class="group-tab-container">
+    <div class="tab" *ngFor="let g of facultyData.groupList">
+      <div class="tab-header">
+        <div class="group-title">
+          {{ g.groupName }}
+          <div class="year">{{ g.year }}</div>
+          <div class="year">Rank {{ g.rank }}</div>
+          <div class="group-member">
+            <div class="member-tab" *ngFor="let m of g.studentList">
+              <mat-icon *ngIf="m.name === g.student.name">flash_on</mat-icon>
+              {{ m.name }}
+            </div>
+          </div>
+        </div>
+        <button class="group-view-btn" (click)="groupView()">view</button>
+      </div>
+      <div class="project-content">
+        <div class="project-label">Project</div>
+        <div class="project-info">
+          <div class="project-name">{{ g.project.name }}</div>
+          <div class="project-desc">
+            {{ g.project.description }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
