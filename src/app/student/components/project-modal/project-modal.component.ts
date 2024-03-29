@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -6,7 +6,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   templateUrl: './project-modal.component.html',
   styleUrl: './project-modal.component.css'
 })
-export class ProjectModalComponent implements OnInit {
+
+export class ProjectModalComponent implements OnInit{
   title: string = 'title';
   description: string = 'Description';
 

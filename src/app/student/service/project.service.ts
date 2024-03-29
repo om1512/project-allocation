@@ -1,18 +1,26 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, map, of } from 'rxjs';
-import { group } from '@angular/animations';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
-
-  constructor(private http: HttpClient) { }
-
+  constructor(
+    private http: HttpClient
+  ) { }
+  
   getAll(): Observable<any> {
     const url = 'http://localhost:8080/api/project';
     return this.http.get<any>(url);
+  }
+
+  project(data: any): Observable<any> {
+    const url = 'http://localhost:8080/api/project'
+    return this.http.post<any>(url, {
+      name: data.name,
+      description: data.description
+    });
   }
 
   customProject(data: any): Observable<any> {

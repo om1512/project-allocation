@@ -95,3 +95,7 @@ mat-divider {
   margin-top: 16px;
   margin-bottom: 16px;
 }
+
+span{
+  font-size: small;
+}

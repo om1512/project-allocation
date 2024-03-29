@@ -8,5 +8,5 @@ import { Component, Input } from '@angular/core';
 export class ProfileCardComponent {
   @Input() imageSrc: string = "../../../assets/profile-student.png";
   @Input() name: string;
-  @Input() specialization: string = "Computer";
+  @Input() department: string = "Computer";
 }

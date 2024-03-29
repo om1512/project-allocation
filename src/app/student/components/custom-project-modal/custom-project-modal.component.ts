@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProjectService } from '../../service/project.service';
 
 @Component({
@@ -7,10 +7,11 @@ import { ProjectService } from '../../service/project.service';
   templateUrl: './custom-project-modal.component.html',
   styleUrl: './custom-project-modal.component.css'
 })
-export class CustomProjectModalComponent implements OnInit {
+export class CustomProjectModalComponent {
   titleRequired: string = '';
   descRequired: string = '';
   group_id: string = '';
+  Message: string = undefined;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: string,
@@ -28,22 +29,24 @@ export class CustomProjectModalComponent implements OnInit {
     } else if (this.descRequired == '') {
       this.descRequired = undefined;
     } else {
-      this.projectService.customProject({
-        'id': this.group_id,
-        'name': this.titleRequired,
-        'desc': this.descRequired,
-      }).subscribe((result) => {
-        console.log('Success:', result);
-
-      },
-        (error) => {
-          console.error('Error:', error);
-
-          this.dialogRef.close({
-            "status": true,
-            "message": "Project added",
-          });
-        });
+      try {
+        this.projectService.customProject({
+          'id': this.group_id,
+          'name': this.titleRequired,
+          'desc': this.descRequired,
+        }).toPromise();
+        this.Message = "Custom-Project added!";
+        setTimeout(() => {
+          this.Message = undefined;
+        }, 7000);
+      } catch(error) {
+        this.Message = "Custom-Project added!";
+        setTimeout(() => {
+          this.Message = undefined;
+        }, 7000);
+        console.log("Error while adding the project : " + error);
+      }
+      this.dialogRef.close();
     }
   }
 }

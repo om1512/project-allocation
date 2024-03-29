@@ -1,19 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { GroupServiceService } from '../../service/group-service.service';
+import { Component, Input } from '@angular/core';
+import { GroupService } from '../../service/group.service';
 
 @Component({
   selector: 'app-group-card',
   templateUrl: './group-card.component.html',
   styleUrl: './group-card.component.css'
 })
-export class GroupCardComponent implements OnInit {
+
+export class GroupCardComponent {
   @Input() group: any;
   @Input() Student: any;
   studentList: any[];
-  customErrorMessage: string = undefined;
-  customSuccessMessage: string = undefined;
+  errorMessage: string = undefined;
+  successMessage: string = undefined;
   constructor(
-    private groupService: GroupServiceService,
+    private groupService: GroupService,
   ) { }
 
   ngOnInit(): void {
@@ -23,7 +24,7 @@ export class GroupCardComponent implements OnInit {
   async sendRequest(): Promise<void> {
     console.log(this.group);
     if (this.group.studentList.length === 3) {
-      this.customErrorMessage = "Group is full!";
+      this.errorMessage = "Group is full!";
       setTimeout(() => {
         this.closeError();
       }, 4000);
@@ -35,12 +36,12 @@ export class GroupCardComponent implements OnInit {
       setTimeout(() => {
         this.closeError();
       }, 4000);
-      this.customSuccessMessage = "Request send!";
+      this.successMessage = "Request send!";
     }
   }
 
   closeError() {
-    this.customErrorMessage = undefined;
-    this.customSuccessMessage = undefined;
+    this.errorMessage = undefined;
+    this.successMessage = undefined;
   }
 }

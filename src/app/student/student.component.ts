@@ -1,5 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginServiceService } from '../authentication/service/login-service.service';
 import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
@@ -10,8 +12,16 @@ import { MatSidenav } from '@angular/material/sidenav';
 export class StudentComponent {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
+  constructor(
+    private observer: BreakpointObserver,
+    public router: Router,
+    private loginService: LoginServiceService
+  ) {}
 
-  constructor(private observer: BreakpointObserver) {}
+  logoutClick() {
+    this.router.navigate(['']);
+    this.loginService.logout();
+  }
 
   ngAfterViewInit() {
     this.observer.observe(['(max-width: 800px)']).subscribe((res) => {
@@ -24,5 +34,4 @@ export class StudentComponent {
       }
     });
   }
-  logoutClick() {}
 }

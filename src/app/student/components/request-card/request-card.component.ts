@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { GroupServiceService } from '../../service/group-service.service';
-import { RequestService } from '../../service/request.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { GroupService } from '../../service/group.service';
+import { Student } from '../../interface/student';
 
 @Component({
   selector: 'app-request-card',
@@ -8,18 +8,17 @@ import { RequestService } from '../../service/request.service';
   styleUrl: './request-card.component.css'
 })
 
-export class RequestCardComponent implements OnInit {
+export class RequestCardComponent {
+  @Input() student: Student;
   @Input() requestData: any;
   @Output() closeModal = new EventEmitter<boolean>();
   id: string = '';
   group_name: string = '';
   student_name: string = '';
-  customErrorMessage: string = undefined;
-  customSuccessMessage: string = undefined;
-
+  Message: string = undefined;
+  
   constructor(
-    private groupService: GroupServiceService,
-    private requestService: RequestService,
+    private groupService: GroupService,
   ) { }
 
   ngOnInit(): void {
@@ -29,8 +28,13 @@ export class RequestCardComponent implements OnInit {
   }
 
   async onAccept(): Promise<void> {
+    if(this.student.group != null || this.student.group != undefined) {
+      this.Message = "You are already in the group.";
+      return;
+    }
+
     if (this.requestData.group.studentList.length == 3) {
-      this.customErrorMessage = "Group is full!";
+      this.Message = "Group is full!";
       return;
     }
 
@@ -40,10 +44,10 @@ export class RequestCardComponent implements OnInit {
 
     try {
       const data = await this.groupService.approveRequest(this.requestData).toPromise();
+      this.closeModal.emit(true);
     } catch (error) {
-      this.requestService.acceptRequest(this.requestData);
-      this.emitCloseModal(true);
-      console.log(error);
+      console.log("Error while accepting the request : ")
+      this.closeModal.emit(true);
     }
   }
 
@@ -54,17 +58,14 @@ export class RequestCardComponent implements OnInit {
 
     try {
       const data = await this.groupService.rejectRequest(this.requestData).toPromise();
+      this.closeModal.emit(false);
     } catch (error) {
-      this.emitCloseModal(false);
-      console.log(error);
+      console.log("Error while rejecting the request : ")
+      this.closeModal.emit(false);
     }
   }
 
-  emitCloseModal(success: boolean): void {
-    this.closeModal.emit(success);
-  }
-
   closeError() {
-    this.customErrorMessage = undefined;
+    this.Message = undefined;
   }
 }

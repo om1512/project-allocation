@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
           (error) => {
             console.log('ERROR');
             this.customErrorMessage = 'Email or password may be incorrect.';
-            this.errorMessageComponent.showErrorMessage();
+            // this.errorMessageComponent.showErrorMessage();
           }
         );
     } else {
@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit {
         this.customErrorMessage = 'Email or password may be incorrect.';
       }
 
-      this.errorMessageComponent.showErrorMessage();
+      // this.errorMessageComponent.showErrorMessage();
     }
   }
 }

@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { StudentComponent } from './student.component';
-import { HomeComponent } from './home/home.component';
 import { AuthGuard } from '../authentication/service/auth.guard';
-import { GroupComponent } from './group/group.component';
-import { ProjectComponent } from './project/project.component';
+import { HomeTabComponent } from './tabs/home-tab/home-tab.component';
+import { GroupTabComponent } from './tabs/group-tab/group-tab.component';
+import { JoinGroupTabComponent } from './tabs/join-group-tab/join-group-tab.component';
+import { ProjectTabComponent } from './tabs/project-tab/project-tab.component';
+import { ProjectChoiceTabComponent } from './tabs/project-choice-tab/project-choice-tab.component';
+import { RemoveMemberTabComponent } from './tabs/remove-member-tab/remove-member-tab.component';
+import { SendRequestTabComponent } from './tabs/send-request-tab/send-request-tab.component';
+import { FacultyChoiceTabComponent } from './tabs/faculty-choice-tab/faculty-choice-tab.component';
 
 const routes: Routes = [
   {
@@ -13,17 +18,42 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        component: HomeComponent,
+        component: HomeTabComponent,
         canActivate: [AuthGuard],
       },
       {
         path: 'group',
-        component: GroupComponent,
+        component: GroupTabComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'joinGroup',
+        component: JoinGroupTabComponent,
         canActivate: [AuthGuard],
       },
       {
         path: 'project',
-        component: ProjectComponent,
+        component: ProjectTabComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'projectChoice',
+        component: ProjectChoiceTabComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'removeMember',
+        component: RemoveMemberTabComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'sendRequest',
+        component: SendRequestTabComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'facultyChoice',
+        component: FacultyChoiceTabComponent,
         canActivate: [AuthGuard],
       },
     ],
