@@ -7,13 +7,13 @@ import { FlowModalComponent } from '../components/flow-modal/flow-modal.componen
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
   @Input() profileId: string;
   @Input() profileEmail: string;
-  profileImage = "../../../assets/profile-student.png";
-  department = "Computer";
+  profileImage = '../../../assets/profile-student.png';
+  department = 'Computer';
   profileName: string;
   studentId: string;
   resultList: any[];
@@ -26,43 +26,39 @@ export class HomeComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     private dailog: MatDialog
-  ) { }
+  ) {}
 
   displayedColumns: string[] = ['no', 'student_id', 'name', 'email', 'cpi'];
 
   ngOnInit(): void {
-    this.loadProfile(this.profileId);
+    this.loadProfile(localStorage.getItem('id'));
     this.loadStudents();
     this.openFlowModal();
   }
 
   async loadProfile(uid: string): Promise<void> {
-    this.profileService.getProfile(uid).subscribe(
-      (data) => {
-        this.studentId = data.rollNumber;
-        this.profileName = data.name;
-        this.phoneNo = '(+91) ' + data.phone;
-        this.resultList = data.resultList;
+    this.profileService.getProfile(uid).subscribe((data) => {
+      this.studentId = data.rollNumber;
+      this.profileName = data.name;
+      this.phoneNo = '(+91) ' + data.phone;
+      this.resultList = data.resultList;
 
-        if (!this.resultList || this.resultList.length === 0) {
-          this.semester = '-';
-          this.cpi = '-';
-        } else {
-          const lastIndex = this.resultList.length - 1;
-          this.semester = this.resultList[lastIndex].semNo;
-          this.cpi = this.resultList[lastIndex].cpi;
-        }
+      if (!this.resultList || this.resultList.length === 0) {
+        this.semester = '-';
+        this.cpi = '-';
+      } else {
+        const lastIndex = this.resultList.length - 1;
+        this.semester = this.resultList[lastIndex].semNo;
+        this.cpi = this.resultList[lastIndex].cpi;
       }
-    );
+    });
   }
 
   async loadStudents(): Promise<void> {
-    this.profileService.getAll().subscribe(
-      (data) => {
-        this.students = data;
-        this.dataSource = this.students;
-      }
-    );
+    this.profileService.getAll().subscribe((data) => {
+      this.students = data;
+      this.dataSource = this.students;
+    });
   }
 
   openModal(rowData: any): void {
@@ -71,15 +67,15 @@ export class HomeComponent implements OnInit {
       data: rowData,
     });
 
-    dialogRef.afterClosed().subscribe(() => { });
+    dialogRef.afterClosed().subscribe(() => {});
   }
 
   openFlowModal(): void {
     const dailogRef = this.dailog.open(FlowModalComponent, {
       width: '500px',
-      height: '700px'
+      height: '700px',
     });
 
-    dailogRef.afterClosed().subscribe(() => { });
+    dailogRef.afterClosed().subscribe(() => {});
   }
 }

@@ -19,10 +19,11 @@ export class LoginServiceService {
     return this.http.post(`${this.url}/auth/login`, credentials);
   }
 
-  login(token: string, role: string, email: string) {
+  login(token: string, role: string, email: string, id: string) {
     localStorage.setItem('email', email);
     localStorage.setItem('token', token);
     localStorage.setItem('role', role);
+    localStorage.setItem('id', id);
   }
 
   getToken(): string {
@@ -36,6 +37,10 @@ export class LoginServiceService {
     } else {
       return true;
     }
+  }
+
+  getUserIdByEmail(email: string) {
+    return this.http.get<any>(`${this.url}/api/users/email/${email}`);
   }
 
   logout() {
