@@ -11,10 +11,10 @@
         <div class="title">Student</div>
         <div class="content">
           <img class="logo" src="../../../../assets/student.svg" />
-          <div class="amount">235 <span>|</span></div>
+          <div class="amount">{{ totalStudents }} <span>|</span></div>
           <div class="current-content">
             <div class="year">Year 2024</div>
-            <div class="current-amount">157</div>
+            <div class="current-amount">{{ currentYear }}</div>
           </div>
         </div>
       </div>
@@ -22,21 +22,21 @@
         <div class="title">Faculty</div>
         <div class="content">
           <img class="logo" src="../../../../assets/faculty.svg" />
-          <div class="amount">29 <span>|</span></div>
+          <div class="amount">{{ totalFaculties }} <span>|</span></div>
           <div class="current-content">
             <div class="year">Year 2024</div>
-            <div class="current-amount">8</div>
+            <div class="current-amount">{{ currentFaculties }}</div>
           </div>
         </div>
       </div>
       <div class="item item-3">
-        <div class="title">Project</div>
+        <div class="title">Group</div>
         <div class="content">
           <img class="logo" src="../../../../assets/projects.svg" />
-          <div class="amount">125 <span>|</span></div>
+          <div class="amount">{{ totalProjects }} <span>|</span></div>
           <div class="current-content">
             <div class="year">Year 2024</div>
-            <div class="current-amount">59</div>
+            <div class="current-amount">{{ currentProject }}</div>
           </div>
         </div>
       </div>
@@ -73,17 +73,6 @@
           <div class="tab-c">
             <div class="tab-title">Groups</div>
             <div [ngClass]="{ line: selectedTab === 'tab3' }"></div>
-          </div>
-        </div>
-
-        <div
-          class="tab"
-          [ngClass]="{ active: selectedTab === 'tab4' }"
-          (click)="selectTab('tab4')"
-        >
-          <div class="tab-c">
-            <div class="tab-title">Projects</div>
-            <div [ngClass]="{ line: selectedTab === 'tab4' }"></div>
           </div>
         </div>
       </div>
@@ -137,17 +126,20 @@
         <table class="student-table">
           <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Admission In</th>
-            <th>Phone</th>
-            <th>Email</th>
+            <th>Group Name</th>
+            <th>Year</th>
+            <th>Rank</th>
+            <th>Project</th>
           </tr>
-          <tr>
-            <td colspan="8"><div class="hr"></div></td>
+          <tr class="row" *ngFor="let g of groups">
+            <td>{{ g.id }}</td>
+            <td>{{ g.groupName }}</td>
+            <td>{{ g.year }}</td>
+            <td>{{ g.rank }}</td>
+            <td>{{ g.project.name }}</td>
           </tr>
         </table>
       </div>
-      <div class="tab-content" *ngIf="selectedTab === 'tab4'"></div>
     </div>
   </div>
 </ng-template>

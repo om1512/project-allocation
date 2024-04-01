@@ -60,6 +60,11 @@ export class AdminService {
     return this.httpClient.get<any>(url);
   }
 
+  getAllProjects(): Observable<any> {
+    const url = this.apiUrl + '/api/group';
+    return this.httpClient.get<any>(url);
+  }
+
   saveStudent(student: Student): Observable<boolean> {
     const url = this.apiUrl + '/api/student';
     return this.httpClient.post(url, student).pipe(

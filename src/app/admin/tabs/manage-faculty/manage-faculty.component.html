@@ -16,12 +16,14 @@
         No Data Available
       </div>
       <ng-template #notLoggedIn>
-        <app-admin-faculty-card
-          *ngFor="let f of availableFaculties; let i = index"
-          [faculty]="f"
-          [index]="i"
-          (facultyRemoveEmitter)="removeFromAvailable($event)"
-        ></app-admin-faculty-card>
+        <div style="margin-top: 20px">
+          <app-admin-faculty-card
+            *ngFor="let f of availableFaculties; let i = index"
+            [faculty]="f"
+            [index]="i"
+            (facultyRemoveEmitter)="removeFromAvailable($event)"
+          ></app-admin-faculty-card>
+        </div>
       </ng-template>
     </div>
   </div>
