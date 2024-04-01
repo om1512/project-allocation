@@ -19,11 +19,13 @@ export class LoginServiceService {
     return this.http.post(`${this.url}/auth/login`, credentials);
   }
 
-  login(token: string, role: string, email: string, id: string) {
+  login(token: string, role: string, email: string) {
     localStorage.setItem('email', email);
     localStorage.setItem('token', token);
     localStorage.setItem('role', role);
-    localStorage.setItem('id', id);
+    this.getUserIdByEmail(email).subscribe((data) => {
+      localStorage.setItem('id', data.id);
+    });
   }
 
   getToken(): string {
@@ -47,6 +49,8 @@ export class LoginServiceService {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     localStorage.removeItem('email');
+    localStorage.removeItem('id');
     return true;
   }
 }
+

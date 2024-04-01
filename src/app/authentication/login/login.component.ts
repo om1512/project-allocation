@@ -48,17 +48,13 @@ export class LoginComponent implements OnInit {
         .generateToken({ email: email, password: password })
         .subscribe(
           (response: any) => {
-            this.loginService.getUserIdByEmail(email).subscribe((data) => {
-              this.loginService.login(
-                response.jwtToken,
-                response.role,
-                email,
-                data.id
-              );
-            });
+            console.log('Am i getting response');
+
+            let id: any = 0;
             console.log('Response ' + response);
             console.log('TOKEN ' + response.jwtToken);
             console.log('ROLE ' + response.role);
+            
             if (response.role === 'student') {
               this.router.navigate(['/student/home']);
             } else if (response.role === 'faculty') {
@@ -67,6 +63,7 @@ export class LoginComponent implements OnInit {
             } else if (response.role === 'admin') {
               this.router.navigate(['/admin/home']);
             }
+            this.loginService.login(response.jwtToken, response.role, email);
           },
           (error) => {
             console.log('ERROR');

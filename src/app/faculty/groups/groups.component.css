@@ -7,7 +7,7 @@
 }
 .search-field{
   display: grid;
-  grid-template-columns: 4fr 1fr 1fr 2fr;
+  grid-template-columns: 1fr;
   margin: 10px;
   gap: 8px;
 }
@@ -20,6 +20,36 @@ input{
   appearance: fill;
 }
 
+/* src/app/dropdown/dropdown.component.css */
+.dropdown-container {
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+}
+
+.dropdown:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+p {
+  margin-top: 10px;
+  font-size: 14px;
+}
 
 /* Dropdown button */
 .dropdown .dropbtn {
@@ -234,4 +264,44 @@ p{
   font-weight: 100;
   color: white;
   font-size: 10px;
+}
+
+.radio-inputs {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 0.5rem;
+  background-color: rgba(51, 65, 85, 1);
+  box-sizing: border-box;
+  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+  padding: 0.25rem;
+  width: 300px;
+  font-size: 14px;
+}
+
+.radio-inputs .radio {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.radio-inputs .radio input {
+  display: none;
+}
+
+.radio-inputs .radio .name {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border: none;
+  padding: .5rem 0;
+  color: #FFF;
+  transition: all .15s ease-in-out;
+}
+
+.radio-inputs .radio input:checked + .name {
+  background-color: #fff;
+  font-weight: 600;
+  color: #1E1D25;
 }
