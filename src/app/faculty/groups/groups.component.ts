@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FacultyService } from '../faculty.service';
 import { Router } from '@angular/router';
+import { group } from '@angular/animations';
 
 @Component({
   selector: 'app-groups',
@@ -56,7 +57,9 @@ export class GroupsComponent {
     });
   }
 
-  groupView() {
+  groupView(groupId: any) {
+    localStorage.setItem('groupId', groupId);
     window.location.href = '/faculty/groups/detail';
+    console.log(groupId);
   }
 }

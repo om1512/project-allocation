@@ -13,7 +13,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 import { AdminRoutingModule } from './admin-routing.component';
 import { AddFacultiesComponent } from './tabs/add-faculties/add-faculties.component';
 import { AddStudentsComponent } from './tabs/add-students/add-students.component';
@@ -29,6 +28,8 @@ import { AdminFacultyCardComponent } from './components/admin-faculty-card/admin
 import { AdminResultPopupComponent } from './components/admin-result-popup/admin-result-popup.component';
 import { FacultyPopupComponent } from './components/faculty-popup/faculty-popup.component';
 import { LoginServiceService } from '../authentication/service/login-service.service';
+import { AddProjectComponent } from './tabs/add-project/add-project.component';
+import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { LoginServiceService } from '../authentication/service/login-service.ser
     AdminFacultyCardComponent,
     AdminResultPopupComponent,
     FacultyPopupComponent,
+    AddProjectComponent,
   ],
   imports: [
     BrowserModule,

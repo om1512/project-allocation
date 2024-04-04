@@ -70,7 +70,7 @@ export class AdminDasboardTabComponent implements OnInit, OnDestroy {
         this.students.forEach((element) => {
           const year = new Date(element.year).getFullYear();
           const currentYear = new Date().getFullYear();
-          if (currentYear - year == 3) {
+          if (currentYear == year) {
             this.currentYear += 1;
           }
         });

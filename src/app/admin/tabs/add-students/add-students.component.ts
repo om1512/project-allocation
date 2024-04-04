@@ -1,3 +1,4 @@
+import * as XLSX from 'xlsx';
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {
@@ -9,6 +10,7 @@ import {
 import { Student } from '../../interface/student';
 import { User } from '../../interface/user';
 import { AdminService } from '../../service/admin.service';
+import { Result } from '../../interface/result';
 @Component({
   selector: 'app-add-students',
   templateUrl: './add-students.component.html',
@@ -25,10 +27,11 @@ export class AddStudentsComponent {
     password: new FormControl('', Validators.required),
     confirmPassword: new FormControl('', Validators.required),
   });
+  excelData: unknown[];
   constructor(
     private _snackBar: MatSnackBar,
     private adminService: AdminService
-  ) {}
+  ) { }
 
   getStudentObject(): Student {
     const user: User = {
@@ -93,5 +96,104 @@ export class AddStudentsComponent {
         }
       });
     }
+  }
+
+  validateEmail(email: string): boolean {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  }
+
+  readExcel(event: any) {
+    let file = event.target.files[0];
+    let fileReader = new FileReader();
+    fileReader.readAsBinaryString(file);
+
+    fileReader.onload = () => {
+      var facultyBook = XLSX.read(fileReader.result, { type: 'binary' });
+      var sheetNames = facultyBook.SheetNames;
+      this.excelData = XLSX.utils.sheet_to_json(facultyBook.Sheets[sheetNames[0]]);
+      const currentYear = new Date();
+
+      this.excelData.forEach((excelStudent: any) => {
+        if (!this.validateEmail(excelStudent.email)) {
+          console.log('Invalid email format for student: ' + excelStudent.name);
+          this._snackBar.open('Invalid Email Format For Records!' + excelStudent.name, 'Close', {
+            duration: 4000,
+            verticalPosition: 'top'
+          });
+          return;
+        }
+
+        let student: Student = {
+          name: excelStudent.name,
+          rollNumber: excelStudent.rollNumber,
+          phone: excelStudent.phone,
+          user: {
+            email: excelStudent.email,
+            password: excelStudent.password,
+            type: 'student',
+          },
+          studentId: excelStudent.studentId,
+          year: currentYear,
+          resultList: []
+        };
+
+        this.adminService.saveStudent(student).subscribe(
+          (response) => {
+            if (response) {
+              console.log('Data Saved Successfully.');
+              this._snackBar.open('Data saved', 'Close', {
+                duration: 4000,
+                verticalPosition: 'top'
+              });
+            } else {
+              console.log('Error Occurred. Please Try Again.');
+            }
+          },
+          (error) => {
+            console.log('Error Occurred. Please Try Again.');
+          }
+        );
+      });
+    };
+  }
+
+  readExcelResult(event: any) {
+    console.log("called");
+    let file = event.target.files[0];
+    let fileReader = new FileReader();
+    fileReader.readAsBinaryString(file);
+
+    fileReader.onload = () => {
+      var facultyBook = XLSX.read(fileReader.result, { type: 'binary' });
+      var sheetNames = facultyBook.SheetNames;
+      this.excelData = XLSX.utils.sheet_to_json(facultyBook.Sheets[sheetNames[0]]);
+      console.log(this.excelData);
+
+      this.excelData.forEach((excelResult: any) => {
+        let result: Result = {
+          cpi: excelResult.cpi,
+          spi: excelResult.spi,
+          semNo: excelResult.semNo,
+        };
+        console.log("called 2");
+        this.adminService.saveResult(excelResult.studentId, result).subscribe(
+          (response) => {
+            if (response) {
+              console.log('Data Saved Successfully.');
+              this._snackBar.open('Data saved', 'Close', {
+                duration: 4000,
+                verticalPosition: 'top'
+              });
+            } else {
+              console.log('Error Occurred. Please Try Again.');
+            }
+          },
+          (error) => {
+            console.log('Error Occurred. Please Try Again.');
+          }
+        );
+      });
+    };
   }
 }

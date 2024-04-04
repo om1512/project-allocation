@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../service/admin.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-phase-control',
@@ -12,7 +13,8 @@ export class PhaseControlComponent implements OnInit {
   phase: any;
   constructor(
     private adminService: AdminService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -35,6 +37,7 @@ export class PhaseControlComponent implements OnInit {
             duration: 3000,
             verticalPosition: 'top',
           });
+          this.router.navigate(['/admin']);
         } else {
           this._snackBar.open('Error Occurred. Please Try Again.', 'Close', {
             duration: 3000,

@@ -18,13 +18,13 @@ export class GroupTabComponent {
   @Input() student: Student;
   @Output() leave: EventEmitter<void> = new EventEmitter<void>();
   profileId: string;
-  group: Group = null;
+  group: any = null;
   isGroupMember: boolean = false;
   displayedColumns: string[] = ['Priority', 'Title'];
   dataSource: Project[];
   isCreator: boolean = false;
   facultyChoices: any[];
-
+  allocatedFaculty: any = {};
   constructor(
     private dailog: MatDialog,
     private util_service: UtilService,
@@ -35,11 +35,15 @@ export class GroupTabComponent {
   async ngOnInit(): Promise<void> {
     await this.getStoredCookie();
     this.group = await this.util_service.load_group(this.student.group.id);
+    console.log('Group ' + this.group);
     if (this.group != null) {
       this.isGroupMember = true;
       this.dataSource = await this.util_service.load_project_choice(
         this.student.group.id
       );
+      this.group_service
+        .getAllocatedFaculty(this.group.id)
+        .subscribe((arg) => (this.allocatedFaculty = arg));
       await this.loadFacultyChoice();
     }
     if (this.student.id == this.group.student.id) {

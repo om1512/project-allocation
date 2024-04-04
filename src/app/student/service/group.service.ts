@@ -1,14 +1,13 @@
+import { group } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class GroupService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAllGroup(): Observable<any> {
     const url = 'http://localhost:8080/api/group';
@@ -17,10 +16,11 @@ export class GroupService {
 
   createGroup(data: any): Observable<any> {
     console.log(data);
-    const url = 'http://localhost:8080/api/group/createGroup/' + data.student.id;
+    const url =
+      'http://localhost:8080/api/group/createGroup/' + data.student.id;
     return this.http.post(url, {
       groupName: data.groupName,
-      year: data.year
+      year: data.year,
     });
   }
 
@@ -30,22 +30,26 @@ export class GroupService {
   }
 
   leaveGroup(studentId: string, groupId: string): Observable<any> {
-    const url = 'http://localhost:8080/api/group/leaveGroup/' + studentId + '/' + groupId;
+    const url =
+      'http://localhost:8080/api/group/leaveGroup/' + studentId + '/' + groupId;
     return this.http.post<any>(url, {});
   }
 
   sendRequest(studentId: string, groupId: string): Observable<any> {
-    const url = 'http://localhost:8080/api/request/' + studentId + '/' + groupId;
+    const url =
+      'http://localhost:8080/api/request/' + studentId + '/' + groupId;
     return this.http.post<any>(url, {});
   }
 
   sendRequestByStudent(studentId: string, groupId: string): Observable<any> {
-    const url = 'http://localhost:8080/api/request/send/' + studentId + '/' + groupId;
+    const url =
+      'http://localhost:8080/api/request/send/' + studentId + '/' + groupId;
     return this.http.post<any>(url, {});
   }
 
   getStudentRequested(groupId: string): Observable<any> {
-    const url = 'http://localhost:8080/api/request/group/studentRequested/'+ groupId;
+    const url =
+      'http://localhost:8080/api/request/group/studentRequested/' + groupId;
     return this.http.get<any>(url, {});
   }
 
@@ -54,8 +58,14 @@ export class GroupService {
     return this.http.get<any>(url);
   }
 
+  getAllocatedFaculty(groupId: number) {
+    const url = 'http://localhost:8080/api/group/allocatedFaculty/' + groupId;
+    return this.http.get<any>(url);
+  }
+
   removeMember(studentId: string, groupId: string) {
-    const url = 'http://localhost:8080/api/group/leaveGroup/' + studentId + '/' + groupId;
+    const url =
+      'http://localhost:8080/api/group/leaveGroup/' + studentId + '/' + groupId;
     return this.http.post<any>(url, {});
   }
 
@@ -65,12 +75,24 @@ export class GroupService {
   }
 
   approveRequest(data: any): Observable<any> {
-    const url = 'http://localhost:8080/api/request/' + data.group.student.id + '/' + data.requestId + '/approve/' + data.group.id + '/' + data.student.id;
+    const url =
+      'http://localhost:8080/api/request/' +
+      data.group.student.id +
+      '/approve/' +
+      data.group.id +
+      '/' +
+      data.student.id;
     return this.http.post<any>(url, {});
   }
 
   rejectRequest(data: any): Observable<any> {
-    const url = 'http://localhost:8080/api/request/' + data.group.student.id + '/' + data.requestId + '/reject/' + data.group.id + '/' + data.student.id;
+    const url =
+      'http://localhost:8080/api/request/' +
+      data.group.student.id +
+      '/reject/' +
+      data.group.id +
+      '/' +
+      data.student.id;
     return this.http.post<any>(url, {});
   }
 }

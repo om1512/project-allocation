@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AdminService } from '../../service/admin.service';
-import { TinymceComponent } from 'ngx-tinymce';
 import { EmailService } from '../../../authentication/service/email.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';

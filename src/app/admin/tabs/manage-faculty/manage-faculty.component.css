@@ -15,7 +15,7 @@
 
 .item1{
   grid-row-start: 1;
-  grid-row-end: 7;
+  grid-row-end: 5;
   grid-column-start: 1;
   grid-column-end: 5;
   display: flex;
@@ -74,7 +74,7 @@
 
 
 .item3{
-  grid-row-start: 7;
+  grid-row-start: 5;
   grid-row-end: 9;
   grid-column-start: 1;
   grid-column-end: 5;
@@ -183,7 +183,7 @@ button {
 }
 
 .av-label{
-  border: 2px solid #a4c3a3;
+  border: 2px solid #BAA3C3;
   border-radius: 10px;
   height: 50%;
   width: fit-content;
@@ -191,14 +191,14 @@ button {
   align-items: center;
   font-size: 10px;
   font-weight: 100;
-  color: #a4c3a3;
+  color: #BAA3C3;
   padding-left: 10px;
   padding-right: 10px;
 }
 .round{
   width: 5px;
   height: 5px;
-  background-color: #a4c3a3;
+  background-color: #BAA3C3;
   border-radius: 100%;
   margin-right: 5px;
 }

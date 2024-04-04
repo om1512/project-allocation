@@ -14,7 +14,7 @@ export class GroupViewComponent {
     assignedDate: '',
     status: false,
   };
-  groupId: number = 2;
+  groupId: any = 0;
   date: Date;
   allTaskList: any[] = [];
   totalTask: number = 0;
@@ -25,7 +25,10 @@ export class GroupViewComponent {
     private _snackBar: MatSnackBar,
     private router: Router
   ) {
-    this.getTask(2);
+    this.groupId = localStorage.getItem('groupId');
+    if (this.groupId != 0) {
+      this.getTask(this.groupId);
+    }
   }
 
   logDate(event: any) {
@@ -40,7 +43,7 @@ export class GroupViewComponent {
             duration: 3000,
             verticalPosition: 'top',
           });
-          this.getTask(2);
+          this.getTask(this.groupId);
         } else {
           this._snackBar.open('Error Occurred. Please Try Again.', 'Close', {
             duration: 3000,

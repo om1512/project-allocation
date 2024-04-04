@@ -127,7 +127,7 @@ button:hover{
   background-color: #282834;
   border-radius: 8px;
   margin-top: 2px;
-  grid-row-start: 5;
+  grid-row-start: 4;
   grid-row-end: 12;
   grid-column-start: 2;
   grid-column-end: 3;

@@ -112,6 +112,12 @@
         <button (click)="saveData()">
           <span>Submit</span>
         </button>
+        <div style="display: flex; flex-direction: row; justify-content: flex-start; width: 200%;">
+          <input type="file" (change)="readExcel($event)"
+          style="background: transparent; width: 30%;">
+          <h3 style="font-size: medium; background: transparent; color: #DFB46A; margin-left: 30px;">Column names for excel sheet:</h3>
+          <h3 style="margin-left: 30px; font-size: medium;"> "name", "experience", "phone", "email", "password"</h3>
+        </div>
       </div>
     </form>
   </div>

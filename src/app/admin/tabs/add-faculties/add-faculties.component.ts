@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Faculty } from '../../interface/faculty';
 import { AdminService } from '../../service/admin.service';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-add-faculties',
@@ -11,12 +12,13 @@ import { AdminService } from '../../service/admin.service';
 })
 export class AddFacultiesComponent {
   facultyForm: FormGroup;
+  excelData: unknown[];
 
   constructor(
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
     private adminService: AdminService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -119,5 +121,62 @@ export class AddFacultiesComponent {
       groupList: [],
     };
     return faculty;
+  }
+
+  validateEmail(email: string): boolean {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  }
+
+  readExcel(event: any) {
+    let file = event.target.files[0];
+    let fileReader = new FileReader();
+    fileReader.readAsBinaryString(file);
+
+    fileReader.onload = () => {
+      var facultyBook = XLSX.read(fileReader.result, { type: 'binary' });
+      var sheetNames = facultyBook.SheetNames;
+      this.excelData = XLSX.utils.sheet_to_json(facultyBook.Sheets[sheetNames[0]]);
+
+      this.excelData.forEach((excelFaculty: any) => {
+        if (!this.validateEmail(excelFaculty.email)) {
+          console.log('Invalid email format for Faculty: ' + excelFaculty.name);
+          return;
+        }
+
+        let faculty: Faculty = {
+          name: excelFaculty.name,
+          experience: excelFaculty.experience,
+          phone: excelFaculty.phone,
+          user: {
+            email: excelFaculty.email,
+            password: excelFaculty.password,
+            type: 'faculty',
+          },
+          technologiesSet: [],
+          domainSet: [],
+          groupList: [],
+        };
+
+        console.log(faculty);
+        this.adminService.saveFaculty(faculty).subscribe(
+          (response) => {
+            if (response.success) {
+              console.log('Data Saved Successfully.');
+              this._snackBar.open('Data saved', 'Close', {
+                duration: 3000, // Duration in milliseconds
+                verticalPosition: 'top', // Position of the snackbar
+              });
+            } else {
+              console.log('Error Occurred. Please Try Again.');
+              console.log('Something went wrong');
+            }
+          },
+          (error) => {
+            console.log('Error Occurred. Please Try Again.');
+          }
+        );
+      });
+    };
   }
 }

@@ -1,77 +1,77 @@
-.main-container{
+.main-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border: 1px solid #f3e2bb3b;
   border-radius: 10px;
   height: 100%;
-
 }
 
-.container{
+.container {
   display: flex;
   flex-direction: column;
   padding: 10px;
 }
-.head{
+.head {
   display: flex;
   flex-direction: column;
   height: max-content;
 }
-.title{
+.title {
   font-family: poppins;
-  color: #F9D88B;
+  color: #f9d88b;
   font-weight: 500;
 }
-.bottom-border{
+.bottom-border {
   width: 50px;
   height: 5px;
-  background-color: #F9D88B;
+  background-color: #f9d88b;
   border-radius: 5px;
 }
 
-.btn{
+.btn {
   grid-column-start: 1;
   grid-column-end: 3;
-  
 }
 
 .input {
   height: 100%;
   background-color: #05060f0a;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   padding: 0 1rem;
   border: 2px solid #4d4d4d;
   font-size: 1rem;
-  transition: border-color .3s cubic-bezier(.25,.01,.25,1) 0s, color .3s cubic-bezier(.25,.01,.25,1) 0s,background .2s cubic-bezier(.25,.01,.25,1) 0s;
-  
+  transition: border-color 0.3s cubic-bezier(0.25, 0.01, 0.25, 1) 0s,
+    color 0.3s cubic-bezier(0.25, 0.01, 0.25, 1) 0s,
+    background 0.2s cubic-bezier(0.25, 0.01, 0.25, 1) 0s;
 }
 
-.input:hover, .input:focus, .input-group:hover .input {
+.input:hover,
+.input:focus,
+.input-group:hover .input {
   outline: none;
-  border-color: #FFF;
+  border-color: #fff;
 }
 
-.input-group:hover .label, .input:focus {
-  color: #FFF;
+.input-group:hover .label,
+.input:focus {
+  color: #fff;
 }
 
-
-.table-inputs{
+.table-inputs {
   display: grid;
   grid-template-columns: repeat(2, minmax(100px, 1fr));
-  grid-template-rows: repeat(8, 50px);
+  grid-template-rows: repeat(10, 50px);
   gap: 10px;
   margin-top: 20px;
 }
 
-
 button {
   display: inline-block;
   border-radius: 8px;
-  background-color: #F9D88B;
+  background-color: #f9d88b;
   border: none;
-  color: #252A36;
+  color: #252a36;
   text-align: center;
   font-size: 17px;
   transition: all 0.5s;
@@ -79,34 +79,34 @@ button {
   grid-column-start: 1;
   grid-column-end: 3;
   font-weight: 600;
- }
- 
- button span {
+}
+
+button span {
   cursor: pointer;
   display: inline-block;
   position: relative;
   transition: 0.5s;
- }
- 
- button span:after {
-  content: '»';
+}
+
+button span:after {
+  content: "»";
   position: absolute;
   opacity: 0;
   top: 0;
   right: -15px;
   transition: 0.5s;
- }
- 
- button:hover span {
+}
+
+button:hover span {
   padding-right: 15px;
- }
- 
- button:hover span:after {
+}
+
+button:hover span:after {
   opacity: 1;
   right: 0;
- }
+}
 
- .highlight {
+.highlight {
   border: 2px solid #c71e1e;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
 }

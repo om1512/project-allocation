@@ -5,19 +5,18 @@ import { Student } from '../../interface/student';
 @Component({
   selector: 'app-profile-modal',
   templateUrl: './profile-modal.component.html',
-  styleUrl: './profile-modal.component.css'
+  styleUrl: './profile-modal.component.css',
 })
-
 export class ProfileModalComponent {
   studentName: string;
   studentId: string;
-  email: string
+  email: string;
   phoneNo: string;
   resultList: any[];
-  semester: string
+  semester: string;
   cpi: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Student) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Student) {}
 
   ngOnInit(): void {
     this.studentName = this.data.name;
@@ -25,7 +24,11 @@ export class ProfileModalComponent {
     this.email = this.data.user.email;
     this.phoneNo = this.data.phone;
     this.resultList = this.data.result_list;
-    this.semester = this.resultList[this.resultList.length - 1].semNo;
-    this.cpi = this.resultList[this.resultList.length - 1].cpi;
+    this.semester = '5';
+    this.resultList.forEach((element) => {
+      if (element.semNo == 5) {
+        this.cpi = element.cpi;
+      }
+    });
   }
 }
